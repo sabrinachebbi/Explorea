@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+{% block title %}Acceuil{% endblock %}
+   {% block stylesheets %}
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap" rel="stylesheet">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap" rel="stylesheet">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Reenie+Beanie&display=swap" rel="stylesheet">
+   {% endblock %}
+{% block body %}
+    <section>
+        {% block importmap %}{{ importmap(['acceuil','header']) }}{% endblock %}
+           <img id="img1" src="{{asset('images/photo2.png') }}" alt="">
+           <img id="img2" src="{{asset('images/photo1.png') }}" alt="">
+        <div class="container">
+        <div class="titre">
+            Découverte et confort <br>nos services vous <br> assurent les deux
+        </div>
+        </div>
+    </section>
+    <form>
+        <img src="{{ asset('images/destination.png') }}" alt=""><label>Destination
+            <input type="search" id="search" placeholder="Rechercher une destination">
+        </label>
+        <img src="{{ asset('images/type.png') }}" alt=""><label> typologie
+            <input type="search" id="search" placeholder="toutes les typologies">
+        </label>
+        <img src="{{ asset('images/calendar.png') }}" alt=""><label>Date
+            <input type="date">
+        </label>
+        <button>Rechercher</button>
+    </form>
+     <article>
+         <div class="titre1">Destination de rêve </div>
+         <div class="titre2">Planifiez le voyage de vos rêves en <br>  toute simplicité.</div>
+     </article>
+{% endblock %}

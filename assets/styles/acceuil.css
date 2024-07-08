@@ -1,0 +1,92 @@
+section {
+    background-image: url("../images/background.png");
+   background-color: #F2F2F2;
+    height: 800px;
+    position: relative;
+}
+#img1{
+    position: absolute;
+    right: 400px;
+    top: 10px;
+}
+#img2{
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+.container{
+    position: relative;
+    height: 100vh;
+}
+.titre{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    font-size: 80px;
+   font-family: "Poetsen One", sans-serif;
+    text-align: center;
+}
+
+form {
+    position: absolute;
+    top: 800px;
+    left: 80px;
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+form label {
+    display: flex;
+    align-items: baseline;
+    margin-right: 20px;
+    font-size: 18px;
+    color: black;
+}
+
+form img {
+    margin-right: 20px;
+}
+
+form input[type="search"],
+form input[type="date"] {
+    padding: 8px;
+    font-size: 18px;
+    border: 1px solid gainsboro;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
+form button {
+    font-size: 18px;
+    background-color:#1BBC9B;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.titre1{
+    font-size: 60px;
+    color: #1BBC9B;
+    font-family: "Reenie Beanie", cursive;
+    margin-left: 50px;
+    margin-top: 80px;
+    padding: 10px;
+}
+.titre2{
+    font-size: 60px;
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 50px;
+    text-align: center;
+
+
+
+}
+
+
+
+
+

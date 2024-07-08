@@ -1,0 +1,45 @@
+header {
+   background-color: #F2F2F2;
+   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+nav {
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+}
+
+nav img {
+width: 300px;
+
+}
+
+nav a {
+   font-size: 30px;
+
+}
+
+nav a:hover {
+   color: #1BBC9B;
+}
+
+#btn {
+   display: flex;
+   gap: 10px;
+}
+
+button {
+   background-color: #1BBC9B;
+   font-size: 25px;
+   border-radius: 8px;
+   border: none;
+   padding: 10px 20px;
+   color: white;
+   cursor: pointer;
+   border-bottom: 3px solid #159a76;
+}
+
+button:hover {
+   background-color: #159a76;
+   border-bottom: 3px solid #1BBC9B;
+}
