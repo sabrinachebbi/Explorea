@@ -2,39 +2,39 @@
 
 namespace App\Repository;
 
-use App\Entity\StatutReservation;
+use App\Entity\picture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<StatutReservation>
+ * @extends ServiceEntityRepository<picture>
  */
-class StatutReservationRepository extends ServiceEntityRepository
+class PictureRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, StatutReservation::class);
+        parent::__construct($registry, Picture::class);
     }
 
     //    /**
-    //     * @return StatutReservation[] Returns an array of StatutReservation objects
+    //     * @return Images[] Returns an array of Images objects
     //     */
     //    public function findByExampleField($value): array
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
     //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
+    //            ->orderBy('i.id', 'ASC')
     //            ->setMaxResults(10)
     //            ->getQuery()
     //            ->getResult()
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?StatutReservation
+    //    public function findOneBySomeField($value): ?Images
     //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
+    //        return $this->createQueryBuilder('i')
+    //            ->andWhere('i.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
