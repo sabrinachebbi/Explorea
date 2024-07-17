@@ -10,10 +10,13 @@
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Reenie+Beanie&display=swap" rel="stylesheet">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
    {% endblock %}
 {% block body %}
-    <section>
-        {% block importmap %}{{ importmap(['acceuil','header']) }}{% endblock %}
+    <section id="section1">
+        {% block importmap %}{{ importmap(['app','acceuil','header']) }}{% endblock %}
            <img id="img1" src="{{asset('images/photo2.png') }}" alt="">
            <img id="img2" src="{{asset('images/photo1.png') }}" alt="">
         <div class="container">
@@ -34,8 +37,272 @@
         </label>
         <button>Rechercher</button>
     </form>
-     <article>
-         <div class="titre1">Destination de rêve </div>
-         <div class="titre2">Planifiez le voyage de vos rêves en <br>  toute simplicité.</div>
+      {# partie1 #}
+     <article id="article1">
+         <div class="title1">Destination de rêve </div>
+         <div class="title2">Planifiez le voyage de vos rêves en <br>  toute simplicité.</div>
+         <div class="block1">
+         <p >
+             Que vous recherchiez une escapade romantique, une aventure en famille <br> ou un voyage en solo pour explorer le monde,
+             notre plateforme peut <br>répondre à vos besoins en vous offrant une gamme de services variés.<br>
+             Que ce soit pour trouver un hébergement idéal ou des activités adaptées <br> à vos envies, nous avons tout ce qu'il vous faut.
+         </p>
+             <button> Plus <br> d'informations</button>
+         </div>
      </article>
+
+    <figure >
+        <div class="image-container">
+            <img src="{{ asset('images/Section1.png') }}" alt="Background Image" class="background-image">
+            <img src="{{ asset('images/icone1.png') }}" alt="Icon Image" class="icon-image">
+        </div>
+        <div class="image-container">
+            <img src="{{ asset('images/Section2.png') }}" alt="Background Image" class="background-image">
+            <img src="{{ asset('images/icone2.png') }}" alt="Icon Image" class="icon-image">
+        </div>
+        <div class="image-container">
+            <img src="{{ asset('images/Section3.png') }}" alt="Background Image" class="background-image">
+            <img src="{{ asset('images/icone3.png') }}" alt="Icon Image" class="icon-image">
+        </div>
+    </figure>
+{#  #}
+    <figure>
+        <div class="card">
+            <div class="card-image">
+                <img src="{{ asset('images/image1.png') }}" alt="">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="duration"> 1 Jour</span>
+                    <span class="contact"></span>
+                </div>
+                <h2 class="title">cappadocia</h2>
+                <p class="location">Turquie</p>
+                <p class="description">vols en montgolfière au lever du soleil. C'est une expérience inoubliable qui offre des vues spectaculaires sur les formations rocheuses et les cheminées de fées de la région.</p>
+                <div class="card-footer">
+                    <button class="details-button">Details</button>
+                    <span class="price">250 £</span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="{{ asset('images/image2.png') }}" alt="">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="duration">1 Jour</span>
+                    <span class="contact"></span>
+                </div>
+                <h2 class="title">Chao Phraya</h2>
+                <p class="location">Thailand</p>
+                <p class="description">Tour en bateau dans la capitale de la Thaïlande, Bangkok,pour voir les beaux palais et monuments depuis l'eau.</p>
+                <div class="card-footer">
+                    <button class="details-button">Details</button>
+                    <span class="price">$ 1500 </span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-image">
+                <img src="{{ asset('images/image3.png') }}" alt="">
+            </div>
+            <div class="card-content">
+                <div class="card-header">
+                    <span class="duration">1 Jour</span>
+                    <span class="contact"></span>
+                </div>
+                <h2 class="title">Bangkok</h2>
+                <p class="location">Thailand</p>
+                <p class="description">Merveilleux voyage culturel au Capitale thaïlandaise avec ses merveilleux monuments et des statues de Bouddha.</p>
+                <div class="card-footer">
+                    <button class="details-button">Details</button>
+                    <span class="price">$ 1000 </span>
+                </div>
+            </div>
+        </div>
+    </figure>
+     <div class="container1">
+      <h2 class="title4">Annoncez votre hébergement sur <br> TravelUnique et profitez d’un <br> revenu de location </h2>
+     <img src="{{ asset('images/image4.png') }}" alt="" class="image4">
+    </div>
+{# partie3 #}
+        <h2 class="title2 title3">Explorez nos <br> destinations populaires</h2>
+    <section class="card-container">
+             <article>
+              <img src="{{ asset('images/1.png') }}" alt="Rome, Italy" class="image1">
+              <h3 class="card-title">Rome, Italy</h3>
+            </article>
+        <article>
+             <img src="{{ asset('images/2.png') }}" alt="Bangkok, Thailand"  class="image1">
+             <h3 class="card-title">Bangkok, Thailand</h3>
+        </article>
+        <article>
+            <img src="{{ asset('images/33.png') }}" alt="Full Europe" class="image1" >
+            <h3 class="card-title">Full Europe</h3>
+        </article>
+        <article>
+            <img src="{{ asset('images/4.jpg') }}" alt="Antalya, Turquie" class="image1">
+            <h3 class="card-title">Antalya, Turquie</h3>
+        </article>
+    </section>
+
+    {# partie4 #}
+    <article class="article2">
+        <div class="block2">
+          <div class="title1">A propos de nous </div>
+          <h2 class="title5">Découvre votre <br> prochaine aventure </h2>
+           <p>Que vous planifiiez des vacances en famille ou en solo,notre section  <br>dédiée aux prix répondra à tous vos besoins.
+           Commencez  dès <br>aujourd'hui à explorer pour trouver
+           le service idéal à un tarif <br>qui ne pèsera pas sur votre budget.</p>
+          <button> Plus <br> d'informations</button>
+        </div>
+        <div class="block3">
+
+        <img src="{{ asset('images/image1-2.png') }}" alt="" id="img4">
+            <img src="{{ asset('images/image1-1.png') }}" alt="" id="img3">
+        </div>
+    </article>
+    {# Fin partie4 #}
+
+    {# partie5 #}
+    <article class="article3">
+        <div class="title1 title1-1" >Top Destination</div>
+        <h2 >hébergements de vacances à <br> réserver</h2>
+        <figure>
+            <div class="card">
+                <div class="card-image">
+                    <img src="{{ asset('images/hebrg1.png') }}" alt="">
+                </div>
+                <div class="card-content">
+                    <h2 class="title">Venice villa apartment</h2>
+                    <p class="location">Venizia Italie</p>
+                    <p class="description">Offering a garden and garden view, Venice villa apartment is located in Venice, 1.5 km from M9 Museum and 4.7 km from Mestre Ospedale Train Station. Free WiFi is featured throughout the property and private parking is available on site...</p>
+                    <div class="card-footer">
+                        <span class="price">Capacité d'accueil de 12 personnes</span>
+                        <span class="price">300£/par nuit</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="{{ asset('images/hebrg2.png') }}" alt="">
+                </div>
+                <div class="card-content">
+                    <h2 class="title">Buffa Résidence</h2>
+                    <p class="location">Nice France</p>
+                    <p class="description">Situé dans le centre de Nice, à 400 mètres de la plage Blue Beach et de la plage Lido, le Buffa Résidence propose une connexion Wi-Fi gratuite et la climatisation. Vous aurez accès à une terrasse...</p>
+                    <div class="card-footer">
+                        <span class="price">Capacité d'accueil de 4 personnes</span>
+                        <span class="price">200£/par nuit </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-image">
+                    <img src="{{ asset('images/hebrg3.png') }}" alt="">
+                </div>
+                <div class="card-content">
+                    <h2 class="title">Moon suites</h2>
+                    <p class="location">Antalya Turkie</p>
+                    <p class="description">Vous pouvez bénéficier d'une réduction Genius dans l'établissement Moon suites ! Connectez-vous pour économiser.
+                        Doté d'une plage privée et offrant une vue sur le jardin...</p>
+                    <div class="card-footer">
+                        <span class="price">Capacité d'accueil de 8 personnes</span>
+                        <span class="price">450£/par nuit </span>
+                    </div>
+                </div>
+                <button class="details-button1">afficher plus</button>
+            </div>
+
+        </figure>
+    </article>
+    {# fin partie 5 #}
+
+    {# partie 6 #}
+    <div class="container2">
+        <h2 class="title4-1">Expériences de <br> voyage inoubliables </h2>
+        <P>Les commentaires de nos clients sont essentiels pour bâtir une excellente <br> réputation et maintenir un excellent service. En écoutant les besoins de <br> nos clients, nous pouvons améliorer nos offres et offrir une expérience de <br>voyage exceptionnelle.</P>
+        <img src="{{ asset('images/reviews1-2.png') }}" alt="" class="image5">
+        <article class="article4">
+        <div class="blog">
+            Mon séjour à turquie grâce à UniqueTravel a été absolument incroyable. Dès le départ, le processus de réservation a été simple et fluide. Le site est très intuitif et j'ai pu trouver facilement l'appartement parfait pour mon séjour
+           </div>
+            <span>Jennifer and Mark</span>
+            <img src="{{ asset('images/avatar.png') }}" alt="" class="avatar1">
+{#            on expérience avec UniqueTravel a été globalement positive. La réservation des hébergement et des activitées s'est faite facilement . L'appartement était bien situé, à quelques minutes à pied de la plage et des principales attractions de Barcelone</div>#}
+        </article>
+    </div>
+    {# fin partie 6 #}
+
+
+
+    {# partie7 #}
+
+ <section id="article2">
+     <h2>Travel Blog</h2>
+     <div class="container3">
+         <div class="part1">
+     <img src="{{ asset('images/blog1.png') }}" alt="">
+     <h5>Planifiez les vacances parfaites</h5>
+     <p>Planifier des vacances peut être une tâche ardue, mais cet article propose une étape par étape guide<br>
+         pour aider les lecteurs à créer un itinéraire de voyage complet. Du choix d'un destination<br>
+         pour réserver des hébergements et des activités, les lecteurs apprendront comment pour planifier<br>
+         un voyage agréable et sans stress.</p>
+      <button>Plus d'information</button></div>
+         <div class="part2">
+
+          <div class="blog1">
+             <img src=" {{ asset('images/blog2.png') }}" alt="" class="blog-img">
+               <div class="details">
+                  <span>mars 1, 2023</span>
+                  <h6>Découvrez les joyaux cachés</h6>
+                  <p>Les avantages de voyager seul, de la liberté <br>
+                      de découvrez de nouveaux endroits avec <br>
+                      de nouveaux amis.</p>
+                </div>
+          </div>
+
+
+
+             <div class="blog1">
+                 <img src=" {{ asset('images/blog3.png') }}" alt="">
+                 <div class="details">
+                     <span>decembre 27, 2023</span>
+                     <h6>Monuments incontournables</h6>
+                     <p>Des monuments emblématiques qui font de <br>
+                         l'Europe l'un des les destinations de voyage le<br>
+                         plus populaires au monde.</p>
+                 </div>
+             </div>
+
+
+
+         <div class="blog1">
+                 <img src=" {{ asset('images/blog4.png') }}" alt="">
+                 <div class="details">
+                     <span>janvier 17, 2023</span>
+                     <h6>Voyager avec un budget limité</h6>
+                     <p>Conseils pratiques pour les voyageurs qui<br>
+                         souhaitent voir le monde sans se ruiner.</p>
+                 </div>
+             </div>
+
+
+
+             <div class="blog1">
+                 <img src=" {{ asset('images/blog5.png') }}" alt="">
+                 <div class="details">
+                     <span>Avril 1, 2023</span>
+                     <h6>Explorez les merveilles</h6>
+                     <p>Destinations et expériences incontournables,<br>
+                         notamment la faune et les expériences culturelles.</p>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+ </section>
+{# end part7 #}
+
 {% endblock %}

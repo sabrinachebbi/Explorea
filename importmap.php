@@ -12,6 +12,10 @@ return [
         'path' => './assets/acceuil.js',
         'entrypoint' => true,
     ],
+    'footer' => [
+        'path' => './assets/footer.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\ImagesRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ImagesRepository::class)]
-class picture
+#[ORM\Entity(repositoryClass: PictureRepository::class)]
+class Picture
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

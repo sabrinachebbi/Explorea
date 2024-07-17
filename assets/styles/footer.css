@@ -1,0 +1,13 @@
+
+footer {
+    background-image: url("../images/background.png");
+    background-color: #F2F2F2;
+    height:430px;
+    position: relative;
+    background-position: center;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+}
