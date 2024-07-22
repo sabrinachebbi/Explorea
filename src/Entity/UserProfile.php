@@ -93,9 +93,9 @@ class UserProfile
         return $this->city;
     }
 
-    public function setCity(string $city): static
+    public function setCity(string $City): static
     {
-        $this->city = $city;
+        $this->city = $City;
 
         return $this;
     }
@@ -105,9 +105,9 @@ class UserProfile
         return $this->address;
     }
 
-    public function setAddress(string $address): static
+    public function setAddress(string $Address): static
     {
-        $this->address = $address;
+        $this->address = $Address;
 
         return $this;
     }

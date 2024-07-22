@@ -21,7 +21,7 @@ class Country
     /**
      * @var Collection<int, City>
      */
-    #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'country')]
+    #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'Country')]
     private Collection $cities;
 
     public function __construct()
@@ -54,22 +54,22 @@ class Country
         return $this->cities;
     }
 
-    public function addCity(City $city): static
+    public function addCity(City $City): static
     {
-        if (!$this->cities->contains($city)) {
-            $this->cities->add($city);
-            $city->setCountry($this);
+        if (!$this->cities->contains($City)) {
+            $this->cities->add($City);
+            $City->setCountry($this);
         }
 
         return $this;
     }
 
-    public function removeCity(City $city): static
+    public function removeCity(City $City): static
     {
-        if ($this->cities->removeElement($city)) {
+        if ($this->cities->removeElement($City)) {
             // set the owning side to null (unless already changed)
-            if ($city->getCountry() === $this) {
-                $city->setCountry(null);
+            if ($City->getCountry() === $this) {
+                $City->setCountry(null);
             }
         }
 

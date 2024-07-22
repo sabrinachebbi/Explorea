@@ -33,34 +33,27 @@ class Activity
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-    #[ORM\ManyToOne(inversedBy: 'activities')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?category $typeCategory = null;
 
-    #[ORM\ManyToOne(inversedBy: 'activities')]
+
+    #[ORM\ManyToOne(inversedBy: 'Activity')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $host = null;
-
-    #[ORM\ManyToOne(inversedBy: 'activities')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?city $city = null;
-
-    /**
+        /**
      * @var Collection<int, Picture>
      */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'activity')]
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'Activity')]
     private Collection $pictures;
 
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'activity')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'Activity')]
     private Collection $reviews;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'activities')]
+    #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'Activity')]
     private Collection $reservations;
 
 
@@ -73,9 +66,6 @@ class Activity
 
 
     }
-
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -154,17 +144,6 @@ class Activity
         return $this;
     }
 
-    public function getTypeCategory(): ?category
-    {
-        return $this->typeCategory;
-    }
-
-    public function setTypeCategory(?category $typeCategory): static
-    {
-        $this->typeCategory = $typeCategory;
-
-        return $this;
-    }
 
     public function getHost(): ?user
     {
@@ -177,18 +156,7 @@ class Activity
 
         return $this;
     }
-
-    public function getCity(): ?city
-    {
-        return $this->city;
-    }
-
-    public function setCity(?city $city): static
-    {
-        $this->city = $city;
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Picture>

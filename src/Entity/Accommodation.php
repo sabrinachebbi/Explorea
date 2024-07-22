@@ -43,27 +43,25 @@ class Accommodation
     /**
      * @var Collection<int, Picture>
      */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'accommodation')]
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'Accommodation')]
     private Collection $pictures;
 
-    #[ORM\ManyToOne(inversedBy: 'accommodations')]
+    #[ORM\ManyToOne(inversedBy: 'Accommodation')]
     #[ORM\JoinColumn(nullable: false)]
     private ?user $host = null;
 
-    #[ORM\ManyToOne(inversedBy: 'accommodations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?city $city = null;
+
 
     /**
      * @var Collection<int, Review>
      */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'accommodation')]
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'Accommodation')]
     private Collection $reviews;
 
     /**
      * @var Collection<int, Reservation>
      */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'accommodation')]
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'Accommodation')]
     private Collection $reservations;
 
 
@@ -225,17 +223,6 @@ class Accommodation
         return $this;
     }
 
-    public function getCity(): ?city
-    {
-        return $this->city;
-    }
-
-    public function setCity(?city $city): static
-    {
-        $this->city = $city;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Review>

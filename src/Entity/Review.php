@@ -29,10 +29,10 @@ class Review
 
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?activity $activity = null;
+    private ?Activity $Activity = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?accommodation $accommodation = null;
+    private ?Accommodation $Accommodation = null;
 
     public function getId(): ?int
     {
@@ -87,26 +87,26 @@ class Review
         return $this;
     }
 
-    public function getActivity(): ?activity
+    public function getActivity(): ?Activity
     {
-        return $this->activity;
+        return $this->Activity;
     }
 
-    public function setActivity(?activity $activity): static
+    public function setActivity(?activity $Activity): static
     {
-        $this->activity = $activity;
+        $this->Activity = $Activity;
 
         return $this;
     }
 
-    public function getAccommodation(): ?accommodation
+    public function getAccommodation(): ?Accommodation
     {
-        return $this->accommodation;
+        return $this->Accommodation;
     }
 
-    public function setAccommodation(?accommodation $accommodation): static
+    public function setAccommodation(?accommodation $Accommodation): static
     {
-        $this->accommodation = $accommodation;
+        $this->Accommodation = $Accommodation;
 
         return $this;
     }

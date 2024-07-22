@@ -41,7 +41,7 @@ class Reservation
     private ?user $customer = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    private ?accommodation $accommodation = null;
+    private ?Accommodation $Accommodation = null;
 
     /**
      * @var Collection<int, activity>
@@ -51,7 +51,7 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?reservationStatus $status = null;
+    private ?ReservationStatus $status = null;
 
     public function __construct()
     {
@@ -160,14 +160,14 @@ class Reservation
         return $this;
     }
 
-    public function getAccommodation(): ?accommodation
+    public function getAccommodation(): ?Accommodation
     {
-        return $this->accommodation;
+        return $this->Accommodation;
     }
 
-    public function setAccommodation(?accommodation $accommodation): static
+    public function setAccommodation(?Accommodation $Accommodation): static
     {
-        $this->accommodation = $accommodation;
+        $this->Accommodation = $Accommodation;
 
         return $this;
     }
@@ -196,12 +196,12 @@ class Reservation
         return $this;
     }
 
-    public function getStatus(): ?reservationStatus
+    public function getStatus(): ?ReservationStatus
     {
         return $this->status;
     }
 
-    public function setStatus(?reservationStatus $status): static
+    public function setStatus(?ReservationStatus $status): static
     {
         $this->status = $status;
 

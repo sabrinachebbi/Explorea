@@ -47,7 +47,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Activity>
      */
-    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'hôte')]
+    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'host')]
     private Collection $activities;
 
     /**
@@ -178,14 +178,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->userProfile;
     }
 
-    public function setUserProfile(UserProfile $userProfile): static
+    public function setUserProfile(UserProfile $UserProfile): static
     {
-        // set the owning side of the relation if necessary
-        if ($userProfile->getUser() !== $this) {
-            $userProfile->setUser($this);
+        if ($UserProfile->getUser() !== $this) {
+            $UserProfile->setUser($this);
         }
 
-        $this->userProfile = $userProfile;
+        $this->userProfile = $UserProfile;
 
         return $this;
     }
@@ -198,22 +197,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->activities;
     }
 
-    public function addActivity(Activity $activity): static
+    public function addActivity(Activity $Activity): static
     {
-        if (!$this->activities->contains($activity)) {
-            $this->activities->add($activity);
-            $activity->setHôte($this);
+        if (!$this->activities->contains($Activity)) {
+            $this->activities->add($Activity);
+            $Activity->setHôte($this);
         }
 
         return $this;
     }
 
-    public function removeActivity(Activity $activity): static
+    public function removeActivity(Activity $Activity): static
     {
-        if ($this->activities->removeElement($activity)) {
+        if ($this->activities->removeElement($Activity)) {
             // set the owning side to null (unless already changed)
-            if ($activity->getHôte() === $this) {
-                $activity->setHôte(null);
+            if ($Activity->getHôte() === $this) {
+                $Activity->setHôte(null);
             }
         }
 
@@ -228,22 +227,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->accommodations;
     }
 
-    public function addAccommodation(Accommodation $accommodation): static
+    public function addAccommodation(Accommodation $Accommodation): static
     {
-        if (!$this->accommodations->contains($accommodation)) {
-            $this->accommodations->add($accommodation);
-            $accommodation->setHost($this);
+        if (!$this->accommodations->contains($Accommodation)) {
+            $this->accommodations->add($Accommodation);
+            $Accommodation->setHost($this);
         }
 
         return $this;
     }
 
-    public function removeAccommodation(Accommodation $accommodation): static
+    public function removeAccommodation(Accommodation $Accommodation): static
     {
-        if ($this->accommodations->removeElement($accommodation)) {
+        if ($this->accommodations->removeElement($Accommodation)) {
             // set the owning side to null (unless already changed)
-            if ($accommodation->getHost() === $this) {
-                $accommodation->setHost(null);
+            if ($Accommodation->getHost() === $this) {
+                $Accommodation->setHost(null);
             }
         }
 
@@ -258,22 +257,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->reviews;
     }
 
-    public function addReview(Review $review): static
+    public function addReview(Review $Review): static
     {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setCustomer($this);
+        if (!$this->reviews->contains($Review)) {
+            $this->reviews->add($Review);
+            $Review->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeReview(Review $review): static
+    public function removeReview(Review $Review): static
     {
-        if ($this->reviews->removeElement($review)) {
+        if ($this->reviews->removeElement($Review)) {
             // set the owning side to null (unless already changed)
-            if ($review->getCustomer() === $this) {
-                $review->setCustomer(null);
+            if ($Review->getCustomer() === $this) {
+                $Review->setCustomer(null);
             }
         }
 
@@ -288,22 +287,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->reservations;
     }
 
-    public function addReservation(Reservation $reservation): static
+    public function addReservation(Reservation $Reservation): static
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setCustomer($this);
+        if (!$this->reservations->contains($Reservation)) {
+            $this->reservations->add($Reservation);
+            $Reservation->setCustomer($this);
         }
 
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): static
+    public function removeReservation(Reservation $Reservation): static
     {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getCustomer() === $this) {
-                $reservation->setCustomer(null);
+        if ($this->reservations->removeElement($Reservation)) {
+
+            if ($Reservation->getCustomer() === $this) {
+                $Reservation->setCustomer(null);
             }
         }
 

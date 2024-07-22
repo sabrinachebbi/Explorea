@@ -18,11 +18,11 @@ class Picture
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?accommodation $accommodation = null;
+    private ?Accommodation $Accommodation = null;
 
     #[ORM\ManyToOne(inversedBy: 'pictures')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?activity $activity = null;
+    private ?Activity $Activity = null;
 
     public function getId(): ?int
     {
@@ -41,26 +41,26 @@ class Picture
         return $this;
     }
 
-    public function getAccommodation(): ?accommodation
+    public function getAccommodation(): ?Accommodation
     {
-        return $this->accommodation;
+        return $this->Accommodation;
     }
 
-    public function setAccommodation(?accommodation $accommodation): static
+    public function setAccommodation(?Accommodation $Accommodation): static
     {
-        $this->accommodation = $accommodation;
+        $this->Accommodation = $Accommodation;
 
         return $this;
     }
 
-    public function getActivity(): ?activity
+    public function getActivity(): ?Activity
     {
-        return $this->activity;
+        return $this->Activity;
     }
 
-    public function setActivity(?activity $activity): static
+    public function setActivity(?Activity $Activity): static
     {
-        $this->activity = $activity;
+        $this->Activity = $Activity;
 
         return $this;
     }

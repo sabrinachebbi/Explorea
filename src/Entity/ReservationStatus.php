@@ -55,22 +55,22 @@ class ReservationStatus
         return $this->reservations;
     }
 
-    public function addReservation(Reservation $reservation): static
+    public function addReservation(Reservation $Reservation): static
     {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setStatus($this);
+        if (!$this->reservations->contains($Reservation)) {
+            $this->reservations->add($Reservation);
+            $Reservation->setStatus($this);
         }
 
         return $this;
     }
 
-    public function removeReservation(Reservation $reservation): static
+    public function removeReservation(Reservation $Reservation): static
     {
-        if ($this->reservations->removeElement($reservation)) {
+        if ($this->reservations->removeElement($Reservation)) {
             // set the owning side to null (unless already changed)
-            if ($reservation->getStatus() === $this) {
-                $reservation->setStatus(null);
+            if ($Reservation->getStatus() === $this) {
+                $Reservation->setStatus(null);
             }
         }
 
