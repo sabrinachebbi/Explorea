@@ -1,25 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}newAccomodation{% endblock %}
+{% block title %}Créér une nouvelle Accomodation{% endblock %}
+  {% block importmap %}{{ importmap('newAccomodation') }}{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block body %}
-    <div class="">
-        <div class="">
+    <div class="form-container">
             <h2>créer une nouvelle Accomodation</h2>
 
             {{ form_start(AccommodationForm) }}
-            {{ form_row(AccommodationForm.title) }}
-            {{ form_row(AccommodationForm.address) }}
-            {{ form_row(AccommodationForm.description) }}
-            {{ form_row(AccommodationForm.priceNight) }}
-            {{ form_row(AccommodationForm.NbGuests) }}
-            {{ form_row(AccommodationForm.NbRooms)}}
-            {{ form_row(AccommodationForm.propertyType)}}
 
+            <div class="form-group">
+                {{ form_label(AccommodationForm.title) }}
+                {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.title) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(AccommodationForm.address) }}
+                {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.address) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(AccommodationForm.description) }}
+                {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.description) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_label(AccommodationForm.priceNight) }}
+                {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.priceNight) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.NbGuests) }}
+                {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.NbGuests) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.NbRooms) }}
+                {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.NbRooms) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.propertyType) }}
+                {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(AccommodationForm.propertyType) }}
+            </div>
 
             <button type="submit" class="btn">Ajouter</button>
             {{ form_end(AccommodationForm) }}
         </div>
-    </div>
+
 {% endblock %}

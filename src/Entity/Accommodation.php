@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AccommodationRepository::class)]
 class Accommodation
@@ -18,6 +19,7 @@ class Accommodation
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
