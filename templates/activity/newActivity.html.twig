@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}newActivity{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block body %}
+    <div class="">
+        <div class="">
+            <h2>Ajouter une nouvelle Activity</h2>
+
+            {{ form_start(ActivityForm) }}
+            {{ form_row(ActivityForm.title) }}
+            {{ form_row(ActivityForm.address) }}
+            {{ form_row(ActivityForm.description) }}
+            {{ form_row(ActivityForm.price) }}
+            {{ form_row(ActivityForm.category)}}
+
+
+            <button type="submit" class="btn">Ajouter</button>
+            {{ form_end(ActivityForm) }}
+        </div>
+    </div>
+{% endblock %}
