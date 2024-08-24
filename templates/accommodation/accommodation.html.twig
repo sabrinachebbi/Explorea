@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accomodations{% endblock %}
+  {% block importmap %}{{ importmap('accomodation') }}{% endblock %}
+{% block body %}
+
+ {% for accommodation in accommodations  %}
+    {% include '_partials/cardAccomodation.html.twig'  %}
+    {% endfor %}
+
+{% endblock %}

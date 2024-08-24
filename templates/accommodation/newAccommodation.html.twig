@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}newAccomodation{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block body %}
+    <div class="">
+        <div class="">
+            <h2>créer une nouvelle Accomodation</h2>
+
+            {{ form_start(AccommodationForm) }}
+            {{ form_row(AccommodationForm.title) }}
+            {{ form_row(AccommodationForm.address) }}
+            {{ form_row(AccommodationForm.description) }}
+            {{ form_row(AccommodationForm.priceNight) }}
+            {{ form_row(AccommodationForm.NbGuests) }}
+            {{ form_row(AccommodationForm.NbRooms)}}
+            {{ form_row(AccommodationForm.propertyType)}}
+
+
+            <button type="submit" class="btn">Ajouter</button>
+            {{ form_end(AccommodationForm) }}
+        </div>
+    </div>
+{% endblock %}
