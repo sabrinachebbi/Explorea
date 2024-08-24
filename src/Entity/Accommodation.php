@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\propertyType;
 use App\Repository\AccommodationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -40,45 +41,18 @@ class Accommodation
     #[ORM\Column]
     private ?\DateTimeImmutable $updateDate = null;
 
-    /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'Accommodation')]
-    private Collection $pictures;
+    #[ORM\Column(enumType: propertyType::class)]
+    private ?propertyType $propertyType = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Accommodation')]
+    #[ORM\ManyToOne(inversedBy: 'accommodations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $host = null;
+    private ?User $host = null;
+
+    #[ORM\ManyToOne(inversedBy: 'accommodations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?City $city = null;
 
 
-
-    /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'Accommodation')]
-    private Collection $reviews;
-
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'Accommodation')]
-    private Collection $reservations;
-
-
-
-    /**
-     * @var Collection<int, Review>
-     */
-
-
-    public function __construct()
-    {
-        $this->pictures = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-
-
-    }
 
     public function getId(): ?int
     {
@@ -181,105 +155,38 @@ class Accommodation
         return $this;
     }
 
-    /**
-     * @return Collection<int, Picture>
-     */
-    public function getPictures(): Collection
+    public function getPropertyType(): ?propertyType
     {
-        return $this->pictures;
+        return $this->propertyType;
     }
 
-    public function addPicture(Picture $picture): static
+    public function setPropertyType(propertyType $propertyType): static
     {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setAccommodation($this);
-        }
+        $this->propertyType = $propertyType;
 
         return $this;
     }
 
-    public function removePicture(Picture $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getAccommodation() === $this) {
-                $picture->setAccommodation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getHost(): ?user
+    public function getHost(): ?User
     {
         return $this->host;
     }
 
-    public function setHost(?user $host): static
+    public function setHost(?User $host): static
     {
         $this->host = $host;
 
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
+    public function getCity(): ?City
     {
-        return $this->reviews;
+        return $this->city;
     }
 
-    public function addReview(Review $review): static
+    public function setCity(?City $city): static
     {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setAccommodation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getAccommodation() === $this) {
-                $review->setAccommodation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): static
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->setAccommodation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): static
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
-            if ($reservation->getAccommodation() === $this) {
-                $reservation->setAccommodation(null);
-            }
-        }
+        $this->city = $city;
 
         return $this;
     }

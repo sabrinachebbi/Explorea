@@ -33,39 +33,12 @@ class Activity
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-
-
-    #[ORM\ManyToOne(inversedBy: 'Activity')]
+    #[ORM\ManyToOne(inversedBy: 'activities')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $host = null;
-        /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'Activity')]
-    private Collection $pictures;
-
-    /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'Activity')]
-    private Collection $reviews;
-
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'Activity')]
-    private Collection $reservations;
+    private ?Category $category = null;
 
 
 
-    public function __construct()
-    {
-        $this->pictures = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
-
-
-    }
     public function getId(): ?int
     {
         return $this->id;
@@ -144,103 +117,14 @@ class Activity
         return $this;
     }
 
-
-    public function getHost(): ?user
+    public function getCategory(): ?Category
     {
-        return $this->host;
+        return $this->category;
     }
 
-    public function setHost(?user $host): static
+    public function setCategory(?Category $category): static
     {
-        $this->host = $host;
-
-        return $this;
-    }
-    
-
-    /**
-     * @return Collection<int, Picture>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): static
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getActivity() === $this) {
-                $picture->setActivity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getActivity() === $this) {
-                $review->setActivity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $reservation): static
-    {
-        if (!$this->reservations->contains($reservation)) {
-            $this->reservations->add($reservation);
-            $reservation->addActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $reservation): static
-    {
-        if ($this->reservations->removeElement($reservation)) {
-            $reservation->removeActivity($this);
-        }
+        $this->category = $category;
 
         return $this;
     }

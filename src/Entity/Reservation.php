@@ -38,25 +38,7 @@ class Reservation
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $customer = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    private ?Accommodation $Accommodation = null;
-
-    /**
-     * @var Collection<int, activity>
-     */
-    #[ORM\ManyToMany(targetEntity: activity::class, inversedBy: 'reservations')]
-    private Collection $activities;
-
-    #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?ReservationStatus $status = null;
-
-    public function __construct()
-    {
-        $this->activities = new ArrayCollection();
-    }
 
 
     public function getId(): ?int
@@ -144,54 +126,6 @@ class Reservation
     public function setTotal(float $total): static
     {
         $this->total = $total;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?user
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?user $customer): static
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    public function getAccommodation(): ?Accommodation
-    {
-        return $this->Accommodation;
-    }
-
-    public function setAccommodation(?Accommodation $Accommodation): static
-    {
-        $this->Accommodation = $Accommodation;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, activity>
-     */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
-
-    public function addActivity(activity $activity): static
-    {
-        if (!$this->activities->contains($activity)) {
-            $this->activities->add($activity);
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(activity $activity): static
-    {
-        $this->activities->removeElement($activity);
 
         return $this;
     }

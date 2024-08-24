@@ -36,13 +36,19 @@ class UserProfile
 
     #[ORM\OneToOne(inversedBy: 'userProfile', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user = null;
+    private ?User $user = null;
 
-    public function getGender():GenderEnum
+    #[ORM\Column(length: 150)]
+    private ?string $FirstName = null;
+
+    #[ORM\Column(length: 200)]
+    private ?string $lastName = null;
+
+    public function getGender():?GenderEnum
     {
         return $this->Gender;
     }
-    public function setGender(GenderEnum $Gender):self
+    public function setGender(GenderEnum $Gender):?self
     {
         $this->Gender = $Gender;
         return $this;
@@ -112,14 +118,38 @@ class UserProfile
         return $this;
     }
 
-    public function getUser(): ?user
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(user $user): static
+    public function setUser(User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->FirstName;
+    }
+
+    public function setFirstName(string $FirstName): static
+    {
+        $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): static
+    {
+        $this->lastName = $lastName;
 
         return $this;
     }

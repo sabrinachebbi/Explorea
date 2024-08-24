@@ -4,14 +4,15 @@
         <div class="image">
         <img src="{{ asset('images') }}" alt="Logo">
         </div>
-        <a >Accueil</a>
-        <a>Logements</a>
-        <a>Expériences</a>
+        <a href="{{ path('home') }}">Accueil</a>
+        <a href="{{ path('app_accommodation_showAll') }}">Logements</a>
+        <a href="{{ path('app_activity_showAll') }}">Expériences</a>
         <a>Blog</a>
-        <a>Annoncer mon hébergement</a>
+
+        <a href="{{ path('app_login') }}">Annoncer mon hébergement</a>
         <div id="btn">
-            <button>Login</button>
-            <button>Sign Up</button>
+            <a href="{{ path('app_login') }}">Login</a>
+            <a href="{{ path('app_register') }}">Sign Up</a>
         </div>
     </nav>
 </header>

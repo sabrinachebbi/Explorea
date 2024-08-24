@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\countryRepository;
+use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,13 +21,14 @@ class Country
     /**
      * @var Collection<int, City>
      */
-    #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'Country')]
+    #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'country')]
     private Collection $cities;
 
     public function __construct()
     {
         $this->cities = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -54,25 +55,27 @@ class Country
         return $this->cities;
     }
 
-    public function addCity(City $City): static
+    public function addCity(City $city): static
     {
-        if (!$this->cities->contains($City)) {
-            $this->cities->add($City);
-            $City->setCountry($this);
+        if (!$this->cities->contains($city)) {
+            $this->cities->add($city);
+            $city->setCountry($this);
         }
 
         return $this;
     }
 
-    public function removeCity(City $City): static
+    public function removeCity(City $city): static
     {
-        if ($this->cities->removeElement($City)) {
+        if ($this->cities->removeElement($city)) {
             // set the owning side to null (unless already changed)
-            if ($City->getCountry() === $this) {
-                $City->setCountry(null);
+            if ($city->getCountry() === $this) {
+                $city->setCountry(null);
             }
         }
 
         return $this;
     }
 }
+
+

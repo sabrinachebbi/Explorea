@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\picture;
+use App\Entity\Picture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

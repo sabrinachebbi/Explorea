@@ -30,6 +30,7 @@ class ReservationStatus
         $this->reservations = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,25 +56,26 @@ class ReservationStatus
         return $this->reservations;
     }
 
-    public function addReservation(Reservation $Reservation): static
+    public function addReservation(Reservation $reservation): static
     {
-        if (!$this->reservations->contains($Reservation)) {
-            $this->reservations->add($Reservation);
-            $Reservation->setStatus($this);
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setStatus($this);
         }
 
         return $this;
     }
 
-    public function removeReservation(Reservation $Reservation): static
+    public function removeReservation(Reservation $reservation): static
     {
-        if ($this->reservations->removeElement($Reservation)) {
+        if ($this->reservations->removeElement($reservation)) {
             // set the owning side to null (unless already changed)
-            if ($Reservation->getStatus() === $this) {
-                $Reservation->setStatus(null);
+            if ($reservation->getStatus() === $this) {
+                $reservation->setStatus(null);
             }
         }
 
         return $this;
     }
+
 }

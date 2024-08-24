@@ -23,7 +23,7 @@ class Payment
     private ?\DateTimeImmutable $paymentDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'payments')]
-    private ?statusPayment $status = null;
+    private ?StatusPayment $status = null;
 
     public function getId(): ?int
     {
@@ -66,12 +66,12 @@ class Payment
         return $this;
     }
 
-    public function getStatus(): ?statusPayment
+    public function getStatus(): ?StatusPayment
     {
         return $this->status;
     }
 
-    public function setStatus(?statusPayment $status): static
+    public function setStatus(?StatusPayment $status): static
     {
         $this->status = $status;
 

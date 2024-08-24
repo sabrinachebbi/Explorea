@@ -16,6 +16,14 @@ return [
         'path' => './assets/footer.js',
         'entrypoint' => true,
     ],
+    'authentification' => [
+        'path' => './assets/authentification.js',
+        'entrypoint' => true,
+    ],
+    'accomodation' => [
+        'path' => './assets/accomodation.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

@@ -1,0 +1,26 @@
+<div class="card">
+    <img class="house1" src="{{ asset('/images/hebrg1.png') }}" alt="">
+
+    <h4>{{ accommodation.title }}</h4>
+    <button class="price">{{ accommodation.priceNight  }}</button>
+    <div class="position">
+        <img class="locate" src="" alt="">
+        <div class="title-first">{{ accommodation.address }}</div>
+    </div>
+    <img class="pic-sale2" src="" alt="">
+    <section class="details1">
+        <img class="picture1" src="" alt="">
+        <div>{{ accommodation.NbGuests}}</div>
+        <img class="picture1" src="" alt="" srcset="">
+        <div>{{ accommodation.NbRooms}}</div>
+    </section>
+
+    <p>{{ accommodation.description}}</p>
+    <div class="buttons1">
+        <a href="{{ path('app_accommodation_showDetails',{'id':accommodation.id}) }}">plus d'information</a>
+        <a href="{{ path('app_accommodation_remove',{'id':accommodation.id}) }}">supprimer</a>
+        <a >Contact</a>
+    </div>
+</div>
+
+

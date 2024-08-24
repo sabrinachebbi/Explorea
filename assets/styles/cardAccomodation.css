@@ -1,0 +1,128 @@
+.card{
+    display: grid;
+    margin-left: 70px;
+    margin-right: 70px;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:1fr;
+    gap: 50px;
+    border: 3px black solid;
+   width: 620px;
+    height: 850px;
+
+}
+
+.card:hover{
+    box-shadow: 2px 4px 14px 4px rgba(0, 0, 0, 0.51);
+}
+.house1{
+    width: 100%;
+    height: 400px;
+}
+
+h4{
+    color: #d85757;
+    font-family: 'Lemonada', cursive;
+    text-align: center;
+    font-size: 25px;
+    height: 20px;
+    position: relative;
+    right: 8px;
+    bottom:35px;
+}
+.h4_sale{
+    color: #d85757;
+    font-family: 'Lemonada', cursive;
+    text-align: center;
+    font-size: 25px;
+    height: 20px;
+    position: relative;
+    right: 8px;
+    bottom:60px;
+}
+.price{
+    position: relative;
+    bottom: 485px;
+    left: 8px;
+    width: 154px;
+    height: 45px;
+    background-color:white;
+    border: 1px  white solid;
+    border-radius: 1px;
+    font-size: 20px;
+    border-radius: 5px;
+    font-weight: bolder;
+}
+.position{
+    font-size: 25px;
+    font-style: italic;
+    font-weight: bolder;
+    position: relative;
+    bottom:90px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+}
+.picture1{
+    width: 30px;
+    height: 30px;
+    background-color: #b89270;
+}
+.details1{
+    display: flex;
+    background-color: #b89270;
+    align-items: center;
+    justify-content: space-evenly;
+    position :relative;
+    bottom: 120px;
+    height: 42px;
+    font-weight: bolder;
+}
+.pic-sale2{
+    position: relative;
+    bottom: 205px;
+    width: 50px;
+    height: 50px;
+}
+
+.pic-sale22{
+    position: relative;
+    bottom: 217px;
+    width: 50px;
+    height: 50px;
+}
+p{
+    position: relative;
+    bottom: 100px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    padding: 10px;
+}
+.buttons1{
+    display: flex;
+    justify-content:space-between;
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -20px;
+    padding: 10px;
+}
+.bt{
+    background-color: #b89270;
+    border-radius: 5px;
+    font-weight: bolder;
+    width: 110px;
+    position: relative;
+    bottom: 40px;
+    font-size: 22px;
+}
+.btt{
+    background-color: #b89270;
+    border-radius: 5px;
+    font-weight: bolder;
+    width: 110px;
+    position: relative;
+    bottom: 90px;
+    font-size: 22px;
+}
+/* end style of cards */

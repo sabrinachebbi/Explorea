@@ -1,0 +1,21 @@
+<div class="card">
+    <img class="house1" src="{{ asset('') }}" alt="">
+
+    <h4>{{ activity.title }}</h4>
+    <button class="price">{{ activity.price }}</button>
+    <div class="position">
+        <img class="locate" src="" alt="">
+        <div class="title-first">{{ activity.address }}</div>
+    </div>
+    <img class="pic-sale2" src="" alt="">
+    <section class="details1">
+        <img class="picture1" src="" alt="">
+        <div>{{ activity.category.name }}</div>
+    </section>
+
+    <p>{{ activity.description}}</p>
+    <div >
+        <a href=" {{ path ('app_activity_showDetails',{'id':activity.id}) }}" class="bt">More</a>
+        <a >Contact</a>
+    </div>
+</div>

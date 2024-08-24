@@ -35,20 +35,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-    #[ORM\Column]
-    private ?\DateTimeImmutable $dateInscription = null;
-
-    #[ORM\Column(length: 100)]
-    private ?string $overallReview = null;
-
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?UserProfile $userProfile = null;
-
-    /**
-     * @var Collection<int, Activity>
-     */
-    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'host')]
-    private Collection $activities;
 
     /**
      * @var Collection<int, Accommodation>
@@ -56,25 +42,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Accommodation::class, mappedBy: 'host')]
     private Collection $accommodations;
 
-    /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'customer')]
-    private Collection $reviews;
-
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'customer')]
-    private Collection $reservations;
-
     public function __construct()
     {
-        $this->activities = new ArrayCollection();
         $this->accommodations = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-        $this->reservations = new ArrayCollection();
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,7 +101,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -149,75 +121,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
-    public function getDateInscription(): ?\DateTimeImmutable
-    {
-        return $this->dateInscription;
-    }
-
-    public function setDateInscription(\DateTimeImmutable $dateInscription): static
-    {
-        $this->dateInscription = $dateInscription;
-
-        return $this;
-    }
-
-    public function getoverallReview(): ?string
-    {
-        return $this->overallReview;
-    }
-
-    public function setoverallReview(string $overallReview): static
-    {
-        $this->overallReview = $overallReview;
-
-        return $this;
-    }
-
-    public function getUserProfile(): ?UserProfile
-    {
-        return $this->userProfile;
-    }
-
-    public function setUserProfile(UserProfile $UserProfile): static
-    {
-        if ($UserProfile->getUser() !== $this) {
-            $UserProfile->setUser($this);
-        }
-
-        $this->userProfile = $UserProfile;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Activity>
-     */
-    public function getActivities(): Collection
-    {
-        return $this->activities;
-    }
-
-    public function addActivity(Activity $Activity): static
-    {
-        if (!$this->activities->contains($Activity)) {
-            $this->activities->add($Activity);
-            $Activity->setHôte($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActivity(Activity $Activity): static
-    {
-        if ($this->activities->removeElement($Activity)) {
-            // set the owning side to null (unless already changed)
-            if ($Activity->getHôte() === $this) {
-                $Activity->setHôte(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Accommodation>
@@ -227,86 +130,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->accommodations;
     }
 
-    public function addAccommodation(Accommodation $Accommodation): static
+    public function addAccommodation(Accommodation $accommodation): static
     {
-        if (!$this->accommodations->contains($Accommodation)) {
-            $this->accommodations->add($Accommodation);
-            $Accommodation->setHost($this);
+        if (!$this->accommodations->contains($accommodation)) {
+            $this->accommodations->add($accommodation);
+            $accommodation->setHost($this);
         }
 
         return $this;
     }
 
-    public function removeAccommodation(Accommodation $Accommodation): static
+    public function removeAccommodation(Accommodation $accommodation): static
     {
-        if ($this->accommodations->removeElement($Accommodation)) {
+        if ($this->accommodations->removeElement($accommodation)) {
             // set the owning side to null (unless already changed)
-            if ($Accommodation->getHost() === $this) {
-                $Accommodation->setHost(null);
+            if ($accommodation->getHost() === $this) {
+                $accommodation->setHost(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $Review): static
-    {
-        if (!$this->reviews->contains($Review)) {
-            $this->reviews->add($Review);
-            $Review->setCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $Review): static
-    {
-        if ($this->reviews->removeElement($Review)) {
-            // set the owning side to null (unless already changed)
-            if ($Review->getCustomer() === $this) {
-                $Review->setCustomer(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Reservation>
-     */
-    public function getReservations(): Collection
-    {
-        return $this->reservations;
-    }
-
-    public function addReservation(Reservation $Reservation): static
-    {
-        if (!$this->reservations->contains($Reservation)) {
-            $this->reservations->add($Reservation);
-            $Reservation->setCustomer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReservation(Reservation $Reservation): static
-    {
-        if ($this->reservations->removeElement($Reservation)) {
-
-            if ($Reservation->getCustomer() === $this) {
-                $Reservation->setCustomer(null);
-            }
-        }
-
-        return $this;
-    }
 
 }
