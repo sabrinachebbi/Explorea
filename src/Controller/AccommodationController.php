@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Accommodation;
-use App\Form\AccomodationFormType;
+use App\Form\AccommodationFormType;
 use App\Repository\AccommodationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +34,7 @@ class AccommodationController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $accommodation = new Accommodation();
-        $form= $this->createForm(AccomodationFormType::class,$accommodation);
+        $form= $this->createForm(AccommodationFormType::class,$accommodation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
