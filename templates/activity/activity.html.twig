@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Activities{% endblock %}
+{% block body %}
+
+    {% for activity in activities %}
+        {% include '_partials/cardActivity.html.twig'  %}
+    {% endfor %}
+
+{% endblock %}
