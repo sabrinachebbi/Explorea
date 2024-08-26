@@ -4,6 +4,6 @@ namespace App\Enum;
 
 enum propertyType: string
 {
-    case HOUSE = 'House';
-    case APARTMENT= 'Apartment';
+    case Maison = 'House';
+    case Appartement= 'Apartment';
 }

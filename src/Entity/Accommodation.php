@@ -23,18 +23,23 @@ class Accommodation
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $address = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?float $priceNight = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?int $NbGuests = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?int $NbRooms = null;
 
     #[ORM\Column]
@@ -44,6 +49,7 @@ class Accommodation
     private ?\DateTimeImmutable $updateDate = null;
 
     #[ORM\Column(enumType: propertyType::class)]
+    #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?propertyType $propertyType = null;
 
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
