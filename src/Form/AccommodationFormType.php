@@ -23,9 +23,11 @@ class AccommodationFormType extends AbstractType
                 'label' => 'Titre',
             ])
             ->add('description', TextareaType::class, [
+                'required' => false,
                 'label' => 'Description',
             ])
             ->add('address', TextType::class, [
+                'required' => false,
                 'label' => 'Adresse',
             ])
             ->add('priceNight', NumberType::class, [

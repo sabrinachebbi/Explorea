@@ -48,7 +48,29 @@ class AccommodationController extends AbstractController
         return $this->render('accommodation/newAccommodation.html.twig', [
             'AccommodationForm' => $form,
         ]);
+    }
 
+    #[Route('/update/{id}', name: 'update')]
+
+    public function update(
+        Accommodation $accommodation,
+        Request $request,
+        EntityManagerInterface $entityManager)
+      : Response
+    {
+        $form = $this->createForm(AccommodationFormType::class, $accommodation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $accommodation->setUpdateDate(new DateTimeImmutable());
+            $entityManager->persist($accommodation);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_accommodation_showAll');
+        }
+        return $this->render('accommodation/newAccommodation.html.twig', [
+            'AccommodationForm' => $form,
+            'accommodation' => $accommodation,
+        ]);
     }
     //fonction pour afficher les details d' une seul annonce
     #[Route('/show/{id}', name: 'showDetails')]
@@ -61,13 +83,16 @@ class AccommodationController extends AbstractController
 
     //fonction pour supprimer une annonce
     #[Route('/remove/{id}', name: 'remove')]
-    public function remove( Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
+    public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
+        $token = $request->getPayload()->get('token');
 
-        $entityManager->remove($accommodation);
-        $entityManager->flush();
+        if($this->isCsrfTokenValid('delete-acommodation' . $accommodation->getId(), $token)){
+            $entityManager->remove($accommodation);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_accommodation_showAll');
+        }
 
         return $this->redirectToRoute('app_accommodation_showAll');
     }
-
 }
 

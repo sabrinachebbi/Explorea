@@ -18,7 +18,14 @@
     <p>{{ accommodation.description}}</p>
     <div class="buttons1">
         <a href="{{ path('app_accommodation_showDetails',{'id':accommodation.id}) }}">plus d'information</a>
-        <a href="{{ path('app_accommodation_remove',{'id':accommodation.id}) }}">supprimer</a>
+        <a href="{{ path('app_accommodation_update',{'id':accommodation.id}) }}">Modifier</a>
+
+        <form action="{{ path('app_accommodation_remove',{'id':accommodation.id}) }}" method="post">
+            <input type="hidden" name="token" value="{{ csrf_token('delete-acommodation' ~ accommodation.id) }}">
+        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">supprimer</button>
+        </form>
+
+
         <a >Contact</a>
     </div>
 </div>

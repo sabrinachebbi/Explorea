@@ -19,15 +19,18 @@ class Accommodation
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Assert\Length(min: 3,max: 50)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\Length(min: 10,max: 500,minMessage: "La Description doit comporter au moins 10 caractères.")]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
+    #[Assert\Length(min: 5,max: 250,minMessage: "L'adresse doit comporter au moins 5 caractères.", )]
     private ?string $address = null;
 
     #[ORM\Column]
@@ -36,10 +39,18 @@ class Accommodation
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
+    #[Assert\Type(type: 'integer',
+        message: "La valeur doit être un nombre entier.")]
+    #[Assert\GreaterThan(value: 0,
+        message: "Le nombre doit être supérieur à 0.")]
     private ?int $NbGuests = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
+    #[Assert\Type(type: 'integer',
+        message: "La valeur doit être un nombre entier.")]
+    #[Assert\GreaterThan(value: 0,
+        message: "Le nombre doit être supérieur à 0.")]
     private ?int $NbRooms = null;
 
     #[ORM\Column]
