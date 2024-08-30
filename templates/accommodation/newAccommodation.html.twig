@@ -9,7 +9,7 @@
     {{ form_start(AccommodationForm) }}
         <h2>
             {% if accommodation is defined %}
-               Modifier Votre Annonce  {{ accommodation.title }}
+               Modifier {{ accommodation.title }}
             {% else %}
                 Mettez Votre Logement <br>en Location
             {%  endif %}

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à ajour mon annonce {{ accommodation.title }}n{% endblock %}
+  {% block importmap %}{{ importmap('newAccomodation') }}{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block body %}
+    <div class="form-container">
+    {{ form_start(AccommodationForm) }}
+    <h2>
+        {% if accommodation is defined %}
+            Modifier <br> {{ accommodation.title }}
+        {% else %}
+            Mettez Votre Logement <br>en Location
+        {%  endif %}
+    </h2>
+
+
+    <div class="form-group">
+        {{ form_label(AccommodationForm.title) }}
+        {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.title) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(AccommodationForm.address) }}
+        {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.address) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(AccommodationForm.description) }}
+        {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.description) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(AccommodationForm.priceNight) }}
+        {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.priceNight) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.NbGuests) }}
+        {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.NbGuests) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.NbRooms) }}
+        {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.NbRooms) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.propertyType) }}
+        {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}*
+        <div class="error">
+            {{ form_errors(AccommodationForm.propertyType) }}
+        </div>
+    </div>
+
+    <div class="bt">
+    <button type="submit" class="btn">
+        {% if accommodation is defined%}
+            Mettre à Jour
+        {% else %}
+            Ajouter
+        {% endif %}
+    </button>
+    <div>
+        {{ form_end(AccommodationForm) }}
+    </div>
+
+{% endblock %}
