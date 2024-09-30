@@ -3,6 +3,7 @@ namespace App\Enum;
 
 enum statusResv: string
 {
-    case CONFIRM = 'confirmed';
-    case CANCELLED = 'cancelled';
+    case PENDING = 'En attente';
+    case CONFIRM = 'Confirmé';
+    case CANCELLED = 'Annulé';
 }

@@ -43,6 +43,14 @@ class Activity
     #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'activities')]
     private Collection $reservations;
 
+    #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $host = null;
+
+    #[ORM\ManyToOne(inversedBy: 'activities')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?City $city = null;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
@@ -163,6 +171,30 @@ class Activity
         if ($this->reservations->removeElement($reservation)) {
             $reservation->removeActivity($this);
         }
+
+        return $this;
+    }
+
+    public function getHost(): ?User
+    {
+        return $this->host;
+    }
+
+    public function setHost(?User $host): static
+    {
+        $this->host = $host;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): static
+    {
+        $this->city = $city;
 
         return $this;
     }
