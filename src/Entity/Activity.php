@@ -37,6 +37,17 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'activities')]
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
+
 
 
     public function getId(): ?int
@@ -125,6 +136,33 @@ class Activity
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->addActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            $reservation->removeActivity($this);
+        }
 
         return $this;
     }

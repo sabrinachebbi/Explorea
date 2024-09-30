@@ -28,6 +28,14 @@ return [
         'path' => './assets/accomodation.js',
         'entrypoint' => true,
     ],
+    'register' => [
+        'path' => './assets/register.js',
+        'entrypoint' => true,
+    ],
+    'notif-message' => [
+        'path' => './assets/notification-message.js',
+        'entrypoint' => true,
+        ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

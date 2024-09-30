@@ -1,41 +1,174 @@
+
 header {
-   background-color: #F2F2F2;
-   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-   padding: 20px;
-
+   background-color: #ffffff;
+   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   height: 87px;
+   position: sticky;
+   top: 0;
+   z-index: 1000;
+   width: 100%;
 }
-
-nav {
+.container {
    display: flex;
+   justify-content: space-evenly;
    align-items: center;
-   justify-content: space-around;
+   margin: 0 auto;
+   height: 110px;
+}
+.logo img {
+   width: 160px;
+   height: auto;
+   position: absolute;
+   left: 0;
+   top: -35px;
 }
 
-nav a {
-   font-size: 23px;
-}
-
-nav a:hover {
-   color: #1BBC9B;
-}
-
-#btn {
+.navbar ul {
    display: flex;
+   gap: 30px;
+   padding: 0;
+}
+
+.navbar ul li {
+   display: inline-block;
+}
+
+.navbar ul li a {
+   text-decoration: none;
+   font-size: 17px;
+   color: #333;
+   padding: 10px;
+   font-weight: bold;
+}
+
+.navbar ul li a:hover {
+   color: #1BBC9B;
+   border-bottom: 2px solid #1BBC9B;
+}
+
+.auth-buttons {
    gap: 10px;
+   flex-direction: row-reverse;
+   position: absolute;
+   top: 43px;
+   right:30px;
 }
 
-button {
-   background-color: #1BBC9B;
-   font-size: 19px;
-   border-radius: 8px;
-   border: none;
-   padding: 8px 11px;
+.btn {
+   background-color: #19659d;
    color: white;
-   cursor: pointer;
-   border-bottom: 3px solid #159a76;
+   border: none;
+   padding: 9px 12px;
+   border-radius: 20px;
+   text-decoration: none;
+   font-size: 17px;
 }
 
-button:hover {
-   background-color: #159a76;
-   border-bottom: 3px solid #1BBC9B;
+
+.btn:hover {
+   background-color: #1BBC9B;
+   transform: translateY(-2px);
 }
+/*style menu burger*/
+.menu-burger {
+   display: none;
+   flex-direction: column;
+   justify-content: space-between;
+   width: 30px;
+   height: 20px;
+   cursor: pointer;
+}
+.menu-burger span {
+   display: block;
+   width: 100%;
+   height: 3px;
+   background-color: #333;
+}
+
+/* Media Queries pour rendre le header responsive */
+
+/* Tablette et petits écrans */
+@media (max-width: 1024px) {
+
+   .menu-burger {
+      display: flex;
+   }
+
+   .navbar {
+      display: none;
+   }
+    .container{
+       display: flex;
+      justify-content: flex-end;
+    }
+   .navbar.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 100px;
+      right: 0;
+      width: 30%;
+      height: 200px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      margin-bottom: 20px;
+   }
+
+   .navbar ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+   }
+
+   .navbar ul li a {
+      margin: 10px 0;
+      font-size: 16px;
+   }
+
+   .auth-buttons {
+      display: flex;
+      margin-top: 20px;
+      margin-bottom: 25px;
+      position: static;
+      flex-direction: column;
+      align-items: center;
+
+   }
+
+   .btn {
+      width: 30%;
+      text-align: center;
+      padding: 3px;
+      font-size: 14px;
+   }
+   .logo img {
+      width: 140px;
+      height: auto;
+      margin-left: -40px;
+   }
+
+   /* Téléphones */
+   @media (max-width: 768px) {
+      .navbar ul li a {
+         flex-direction: column;
+         gap: 20px;
+         font-size: 14px;
+         font-weight: bold;
+         padding: 0;
+      }
+
+      .auth-buttons.btn {
+         width: 40%;
+         font-size: 15px;
+      }
+
+      .navbar.active {
+         width: 40%;
+         background-color: white;
+         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+         z-index: 100;
+      }
+   }
+}
+

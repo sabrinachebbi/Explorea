@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accommodation{% endblock %}
+
+{% block body %}
+    <h1>Accommodation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ accommodation.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ accommodation.title }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ accommodation.description }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ accommodation.address }}</td>
+            </tr>
+            <tr>
+                <th>PriceNight</th>
+                <td>{{ accommodation.priceNight }}</td>
+            </tr>
+            <tr>
+                <th>NbGuests</th>
+                <td>{{ accommodation.NbGuests }}</td>
+            </tr>
+            <tr>
+                <th>NbRooms</th>
+                <td>{{ accommodation.NbRooms }}</td>
+            </tr>
+            <tr>
+                <th>PropertyType</th>
+                <td>{{ accommodation.propertyType.value }}</td>
+            </tr>
+            <tr>
+                <th>Host</th>
+                <td>{{ accommodation.host.email }}</td>
+            </tr>
+            <tr>
+                <th>city</th>
+                <td>{{ accommodation.city.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_accommodation_list') }}">back to list</a>
+
+
+{% endblock %}

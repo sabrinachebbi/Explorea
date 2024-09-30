@@ -1,0 +1,12 @@
+{% block importmap %}{{ importmap('notif-message') }}{% endblock %}
+<div class="flash-messages">
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-message flash-{{ label }}">
+                <span>{{ message }}</span>
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>

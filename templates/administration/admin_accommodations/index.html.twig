@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accommodation index{% endblock %}
+
+{% block body %}
+    <h1>Accommodation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>PriceNight</th>
+                <th>NbGuests</th>
+                <th>NbRooms</th>
+                <th>PropertyType</th>
+                <th>Host</th>
+                <th>city</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for accommodation in accommodations %}
+            <tr>
+                <td>{{ accommodation.id }}</td>
+                <td>{{ accommodation.title }}</td>
+                <td>{{ accommodation.description }}</td>
+                <td>{{ accommodation.address }}</td>
+                <td>{{ accommodation.priceNight }}</td>
+                <td>{{ accommodation.NbGuests }}</td>
+                <td>{{ accommodation.NbRooms }}</td>
+                <td>{{ accommodation.propertyType.value}}</td>
+                <td>{{ accommodation.host.email }}</td>
+                <td>{{ accommodation.city.name}}</td>
+                <td>
+                    <a href="{{ path('app_admin_accommodation_show', {'id': accommodation.id}) }}">show</a>
+                    <a href="{{ path('app_admin_accommodation_edit', {'id': accommodation.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_accommodation_delete', {'id': accommodation.id}) }}">delete</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_accommodation_new') }}">Create new</a>
+{% endblock %}

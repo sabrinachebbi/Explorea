@@ -40,6 +40,17 @@ class Reservation
     #[ORM\JoinColumn(nullable: false)]
     private ?ReservationStatus $status = null;
 
+    /**
+     * @var Collection<int, Activity>
+     */
+    #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'reservations')]
+    private Collection $activities;
+
+    public function __construct()
+    {
+        $this->activities = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -138,6 +149,30 @@ class Reservation
     public function setStatus(?ReservationStatus $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): static
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): static
+    {
+        $this->activities->removeElement($activity);
 
         return $this;
     }

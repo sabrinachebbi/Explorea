@@ -1,0 +1,127 @@
+body {
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    max-width: 900px;
+    height: 510px;
+}
+.authentif-form {
+    padding: 40px;
+    margin-left: 25px;
+    position: relative;
+    flex: 1;
+}
+h2 {
+    font-size: 30px;
+    text-align: center;
+    font-family: "Poetsen One", sans-serif;
+    margin-right: 97px;
+}
+.btn {
+    width:32%;
+    padding: 12px;
+    background-color:#1BBC9B;;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    bottom: 30px;
+    left: 100px;
+}
+input
+{
+    width:245px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+label
+{
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 26px;
+}
+.illustration {
+    background-color: #1BBC9B;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    color: white;
+}
+
+.illustration img {
+    max-width: 100%;
+}
+.img-authentif{
+    margin-right: 97px;
+}
+.img-register{
+    margin-right: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        height: 400px;
+    }
+
+    .authentif-form {
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .btn {
+        font-size: 14px;
+        bottom: 20px;
+        left: 80px;
+    }
+
+    input {
+        font-size: 14px;
+        width: 78%;
+    }
+
+    .illustration {
+        display: none;
+    }
+}
+
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 78%;
+        height: 470px;
+    }
+    .authentif-form {
+        padding: 30px;
+    }
+    h2 {
+        font-size: 22px;
+        margin-right: 29px;
+    }
+    .btn {
+        font-size: 15px;
+        left: 86px;
+        bottom: 20px;
+    }
+    input {
+        width: 90%;
+        font-size: 15px;
+    }
+}
+
+

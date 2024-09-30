@@ -1,19 +1,41 @@
 {% block importmap %}{{ importmap('header') }}{% endblock %}
 <header>
-    <nav>
-        <div class="image">
-        <img src="{{ asset('images') }}" alt="Logo">
-        </div>
-        <a href="{{ path('home') }}">Accueil</a>
-        <a href="{{ path('app_accommodation_showAll') }}">Logements</a>
-        <a href="{{ path('app_activity_showAll') }}">Expériences</a>
-        <a>Blog</a>
+    <div class="logo">
+        <img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa">
+    </div>
+    <div class="container">
 
-        <a href="{{ path('app_accommodation_new') }}">Annoncer mon hébergement</a>
-        <div id="btn">
-            <a href="{{ path('app_login') }}">Login</a>
-            <a href="{{ path('app_register') }}">Sign Up</a>
+        <!-- Menu burger visible sur mobile -->
+        <div class="menu-burger" id="menuBurger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
-    </nav>
+
+
+        <nav class="navbar" id="navbar">
+            <ul class="nav-links">
+                <li><a href="{{ path('app_accommodation_showAll') }}">Logements</a></li>
+                <li><a href="{{ path('app_activity_showAll') }}">Expériences</a></li>
+                <li><a href="{{ path('app_accommodation_new') }}">Annoncer mon hébergement</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="{{ path('app_login') }}" class="btn">Login</a>
+                <a href="{{ path('app_register') }}" class="btn">Sign Up</a>
+            </div>
+        </nav>
+    </div>
+
 </header>
+
+
+<script>
+    const menuBurger = document.getElementById('menuBurger');
+    const navbar = document.getElementById('navbar');
+
+    menuBurger.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+    });
+</script>
+
 
