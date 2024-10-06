@@ -36,6 +36,14 @@ return [
         'path' => './assets/notification-message.js',
         'entrypoint' => true,
         ],
+    'pagination' => [
+        'path' => './assets/pagination.js',
+        'entrypoint' => true,
+    ],
+    'activity' => [
+        'path' => './assets/activity.js',
+        'entrypoint' => true,
+    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],

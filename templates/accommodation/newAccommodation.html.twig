@@ -23,6 +23,13 @@
                     {{ form_errors(AccommodationForm.title) }}
                 </div>
             </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.country) }}
+        {{ form_widget(AccommodationForm.country, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.country) }}
+        </div>
+    </div>
 
             <div class="form-group">
                 {{ form_label(AccommodationForm.address) }}
@@ -63,10 +70,16 @@
             </div>
             <div class="form-group">
                 {{ form_label(AccommodationForm.propertyType) }}
-                {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}*
+                {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                 {{ form_errors(AccommodationForm.propertyType) }}
                </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.pictures) }}
+        {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.pictures) }}
+        </div>
             </div>
 
             <div class="bt">

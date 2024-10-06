@@ -68,8 +68,18 @@ class Accommodation
     private ?User $host = null;
 
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?City $city = null;
+    private ?Country $country = null;
+
+    /**
+     * @var Collection<int, Picture>
+     */
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'accommodationPictures')]
+    private Collection $pictures;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
 
 
@@ -198,17 +208,46 @@ class Accommodation
         return $this;
     }
 
-    public function getCity(): ?City
+    public function getCountry(): ?Country
     {
-        return $this->city;
+        return $this->country;
     }
 
-    public function setCity(?City $city): static
+    public function setCountry(?Country $country): static
     {
-        $this->city = $city;
+        $this->country = $country;
 
         return $this;
     }
 
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setAccommodationPictures($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getAccommodationPictures() === $this) {
+                $picture->setAccommodationPictures(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

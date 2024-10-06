@@ -82,6 +82,8 @@ class ActivityFixture extends Fixture implements DependentFixtureInterface
                 ->setHost($hosts[$faker->numberBetween(0, count($hosts) - 1)])
                 ->setCity($cities[$i]);
 
+            $this->addReference('activity_' . $i, $activity);
+
             $manager->persist($activity);
         }
 

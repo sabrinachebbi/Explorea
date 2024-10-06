@@ -16,13 +16,13 @@ class Picture
     #[ORM\Column(length: 200)]
     private ?string $imageURL = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pictures')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Accommodation $Accommodation = null;
+    #[ORM\ManyToOne(targetEntity: Accommodation::class, inversedBy: 'pictures')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Accommodation $accommodationPictures = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pictures')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Activity $Activity = null;
+    #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'pictures')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Activity $activityPictures = null;
 
     public function getId(): ?int
     {
@@ -41,26 +41,26 @@ class Picture
         return $this;
     }
 
-    public function getAccommodation(): ?Accommodation
+    public function getAccommodationPictures(): ?Accommodation
     {
-        return $this->Accommodation;
+        return $this->accommodationPictures;
     }
 
-    public function setAccommodation(?Accommodation $Accommodation): static
+    public function setAccommodationPictures(?Accommodation $accommodationPictures): static
     {
-        $this->Accommodation = $Accommodation;
+        $this->accommodationPictures = $accommodationPictures;
 
         return $this;
     }
 
-    public function getActivity(): ?Activity
+    public function getActivityPictures(): ?Activity
     {
-        return $this->Activity;
+        return $this->activityPictures;
     }
 
-    public function setActivity(?Activity $Activity): static
+    public function setActivityPictures(?Activity $activityPictures): static
     {
-        $this->Activity = $Activity;
+        $this->activityPictures = $activityPictures;
 
         return $this;
     }

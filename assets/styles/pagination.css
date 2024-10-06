@@ -1,0 +1,39 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-right: 90px;
+}
+
+.pagination .next  {
+    display: none;
+}
+
+.pagination a{
+    text-decoration: none;
+    color: black;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.pagination span{
+    border: 1px solid #ddd;
+    padding: 5px 13px;
+}
+
+.pagination span:hover {
+    background-color: #1BBC9B;
+    cursor: pointer;
+}
+.last a {
+    width: 10px;
+    height: 10px;
+}
+
+.pagination .current {
+    background-color: #19659d;
+    color: white;
+}
+/* Conteneur de tri */
+
+

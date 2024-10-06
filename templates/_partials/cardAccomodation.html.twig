@@ -1,35 +1,47 @@
-<div class="card">
-    <img class="house1" src="{{ asset('/images/hebrg1.png') }}" alt="">
 
+<div class="card" data-accommodation-id="{{ accommodation.id }}">
+    <div class="image-gallery">
+        <div class="carousel" id="carousel-{{ accommodation.id }}">
+            {% for picture in accommodation.pictures %}
+                <img class="carousel-item" src="{{ asset(picture.imageURL)  }}" alt="Image de l'hébergement"
+                     style="display: {% if loop.first %}block{% else %}none{% endif %};">
+            {% endfor %}
+
+        </div>
+        <button class="prev" onclick="plusSlides({{ accommodation.id }}, -1)">&#10094;</button>
+        <button class="next" onclick="plusSlides({{ accommodation.id }}, 1)">&#10095;</button>
+    </div>
     <h4>{{ accommodation.title }}</h4>
-    <button class="price">{{ accommodation.priceNight  }}</button>
     <div class="position">
-        <img class="locate" src="" alt="">
-        <div class="title-first">{{ accommodation.address }}</div>
+        <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
+        <div class="title-first">{{ accommodation.address }}, {{ accommodation.country.name }}</div>
     </div>
-    <img class="pic-sale2" src="" alt="">
     <section class="details1">
-        <img class="picture1" src="" alt="">
-        <div>{{ accommodation.NbGuests}}</div>
-        <img class="picture1" src="" alt="" srcset="">
-        <div>{{ accommodation.NbRooms}}</div>
+        <div class="details1">
+            <img class="picture1" src="{{ asset('images/traveler.png')  }}" alt="Nombre d'invités">
+            <span>{{ accommodation.NbGuests }} invités</span>
+        </div>
+        <div class="details1">
+            <img class="picture1" src="{{ asset('images/bed.png') }}" alt="Nombre de chambres">
+            <span>{{ accommodation.NbRooms }} chambres</span>
+        </div>
     </section>
+    <p>{{ accommodation.description }}</p>
+    <button class="price">{{ accommodation.priceNight }}€ / nuit</button>
 
-    <p>{{ accommodation.description}}</p>
-    <div class="buttons1">
-        <a href="{{ path('app_accommodation_showDetails',{'id':accommodation.id}) }}">plus d'information</a>
-        {%  if is_granted('Role_USER') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_accommodation_update',{'id':accommodation.id}) }}">Modifier</a>
-
-        <form action="{{ path('app_accommodation_remove',{'id':accommodation.id}) }}" method="post">
-            <input type="hidden" name="token" value="{{ csrf_token('delete-acommodation' ~ accommodation.id) }}">
-        <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">supprimer</button>
-        </form>
+    <div class="btn-crud">
+        <a href="{{ path('app_accommodation_showDetails', {'id': accommodation.id}) }}"><img src="{{ asset('images/info.png') }}" alt="" class="btn-show"></a>
+        {% if is_granted('ROLE_HOST') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
+            <form action="{{ path('app_accommodation_remove', {'id': accommodation.id}) }}" method="post" class="form-delete">
+                <input type="hidden" name="token" value="{{ csrf_token('delete-accommodation-' ~ accommodation.id) }}">
+                <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')"><img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete"></button>
+            </form>
         {% endif %}
-
-
-        <a >Contact</a>
     </div>
+
+
 </div>
+
 
 

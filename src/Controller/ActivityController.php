@@ -21,9 +21,11 @@ class ActivityController extends AbstractController
 
     //fonction pour afficher mes activities
     #[Route('/', name: 'showAll')]
-    public function index(ActivitiesRepository $activityRepository): Response
+    public function index(Request $request ,ActivitiesRepository $activityRepository): Response
     {
-        $activities = $activityRepository ->findAll();
+        $page = $request->query->getInt('page',1);
+        $limit = $request->query->getInt('limit',6);
+        $activities = $activityRepository->paginate($page, $limit);
 
         return $this->render('activity/activity.html.twig', [
             'activities' => $activities,

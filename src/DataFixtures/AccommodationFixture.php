@@ -23,37 +23,44 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
             $this->getReference('user_host_5')
         ];
 
-        $cities = [
-            $this->getReference('city_Paris'),
-            $this->getReference('city_Nice'),
-            $this->getReference('city_Marseille'),
-            $this->getReference('city_Ibiza'),
-            $this->getReference('city_Rome'),
-            $this->getReference('city_Istanbul'),
-            $this->getReference('city_Chamonix'),
-            $this->getReference('city_Seville'),
-            $this->getReference('city_Bangkok'),
-            $this->getReference('city_cappadocia')
-        ];
+        $countries = [
+            $this->getReference('country_france'),
+            $this->getReference('country_thailand'),
+            $this->getReference('country_italy'),
+            $this->getReference('country_spain'),
+            $this->getReference('country_turkey'),
+            $this->getReference('country_greece'),
+            ];
 
         $titles = [
-            'Appartement cosy à Paris avec vue sur la Tour Eiffel',
-            'Villa moderne avec piscine à Antibes',
+            'Appartement cosy à Paris ',
+            'Villa moderne avec piscine ',
             'Charmant studio au cœur de Nice',
-            'Maison de vacances en bord de mer à Ibiza',
-            'Appartement lumineux à Rome près du Colisée',
+            'Maison  en bord de mer à Ibiza',
+            'Appartement lumineux à Rome ',
             'Loft spacieux avec terrasse à Istanbul',
             'Chalet traditionnel à Chamonix avec vue sur les montagnes',
             'Villa luxueuse avec piscine à Séville',
             'Petit appartement confortable à Bangkok',
-            'Maison de campagne tranquille à Cappadocia',
+            'Maison de campagne  à Cappadocia',
+            'Appartement élégant à Milan avec vue sur la cathédrale',
+            'Maison rustique à la campagne en Toscane',
+            'Penthouse moderne à Barcelone avec terrasse privée',
+            'Cottage pittoresque au bord du lac de Côme',
+            'Villa contemporaine avec piscine sur la Côte dAzur',
+            'Château rénové avec jardin à Florence',
+            'Appartement charmant dans le centre historique de Madrid',
+            'Cabane en bois isolée dans les montagnes',
+             'Studio design à Santorino avec vue sur la mer',
+              'Maison de luxe en bord de mer' ,
+
         ];
 
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $accommodation = new Accommodation();
             $accommodation->setTitle($titles[$i])
                 ->setDescription($faker->text(200))
-                ->setAddress($faker->address())
+                ->setAddress($faker->unique()->address())
                 ->setPriceNight($faker->randomFloat(2, 50, 300))
                 ->setNbGuests($faker->numberBetween(1, 10))
                 ->setNbRooms($faker->numberBetween(1, 5))
@@ -61,7 +68,9 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
                 ->setUpdateDate(new \DateTimeImmutable())
                 ->setPropertyType($faker->randomElement([propertyType::Apartment, propertyType::House]))
                 ->setHost($hosts[$faker->numberBetween(0, count($hosts) - 1)])
-                ->setCity($cities[$i]);
+                ->setCountry($countries[array_rand($countries)]);
+
+            $this->addReference('accommodation_' . $i, $accommodation);
 
             $manager->persist($accommodation);
         }
@@ -73,7 +82,7 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
-            CityFixture::class,
+            CountryFixture::class,
         ];
     }
 }

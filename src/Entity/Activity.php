@@ -51,9 +51,16 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
+    /**
+     * @var Collection<int, Picture>
+     */
+    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'activityPictures')]
+    private Collection $pictures;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
 
@@ -195,6 +202,36 @@ class Activity
     public function setCity(?City $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setActivityPictures($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getActivityPictures() === $this) {
+                $picture->setActivityPictures(null);
+            }
+        }
 
         return $this;
     }

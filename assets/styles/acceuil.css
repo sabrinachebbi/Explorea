@@ -163,7 +163,7 @@
 }
 @media only screen and (min-width: 1280px) {
     .search-bar {
-        left: 400px;
+        left: 380px;
         top: 200px;
     }
 }
@@ -719,7 +719,7 @@ figure{
     width: 100%;
     height: 550px;
     background-size: cover;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
 }
 .title4-1{
@@ -728,8 +728,8 @@ figure{
     font-size: 35px;
     color: white;
     font-weight: bold;
-    left:330px;
-    top: 96px;
+    left:370px;
+    top: 83px;
     text-align: center;
 }
 .container2 p{
@@ -737,7 +737,7 @@ figure{
     font-family: "Poppins", sans-serif;
     font-size: 18px;
     position: absolute;
-    top: 209px;
+    top: 200px;
     left: 229px;
 }
 .image5{
@@ -758,11 +758,11 @@ figure{
     padding: 10px;
 }
 .blog1{
-    bottom: 43px;
+    bottom: 54px;
     left: 229px;
 }
 .blog2{
-    bottom:43px;
+    bottom:54px;
     left: 608px;
 }
 .avatar1{

@@ -24,9 +24,16 @@ class Country
     #[ORM\OneToMany(targetEntity: City::class, mappedBy: 'country')]
     private Collection $cities;
 
+    /**
+     * @var Collection<int, Accommodation>
+     */
+    #[ORM\OneToMany(targetEntity: Accommodation::class, mappedBy: 'country')]
+    private Collection $accommodations;
+
     public function __construct()
     {
         $this->cities = new ArrayCollection();
+        $this->accommodations = new ArrayCollection();
     }
 
 
@@ -71,6 +78,36 @@ class Country
             // set the owning side to null (unless already changed)
             if ($city->getCountry() === $this) {
                 $city->setCountry(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Accommodation>
+     */
+    public function getAccommodations(): Collection
+    {
+        return $this->accommodations;
+    }
+
+    public function addAccommodation(Accommodation $accommodation): static
+    {
+        if (!$this->accommodations->contains($accommodation)) {
+            $this->accommodations->add($accommodation);
+            $accommodation->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAccommodation(Accommodation $accommodation): static
+    {
+        if ($this->accommodations->removeElement($accommodation)) {
+            // set the owning side to null (unless already changed)
+            if ($accommodation->getCountry() === $this) {
+                $accommodation->setCountry(null);
             }
         }
 

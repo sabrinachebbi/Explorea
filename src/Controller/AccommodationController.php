@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Accommodation;
+use App\Entity\Picture;
 use App\Form\AccommodationFormType;
 use App\Repository\AccommodationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,9 +20,11 @@ class AccommodationController extends AbstractController
 {
     //fonction pour afficher mes accomodations
     #[Route('/', name: 'showAll')]
-    public function index(AccommodationRepository $accommodationRepository): Response
+    public function index(Request $request ,AccommodationRepository $accommodationRepository): Response
     {
-        $accommodations = $accommodationRepository->findAll();
+        $page = $request->query->getInt('page',1);
+        $limit = $request->query->getInt('limit',6);
+        $accommodations = $accommodationRepository->paginate($page, $limit);
         return $this->render('accommodation/accommodation.html.twig', [
             'accommodations' => $accommodations,
         ]);
@@ -29,7 +32,7 @@ class AccommodationController extends AbstractController
 
     //fonction pour ajouter une accommodation
     #[Route('/new', name: 'new')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_HOST')]
 
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -38,8 +41,19 @@ class AccommodationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $accommodation->setHost($this->getUser());
             $accommodation->setCreateDate(new DateTimeImmutable());
             $accommodation ->setUpdateDate(new DateTimeImmutable());
+            // Gérer les images
+            $pictures = $form->get('pictures')->getData();  // Récupérer les fichiers d'images
+            foreach ($pictures as $image) {
+                $pictureEntity = new Picture();
+                // Associer l'image à l'hébergement
+                $pictureEntity->setImageURL('images/');
+                $pictureEntity->setAccommodationPictures($accommodation);
+                $entityManager->persist($pictureEntity);
+            }
+
 
             $entityManager->persist($accommodation);
             $entityManager->flush();
