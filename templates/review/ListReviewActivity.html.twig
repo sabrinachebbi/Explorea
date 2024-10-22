@@ -1,0 +1,19 @@
+<div class="reviews-section">
+    <h2>Avis des voyageurs</h2>
+{% if activity.reviews|length > 0 %}
+    <ul>
+        {% for review in activity.reviews %}
+            <li>
+                <strong>{{ review.traveler.userProfile.firstName }} :</strong>
+                <p>Note : {{ review.note }} / 5</p>
+                <p>{{ review.comment }}</p>
+                <p><small>Publié le {{ review.dateReView|date('d/m/Y') }}</small></p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Aucun avis pour cet hébergement.</p>
+{% endif %}
+</div>
+
+

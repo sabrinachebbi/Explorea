@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Enum\GenderEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -17,6 +20,16 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('role', ChoiceType::class, [
+                'choices' => [
+                    'Voyageur' => 'ROLE_TRAVELER',
+                    'Hôte' => 'ROLE_HOST',
+                ],
+                'label' => ' ',
+                'expanded' => true,
+                'multiple' => false,
+                'mapped' => false,
+            ])
             ->add('email')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -33,7 +46,27 @@ class RegistrationFormType extends AbstractType
               'required' => true,
               'first_options'  => ['label' => 'Password'],
               'second_options' => ['label' => 'Repeat Password'],
-          ]);
+          ])
+            ->add('firstName', TextType::class, [
+                'mapped' => false, // Il appartient à UserProfile
+                'label' => 'Prénom'
+            ])
+            ->add('lastName', TextType::class, [
+                'mapped' => false,
+                'label' => 'Nom'
+            ])
+            ->add('gender', ChoiceType::class, [
+                'choices' => [
+                    'Homme' => GenderEnum::Male,
+                    'Femme' => GenderEnum::Female,
+                ],
+                'label' => false,
+                'expanded' => true, //  boutons radio
+                'multiple' => false,
+                'mapped' => false,
+
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

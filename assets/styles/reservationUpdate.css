@@ -1,0 +1,61 @@
+/* Centrage du formulaire si nécessaire */
+.form-container {
+    max-width: 25%;
+    margin: 157px auto;
+    padding: 45px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 483px;
+}
+
+/* Style global du formulaire */
+.form-group {
+    margin-bottom: 15px;
+    margin-left: 40px;
+
+}
+
+.form-group label {
+    font-weight: bold;
+    font-size: 17px;
+    display: block;
+    margin-bottom: 15px;
+
+}
+
+.form-control1 {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+h1 {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #2b5f94;
+    margin-bottom: 58px;
+}
+/* messages d'erreur */
+.form-group .error {
+    color: red;
+    font-size: 12px;
+}
+
+.btn_update {
+    background-color: #2b5f94;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 148px;
+    margin-top : 38px;
+}
+
+
+

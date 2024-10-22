@@ -15,7 +15,7 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $note = null;
+    private ?int $note = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
@@ -23,16 +23,21 @@ class Review
     #[ORM\Column]
     private ?\DateTimeImmutable $dateReView = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'reviews')]
+    private ?Accommodation $accommodation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    private ?Activity $activity = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    private ?User $traveler = null;
+
+    #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $customer = null;
+    private ?Reservation $reservation = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?Activity $Activity = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?Accommodation $Accommodation = null;
 
     public function getId(): ?int
     {
@@ -75,39 +80,53 @@ class Review
         return $this;
     }
 
-    public function getCustomer(): ?User
+
+    public function getAccommodation(): ?Accommodation
     {
-        return $this->customer;
+        return $this->accommodation;
     }
 
-    public function setCustomer(?User $customer): static
+    public function setAccommodation(?Accommodation $accommodation): static
     {
-        $this->customer = $customer;
+        $this->accommodation = $accommodation;
 
         return $this;
     }
 
     public function getActivity(): ?Activity
     {
-        return $this->Activity;
+        return $this->activity;
     }
 
-    public function setActivity(?Activity $Activity): static
+    public function setActivity(?Activity $activity): static
     {
-        $this->Activity = $Activity;
+        $this->activity = $activity;
 
         return $this;
     }
 
-    public function getAccommodation(): ?Accommodation
+    public function getTraveler(): ?User
     {
-        return $this->Accommodation;
+        return $this->traveler;
     }
 
-    public function setAccommodation(?Accommodation $Accommodation): static
+    public function setTraveler(?User $traveler): static
     {
-        $this->Accommodation = $Accommodation;
+        $this->traveler = $traveler;
 
         return $this;
     }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): static
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
 }

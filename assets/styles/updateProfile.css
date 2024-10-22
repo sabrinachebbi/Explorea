@@ -1,0 +1,64 @@
+.form-container {
+    max-width: 480px;
+    background-color: #fff;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+    left: 500px;
+    top: 27px;
+}
+
+/* Style des champs du formulaire */
+.form-container input,
+.form-container select,
+.form-container textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Style du bouton */
+.form-container button.btn {
+    width: 30%;
+    padding: 12px;
+    background-color: #2d3c90;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+    left: 130px;
+}
+
+/* Changement de couleur au survol du bouton */
+.form-container button.btn:hover {
+    background-color: #139178;
+}
+
+/* Style abels */
+.form-container label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+    display: block;
+}
+
+h1{
+    margin-top: 45px;
+    margin-left: 575px;
+    color: #2d3c90;
+
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+    }
+}

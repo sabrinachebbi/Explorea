@@ -48,12 +48,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'host')]
     private Collection $activities;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: UserProfile::class, cascade: ['persist', 'remove'])]
+    private ?UserProfile $userProfile = null;
 
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'traveler')]
+    private Collection $reservations;
+
+    /**
+     * @var Collection<int, Notification>
+     */
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'user')]
+    private Collection $notifications;
+
+    /**
+     * @var Collection<int, accommodation>
+     */
+    #[ORM\ManyToMany(targetEntity: accommodation::class)]
+    private Collection $favoriteAccommodation;
+
+    /**
+     * @var Collection<int, activity>
+     */
+    #[ORM\ManyToMany(targetEntity: activity::class)]
+    private Collection $favoriteActivities;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'traveler')]
+    private Collection $reviews;
 
     public function __construct()
     {
         $this->accommodations = new ArrayCollection();
         $this->activities = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->favoriteAccommodation = new ArrayCollection();
+        $this->favoriteActivities = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -191,6 +227,154 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getUserProfile(): ?UserProfile
+    {
+        return $this->userProfile;
+    }
 
+    public function setUserProfile(?UserProfile $userProfile): self
+    {
+        $this->userProfile = $userProfile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setTraveler($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getTraveler() === $this) {
+                $reservation->setTraveler(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getUser() === $this) {
+                $notification->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, accommodation>
+     */
+    public function getFavoriteAccommodation(): Collection
+    {
+        return $this->favoriteAccommodation;
+    }
+
+    public function addFavoriteAccommodation(accommodation $favoriteAccommodation): static
+    {
+        if (!$this->favoriteAccommodation->contains($favoriteAccommodation)) {
+            $this->favoriteAccommodation->add($favoriteAccommodation);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteAccommodation(accommodation $favoriteAccommodation): static
+    {
+        $this->favoriteAccommodation->removeElement($favoriteAccommodation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, activity>
+     */
+    public function getFavoriteActivities(): Collection
+    {
+        return $this->favoriteActivities;
+    }
+
+    public function addFavoriteActivity(activity $favoriteActivity): static
+    {
+        if (!$this->favoriteActivities->contains($favoriteActivity)) {
+            $this->favoriteActivities->add($favoriteActivity);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteActivity(activity $favoriteActivity): static
+    {
+        $this->favoriteActivities->removeElement($favoriteActivity);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setTraveler($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getTraveler() === $this) {
+                $review->setTraveler(null);
+            }
+        }
+
+        return $this;
+    }
 
 }

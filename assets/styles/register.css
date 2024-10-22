@@ -3,28 +3,88 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    margin: 20px;
+    font-family: Arial, sans-serif;
 }
+
 .container {
     display: flex;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
-    max-width: 900px;
-    height: 510px;
+    max-width: 910px;
+    height: 815px;
 }
+
 .authentif-form {
-    padding: 40px;
-    margin-left: 25px;
+    padding: 20px;
+    margin-left: 60px;
     position: relative;
     flex: 1;
 }
+
 h2 {
     font-size: 30px;
     text-align: center;
     font-family: "Poetsen One", sans-serif;
-    margin-right: 97px;
+    margin-top: 10px;
+    margin-right: 118px;
+    margin-bottom: 31px;
 }
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    margin-top: 15px;
+    flex-direction: column;
+}
+.form-group3{
+    display: flex;
+    flex-direction: column;
+    top: 7px;
+    position: relative;
+}
+.form-group1 label {
+    padding: 6px;
+}
+.form-group1{
+    display: flex;
+    flex-direction: column;
+    bottom:10px;
+    position: relative;
+}
+.form-group3 label {
+    padding: 6px;
+}
+.choice-container input[type="radio"] {
+    position: absolute;
+    left: 89px;
+    margin-top: 10px;
+}
+.form-group2{
+    display: flex;
+    top: 5px;
+    position: relative;
+    left: 3px;
+}
+
+label {
+    display: block;
+    margin-bottom: 9px;
+}
+input{
+    width:215px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+}
+
+input:focus {
+    border-color: #1BBC9B;
+    outline: none;
+    box-shadow: 0 0 5px rgba(27, 188, 155, 0.5);
+}
+
 .btn {
     width:32%;
     padding: 12px;
@@ -35,22 +95,20 @@ h2 {
     cursor: pointer;
     font-size: 16px;
     position: absolute;
-    bottom: 30px;
-    left: 100px;
+    bottom: 16px;
+    left: 60px;
 }
-input
-{
-    width:245px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+
+.btn:hover {
+    background-color: #16a085;
 }
-label
-{
-    display: flex;
-    flex-direction: column-reverse;
-    margin-top: 26px;
+
+.error {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
 }
+
 .illustration {
     background-color: #1BBC9B;
     flex: 1;
@@ -64,64 +122,43 @@ label
 .illustration img {
     max-width: 100%;
 }
-.img-authentif{
-    margin-right: 97px;
-}
-.img-register{
+
+.img-register {
     margin-right: 10px;
 }
 
+/* Responsive */
 @media only screen and (max-width: 768px) {
     .container {
-        height: 400px;
-    }
-
-    .authentif-form {
-        padding: 20px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    .btn {
-        font-size: 14px;
-        bottom: 20px;
-        left: 80px;
-    }
-
-    input {
-        font-size: 14px;
-        width: 78%;
+        flex-direction: column;
+        height: 640px;
     }
 
     .illustration {
         display: none;
     }
+    .btn {
+        font-size: 14px;
+    }
 }
-
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
     .container {
-        max-width: 78%;
-        height: 470px;
+        max-width: 100%;
+        height: 615px;
     }
+
     .authentif-form {
-        padding: 30px;
+        padding: 0;
+        margin: 10px;
     }
-    h2 {
-        font-size: 22px;
-        margin-right: 29px;
-    }
+
     .btn {
         font-size: 15px;
-        left: 86px;
-        bottom: 20px;
+        left: 75px;
     }
+
     input {
-        width: 90%;
         font-size: 15px;
     }
 }
-
-

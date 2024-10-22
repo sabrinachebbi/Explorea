@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mettre à ajour mon annonce {{ activity.title }}n{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
+{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block body %}
+    <div class="form-container1">
+    {{ form_start(ActivityForm) }}
+    <h2>
+        {% if activity is defined %}
+            Modifier <br> {{ activity.title }}
+        {% else %}
+            Mettez Votre Logement <br>en Location
+        {%  endif %}
+    </h2>
+
+
+    <div class="form-group">
+        {{ form_label(ActivityForm.title) }}
+        {{ form_widget(ActivityForm.title, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.title) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(ActivityForm.city) }}
+        {{ form_widget(ActivityForm.city, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.city) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(ActivityForm.address) }}
+        {{ form_widget(ActivityForm.address, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.address) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(ActivityForm.description) }}
+        {{ form_widget(ActivityForm.description, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.description) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(ActivityForm.price) }}
+        {{ form_widget(ActivityForm.price, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.price) }}
+        </div>
+    </div>
+
+    <div class="form-group">
+        {{ form_label(ActivityForm.category) }}
+        {{ form_widget(ActivityForm.category, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.category) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(ActivityForm.pictures) }}
+        {{ form_widget(ActivityForm.pictures, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.pictures) }}
+        </div>
+    </div>
+
+    <div class="bt">
+    <button type="submit" class="btn">
+        {% if ActivityForm is defined%}
+            Mettre à Jour
+        {% else %}
+            Ajouter
+        {% endif %}
+    </button>
+    <div>
+        {{ form_end(ActivityForm) }}
+    </div>
+
+{% endblock %}

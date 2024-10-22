@@ -1,0 +1,66 @@
+
+{% block importmap %}
+    {{ importmap('showProfile') }}
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    {% endfor %}
+
+    <div class="container">
+        <h1>Bienvenue {{ userProfile.FirstName }}</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ userProfile.FirstName }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ userProfile.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Date de Naissance</th>
+                <td>{{ userProfile.dateBirth ? userProfile.dateBirth|date('d/m/Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Téléphone</th>
+                <td>{{ userProfile.phone }}</td>
+            </tr>
+            <tr>
+                <th>Pays</th>
+                <td>{{ userProfile.country }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ userProfile.city }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ userProfile.address }}</td>
+            </tr>
+            <tr>
+                <th>Genre</th>
+                <td>{{ userProfile.Gender.value }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="buttons">
+            <a href="{{ path('userProfile_edit', {'id': userProfile.id}) }}"><img src="{{ asset('images/edit.jpg') }}" alt=""></a>
+
+            <!-- Mon Formulaire de suppression -->
+            <form action="{{ path('userProfile_delete', {'id': userProfile.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre profil ?');" style="display:inline;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ userProfile.id) }}">
+                <button type="submit" class="btn_suppr"><img src="{{ asset('images/delete.jpg') }}" alt=""></button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

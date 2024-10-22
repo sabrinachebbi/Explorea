@@ -12,22 +12,46 @@
             <span></span>
         </div>
 
-
         <nav class="navbar" id="navbar">
             <ul class="nav-links">
+                {% if is_granted('ROLE_HOST') %}
+                    <li><a href="{{ path('host_dashboard') }}">Mon Espace </a></li>
+                {% elseif is_granted('ROLE_TRAVELER') %}
+                    <li><a href="{{ path('traveler_dashboard') }}">Mon Espace </a></li>
+                {% endif %}
                 <li><a href="{{ path('app_accommodation_showAll') }}">Logements</a></li>
                 <li><a href="{{ path('app_activity_showAll') }}">Expériences</a></li>
-                <li><a href="{{ path('app_accommodation_new') }}">Annoncer mon hébergement</a></li>
+                {% if app.user %}
+                <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_HOST') %}
+                    <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
+                {% endif %}
+                {% if app.user %}
+                    <li><a href="{{ path('app_logout') }}" class="logout-link"><img src="{{ asset('images/logout (4).png') }}" alt="Déconnexion" class="logout-icon"></a></li>
+                {% endif %}
             </ul>
+
             <div class="auth-buttons">
-                <a href="{{ path('app_login') }}" class="btn">Login</a>
-                <a href="{{ path('app_register') }}" class="btn">Sign Up</a>
+                {% if app.user %}
+                    {% if is_granted('ROLE_HOST') %}
+                        <span class="user-mode">
+                Mode Hôte
+            </span>
+                    {% elseif is_granted('ROLE_TRAVELER') %}
+                        <span class="user-mode1">
+                Mode Voyageur
+            </span>
+                    {% endif %}
+                {% endif %}
+            {% if not app.user %}
+                    <a href="{{ path('app_login') }}" class="btn">Connexion</a>
+                    <a href="{{ path('app_register') }}" class="btn">Inscription</a>
+                {% endif %}
             </div>
         </nav>
     </div>
-
 </header>
-
 
 <script>
     const menuBurger = document.getElementById('menuBurger');
@@ -37,5 +61,4 @@
         navbar.classList.toggle('active');
     });
 </script>
-
 

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/review.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="review-container">
+        <h1 class="review-header">Mes Avis</h1>
+
+        {% if reviews|length > 0 %}
+            <ul class="review-list">
+                {% for review in reviews %}
+                    <li class="review-list-item">
+                        <strong class="review-title">
+                            {{ review.accommodation ? review.accommodation.title : '' }}
+                            {{ review.activity ? review.activity.title : '' }}
+                        </strong>
+                        <p class="review-content">{{ review.comment }}</p>
+                        <small class="review-details">Note : {{ review.note }}/5</small>
+                        <small class="review-details">Date : {{ review.dateReview|date('d/m/Y') }}</small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Vous n'avez pas encore laissé d'avis.</p>
+        {% endif %}
+    </div>
+{% endblock %}

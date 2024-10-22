@@ -1,0 +1,18 @@
+<div class="reviews-section">
+    <h2>Avis des voyageurs</h2>
+
+    {% if accommodation.reviews|length > 0 %}
+        <ul class="reviews-grid">
+            {% for review in accommodation.reviews %}
+                <li>
+                    <strong>{{ review.traveler.userProfile.firstName }}</strong>
+                    <p class="rating">Note : {{ review.note }} / 5</p>
+                    <p>{{ review.comment }}</p>
+                    <p><small>Publié le {{ review.dateReview|date('d/m/Y') }}</small></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun avis pour cet hébergement.</p>
+    {% endif %}
+</div>

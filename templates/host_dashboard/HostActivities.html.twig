@@ -1,0 +1,37 @@
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/showAccom.css') }}">
+{% endblock %}
+{% block body %}
+    <h1>Mes Annonces d'Activités </h1>
+
+    {% if activities|length > 0 %}
+        <table class=" table table1">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.title }}</td>
+                    <td class="btn-action">
+                        <a href="{{ path('app_activity_showDetails', {'id': activity.id}) }}" class="btn-action btn-show">Afficher</a>
+                        <a href="{{ path('app_activity_update', {'id': activity.id}) }}" class="btn-action btn-edit">Éditer</a>
+                        <form action="{{ path('app_activity_remove', {'id': activity.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet activity ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
+                            <button type="submit" class="btn-action btn-delete">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Vous n'avez pas encore d'activities publiées.</p>
+    {% endif %}
+{% endblock %}
+
+

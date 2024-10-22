@@ -2,7 +2,7 @@
 header {
    background-color: #ffffff;
    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-   height: 87px;
+   height: 100px;
    position: sticky;
    top: 0;
    z-index: 1000;
@@ -16,7 +16,7 @@ header {
    height: 110px;
 }
 .logo img {
-   width: 160px;
+   width: 176px;
    height: auto;
    position: absolute;
    left: 0;
@@ -27,7 +27,9 @@ header {
    display: flex;
    gap: 80px;
    padding: 0;
-   margin-right: 20px;
+  margin-bottom: 11px;
+  margin-right: 100px;
+
 }
 
 .navbar ul li {
@@ -36,10 +38,10 @@ header {
 
 .navbar ul li a {
    text-decoration: none;
-   font-size: 17px;
-   color: #333;
+   font-size: 18px;
+   color: black;
    padding: 10px;
-   font-weight: bold;
+   font-family: "Poppins", sans-serif;
 }
 
 .navbar ul li a:hover {
@@ -51,9 +53,26 @@ header {
    gap: 15px;
   display: flex;
    position: absolute;
-   top: 43px;
-   right:30px;
+   top: 35px;
+   right:52px;
 }
+.user-mode {
+   font-weight: bolder;
+   color: #19659d;
+   font-size: 16px;
+ font-family: 'Helvetica', sans-serif;
+   margin-top: 17px;
+   margin-right: 29px;
+}
+.user-mode1 {
+   font-weight: bolder;
+   color: #19659d;
+   font-size: 16px;
+   font-family: 'Helvetica', sans-serif;
+   margin-top: 17px;
+   margin-right: 2px;
+}
+
 
 .btn {
    background-color: #19659d;
@@ -62,13 +81,38 @@ header {
    padding: 9px 12px;
    border-radius: 20px;
    text-decoration: none;
-   font-size: 17px;
+   font-size: 18px;
+   font-family: "Poppins", sans-serif;
 }
 
 
 .btn:hover {
    background-color: #1BBC9B;
    transform: translateY(-2px);
+}
+.auth-buttons .user-name {
+   margin-right: 10px;
+   font-weight: bold;
+   color: #19659d;
+   font-size: 16px;
+   font-family: "Poppins", sans-serif;
+}
+.img_bienvenue{
+   width: 30px;
+   height: 30px;
+}
+.logout-icon {
+   width: 30px;
+   height: 30px;
+   cursor: pointer;
+   position: absolute;
+   top: 43px;
+   right:178px;
+   border-bottom: none;
+}
+.logout-link:hover .logout-icon {
+   transform: scale(1.2); /* agrandir l icone lors de survol */
+
 }
 /*style menu burger*/
 .menu-burger {
@@ -85,6 +129,8 @@ header {
    height: 3px;
    background-color: #333;
 }
+
+
 
 /* Media Queries pour rendre le header responsive */
 

@@ -23,14 +23,23 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
             $this->getReference('user_host_5')
         ];
 
-        $countries = [
-            $this->getReference('country_france'),
-            $this->getReference('country_thailand'),
-            $this->getReference('country_italy'),
-            $this->getReference('country_spain'),
-            $this->getReference('country_turkey'),
-            $this->getReference('country_greece'),
-            ];
+        $cities = [
+            $this->getReference('city_Paris'),
+            $this->getReference('city_Barcelona'),
+            $this->getReference('city_Rome'),
+            $this->getReference('city_Ibiza'),
+            $this->getReference('city_Istanbul'),
+            $this->getReference('city_Phuket'),
+            $this->getReference('city_cappadocia'),
+            $this->getReference('city_Chamonix'),
+            $this->getReference('city_Trabzon'),
+            $this->getReference('city_Marseille'),
+            $this->getReference('city_Chiang Mai'),
+            $this->getReference('city_Venice'),
+            $this->getReference('city_Antalya'),
+            $this->getReference('city_Bangkok'),
+            $this->getReference('city_Nice'),
+        ];
 
         $titles = [
             'Appartement cosy à Paris ',
@@ -68,7 +77,7 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
                 ->setUpdateDate(new \DateTimeImmutable())
                 ->setPropertyType($faker->randomElement([propertyType::Apartment, propertyType::House]))
                 ->setHost($hosts[$faker->numberBetween(0, count($hosts) - 1)])
-                ->setCountry($countries[array_rand($countries)]);
+                ->setCity($cities[array_rand($cities)]);
 
             $this->addReference('accommodation_' . $i, $accommodation);
 
@@ -82,7 +91,7 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
-            CountryFixture::class,
+            CityFixture::class,
         ];
     }
 }

@@ -1,0 +1,26 @@
+<form action="{{ path('search_result') }}" method="get" class="search-bar">
+    <div class="search-field">
+        <label for="destination">Destination</label>
+        <select id="destination" name="destination" class="form-control">
+            <option value="">Sélectionnez un pays</option>
+            {% for country in countries %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="search-field">
+        <label for="type">Type</label>
+        <select id="type" name="type" class="form-control">
+            <option value="">Sélectionner un type</option>
+            <option value="accommodation">Logement</option>
+            <option value="activity">Activité</option>
+        </select>
+    </div>
+
+    <button type="submit" class="search-btn">
+        <img src="{{ asset('images/search1.png') }}" alt="Search Icon">
+        Rechercher
+    </button>
+</form>
+

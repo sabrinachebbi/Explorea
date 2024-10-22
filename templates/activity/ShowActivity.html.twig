@@ -1,11 +1,40 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}showDetails Accommodation{% endblock %}
-
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block title %}Détails de l'Activité{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
+{% endblock %}
 
 {% block body %}
+    <a href="{{ path('app_activity_showAll') }}" class="back-to-accommodation1">
+        <img src="{{ asset('images/en-arriere.png') }}" alt="" class="back-icon1">
+    </a>
+    <div class="details1">
+        <h1>{{ activity.title }}</h1>
 
-    {% include '_partials/cardActivity.html.twig'  %}
 
+        {% for picture in activity.pictures %}
+            <img class="image1" src="{{ asset(picture.imageURL) }}" alt="">
+        {% endfor %}
 
+        <!-- Détails de activities -->
+
+        <div class="details-section">
+            <p><strong>Hôte :</strong> {{ activity.host.userProfile.firstName}} </p>
+            <p><strong>Prix :</strong> {{ activity.price }} €</p>
+            <p><strong>Catégorie :</strong> {{ activity.category.name }}</p>
+            <p><strong>Description :</strong> {{ activity.description }}</p>
+            <p><strong>Adresse :</strong> {{ activity.address }}</p>
+            <p><strong>Ville :</strong> {{ activity.city.name }}</p>
+            <p><strong>Pays :</strong> {{ activity.city.country.name }}</p>
+        </div>
+
+        <a href="{{ path('reservation_activity', {'id': activity.id }) }}">Réserver cette activité</a>
+
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/ReservationDate.js') }}"></script>
 {% endblock %}

@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block title %}Publier une Annonce{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/publish.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <h2>Publiez une annonce</h2>
+
+        <!-- Boutons pour basculer entre les formulaires -->
+        <div class="button-group">
+            <button id="accommodation-btn" class="btn">Ajouter un Logement</button>
+            <button id="activity-btn" class="btn">Ajouter une Activité</button>
+        </div>
+
+        <!-- Formulaire d'hébergement (affiché par défaut) -->
+        <div id="accommodation-form" class="form-container">
+            {{ form_start(AccommodationForm) }}
+            <h2>
+                {% if accommodation is defined %}
+                    Modifier {{ accommodation.title }}
+                {% else %}
+                    Proposez Votre Hébergement <br> aux Voyageurs
+                {%  endif %}
+            </h2>
+
+            <div class="form-group">
+                {{ form_label(AccommodationForm.title) }}
+                {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.city) }}
+                {{ form_widget(AccommodationForm.city, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.city) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.address) }}
+                {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.address) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.description) }}
+                {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.description) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.priceNight) }}
+                {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.priceNight) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.NbGuests) }}
+                {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.NbGuests) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.NbRooms) }}
+                {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.NbRooms) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.propertyType) }}
+                {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.propertyType) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(AccommodationForm.pictures) }}
+                {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(AccommodationForm.pictures) }}
+                </div>
+            </div>
+                <button type="submit" class="btn">
+                    {% if accommodation is defined %}
+                        Mettre à Jour
+                    {% else %}
+                        Ajouter
+                    {% endif %}
+                </button>
+
+            {{ form_end(AccommodationForm) }}
+        </div>
+
+        <!-- Formulaire d'activité (caché par défaut) -->
+        <div id="activity-form" class="form-container" style="display: none;">
+            <h2>Proposez une Expérience Unique <br> aux Voyageurs</h2>
+
+            {{ form_start(ActivityForm) }}
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.title) }}
+                {{ form_widget(ActivityForm.title, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(ActivityForm.city) }}
+                {{ form_widget(ActivityForm.city, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.city) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.address) }}
+                {{ form_widget(ActivityForm.address, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.address) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.description) }}
+                {{ form_widget(ActivityForm.description, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.description) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.price) }}
+                {{ form_widget(ActivityForm.price, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.price) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.category) }}
+                {{ form_widget(ActivityForm.category, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.category) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(ActivityForm.pictures) }}
+                {{ form_widget(ActivityForm.pictures, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.pictures) }}
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Ajouter</button>
+
+            {{ form_end(ActivityForm) }}
+        </div>
+
+
+        <script src="{{ asset('js/showForms.js') }}"></script>
+{% endblock %}

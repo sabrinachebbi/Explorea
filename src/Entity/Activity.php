@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ActivitiesRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: ActivitiesRepository::class)]
+#[ORM\Entity(repositoryClass: ActivityRepository::class)]
 class Activity
 {
     #[ORM\Id]
@@ -57,10 +57,20 @@ class Activity
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'activityPictures')]
     private Collection $pictures;
 
+    #[ORM\Column]
+    private ?int $duration = null;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'activity')]
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
 
@@ -230,6 +240,48 @@ class Activity
             // set the owning side to null (unless already changed)
             if ($picture->getActivityPictures() === $this) {
                 $picture->setActivityPictures(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): static
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getActivity() === $this) {
+                $review->setActivity(null);
             }
         }
 

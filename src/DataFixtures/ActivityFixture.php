@@ -80,7 +80,8 @@ class ActivityFixture extends Fixture implements DependentFixtureInterface
                 ->setAddress($faker->address())
                 ->setCategory($categories[$faker->numberBetween(0, count($categories) - 1)])
                 ->setHost($hosts[$faker->numberBetween(0, count($hosts) - 1)])
-                ->setCity($cities[$i]);
+                ->setCity($cities[$i])
+                ->setDuration($faker->numberBetween(1, 7));
 
             $this->addReference('activity_' . $i, $activity);
 

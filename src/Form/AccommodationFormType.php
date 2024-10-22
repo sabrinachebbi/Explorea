@@ -20,19 +20,16 @@ class AccommodationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-
         $builder
             ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Titre',
             ])
-            ->add('country', EntityType::class, [
-                'class' => Country::class,
-                'choice_label' => 'name',
-                'placeholder' => 'Sélectionnez un pays',
-                'label' => 'Pays',
-                'required' => true,
-            ])
+               ->add('city', EntityType::class, [
+                   'class' => City::class,
+                   'choice_label' => 'name',
+                   'placeholder' => 'Sélectionnez une ville',
+               ])
             ->add('address', TextType::class, [
                 'required' => false,
                 'label' => 'Adresse',
@@ -57,14 +54,12 @@ class AccommodationFormType extends AbstractType
             ])
             ->add('pictures', FileType::class, [
                 'label' => 'Images',
-              'multiple' => true,  /*user peut telecharger plusier images a la fois*/
+                'multiple' => true,
                 'mapped' => false,
                 'required' => false,
                 'attr' => ['accept' => 'image/*'],
             ]);
     }
-
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {

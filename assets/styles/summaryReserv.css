@@ -1,0 +1,58 @@
+
+.reservation-summary {
+    max-width: 1000px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 4px 12px rgb(0 0 0 / 24%);
+   margin:160px  auto  ;
+}
+
+.reservation-summary h2 {
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 20px;
+}
+
+.reservation-summary p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    font-family: "Poppins", sans-serif;
+}
+
+.reservation-summary p strong {
+    color: #000;
+}
+
+.buttons{
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn_cancel {
+    background-color: #e74c3c;
+}
+
+.btn_confirm {
+    background-color: #2ecc71;
+}
+.back-to-accommodation .back-icon {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left:440px;
+    top: 215px;
+}
+

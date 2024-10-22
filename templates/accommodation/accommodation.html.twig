@@ -1,28 +1,55 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accommodations{% endblock %}
- {% block importmap %}
-     {{ importmap('accomodation') }}
-     {{ importmap('pagination') }}
- {% endblock %}
 
-
-{% block body %}
-
-   {#card d'annoces#}
-    <div class="card-container">
-        {% for accommodation in accommodations %}
-            <script src="{{ asset('js/carousel.js') }}"></script>
-            {% include '_partials/cardAccomodation.html.twig' %}
-        {% endfor %}
-    </div>
-
-{# pagination#}
-    <div class="pagination-container">
-        {{ knp_pagination_render(accommodations) }}
-        <a rel="next" href="/accommodation/?page=2"></a>
-    </div>
-
+{% block importmap %}
+    {{ importmap('accomodation') }}
+    {{ importmap('pagination') }}
 {% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
 
+{% block body %}
+    {# Flash messages #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
+
+    {# Conteneur pour les cartes d'annonces et le formulaire #}
+    <div class="accommodation-container">
+        {# Cartes d'annonces #}
+        <div class="accommodation-list">
+            <div class="card-container">
+                {% if accommodations is not empty %}
+                {% for accommodation in accommodations %}
+                    <script src="{{ asset('js/carousel.js') }}"></script>
+                    {% include '_partials/cardAccomodation.html.twig' %}
+                {% endfor %}
+                {% else %}
+                    <p>Aucun résultat trouvé.</p>
+                {% endif %}
+            </div>
+
+            {# Pagination #}
+            <div class="pagination-container">
+                {{ knp_pagination_render(accommodations) }}
+            </div>
+        </div>
+
+        {# Formulaire de filtrage placé à droite #}
+        <div class="filter-section">
+            {% include '_partials/_Filter_Accommodation.html.twig' %}
+        </div>
+    </div>
+{% endblock %}

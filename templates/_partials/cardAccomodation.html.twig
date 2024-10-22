@@ -1,5 +1,6 @@
 
 <div class="card" data-accommodation-id="{{ accommodation.id }}">
+
     <div class="image-gallery">
         <div class="carousel" id="carousel-{{ accommodation.id }}">
             {% for picture in accommodation.pictures %}
@@ -8,13 +9,23 @@
             {% endfor %}
 
         </div>
+        <!-- Bouton favori -->
+        <div class="favorite-button">
+            <a href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">
+                {% if app.user and app.user.favoriteAccommodation.contains(accommodation) %}
+                    <img src="{{ asset('images/addFavorite.jpg') }}" alt="Retirer des favoris" class="favorite-icon filled">
+                {% else %}
+                    <img src="{{ asset('images/retireFavorite.png') }}" alt="Ajouter aux favoris" class="favorite-icon empty">
+                {% endif %}
+            </a>
+        </div>
         <button class="prev" onclick="plusSlides({{ accommodation.id }}, -1)">&#10094;</button>
         <button class="next" onclick="plusSlides({{ accommodation.id }}, 1)">&#10095;</button>
     </div>
     <h4>{{ accommodation.title }}</h4>
     <div class="position">
         <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
-        <div class="title-first">{{ accommodation.address }}, {{ accommodation.country.name }}</div>
+        <div class="title-first">{{ accommodation.address }}, {{ accommodation.city.name }},{{ accommodation.city.country.name }}</div>
     </div>
     <section class="details1">
         <div class="details1">
@@ -34,14 +45,17 @@
         {% if is_granted('ROLE_HOST') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
             <form action="{{ path('app_accommodation_remove', {'id': accommodation.id}) }}" method="post" class="form-delete">
-                <input type="hidden" name="token" value="{{ csrf_token('delete-accommodation-' ~ accommodation.id) }}">
-                <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')"><img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete"></button>
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-acommodation' ~ accommodation.id) }}">
+                <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">
+                    <img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete">
+                </button>
             </form>
+
         {% endif %}
     </div>
 
-
 </div>
+
 
 
 

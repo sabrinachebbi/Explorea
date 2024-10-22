@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mettre à ajour mon annonce {{ accommodation.title }}n{% endblock %}
-  {% block importmap %}{{ importmap('newAccomodation') }}{% endblock %}
+{% block title %}Mettre à ajour mon annonce {{ accommodation.title }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
+{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block body %}
-    <div class="form-container">
+    <div class="form-container1">
     {{ form_start(AccommodationForm) }}
     <h2>
         {% if accommodation is defined %}
@@ -23,7 +25,13 @@
             {{ form_errors(AccommodationForm.title) }}
         </div>
     </div>
-
+    <div class="form-group">
+        {{ form_label(AccommodationForm.city) }}
+        {{ form_widget(AccommodationForm.city, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.city) }}
+        </div>
+    </div>
     <div class="form-group">
         {{ form_label(AccommodationForm.address) }}
         {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
@@ -31,7 +39,6 @@
             {{ form_errors(AccommodationForm.address) }}
         </div>
     </div>
-
     <div class="form-group">
         {{ form_label(AccommodationForm.description) }}
         {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
@@ -39,7 +46,6 @@
             {{ form_errors(AccommodationForm.description) }}
         </div>
     </div>
-
     <div class="form-group">
         {{ form_label(AccommodationForm.priceNight) }}
         {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
@@ -63,9 +69,16 @@
     </div>
     <div class="form-group">
         {{ form_label(AccommodationForm.propertyType) }}
-        {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}*
+        {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
         <div class="error">
             {{ form_errors(AccommodationForm.propertyType) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.pictures) }}
+        {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.pictures) }}
         </div>
     </div>
 

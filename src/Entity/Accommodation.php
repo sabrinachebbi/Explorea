@@ -67,8 +67,6 @@ class Accommodation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $host = null;
 
-    #[ORM\ManyToOne(inversedBy: 'accommodations')]
-    private ?Country $country = null;
 
     /**
      * @var Collection<int, Picture>
@@ -76,9 +74,27 @@ class Accommodation
     #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'accommodationPictures')]
     private Collection $pictures;
 
+    #[ORM\ManyToOne(inversedBy: 'accommodations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?City $city = null;
+
+    /**
+     * @var Collection<int, Reservation>
+     */
+    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'accommodation')]
+    private Collection $reservations;
+
+    /**
+     * @var Collection<int, Review>
+     */
+    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'accommodation')]
+    private Collection $reviews;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
 
@@ -208,17 +224,6 @@ class Accommodation
         return $this;
     }
 
-    public function getCountry(): ?Country
-    {
-        return $this->country;
-    }
-
-    public function setCountry(?Country $country): static
-    {
-        $this->country = $country;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Picture>
@@ -244,6 +249,78 @@ class Accommodation
             // set the owning side to null (unless already changed)
             if ($picture->getAccommodationPictures() === $this) {
                 $picture->setAccommodationPictures(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setAccommodation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getAccommodation() === $this) {
+                $reservation->setAccommodation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Review>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): static
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setAccommodation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): static
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getAccommodation() === $this) {
+                $review->setAccommodation(null);
             }
         }
 

@@ -4,7 +4,7 @@ namespace App\Controller\Administration;
 
 use App\Entity\Activity;
 use App\Form\administration\ActivityType;
-use App\Repository\ActivitiesRepository;
+use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +16,7 @@ use DateTimeImmutable;
 class AdminActivityController extends AbstractController
 {
     #[Route('/', name: 'list', methods: ['GET'])]
-    public function list(ActivitiesRepository $activitiesRepository): Response
+    public function list(ActivityRepository $activitiesRepository): Response
     {
         return $this->render('administration/admin_activity/index.html.twig', [
             'activities' => $activitiesRepository->findAll(),

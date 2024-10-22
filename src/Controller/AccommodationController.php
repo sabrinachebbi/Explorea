@@ -4,9 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Accommodation;
 use App\Entity\Picture;
+use App\Entity\Reservation;
+use App\Form\AccommodationFilterType;
 use App\Form\AccommodationFormType;
+use App\Form\ReservationAccommodationFormType;
 use App\Repository\AccommodationRepository;
+use App\Repository\CountryRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,16 +24,44 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class AccommodationController extends AbstractController
 {
     //fonction pour afficher mes accomodations
+    // Fonction pour afficher les accommodations avec pagination et filtrage
     #[Route('/', name: 'showAll')]
-    public function index(Request $request ,AccommodationRepository $accommodationRepository): Response
+    public function index(Request $request, AccommodationRepository $accommodationRepository, PaginatorInterface $paginator): Response
     {
-        $page = $request->query->getInt('page',1);
-        $limit = $request->query->getInt('limit',6);
-        $accommodations = $accommodationRepository->paginate($page, $limit);
+        // Créer le formulaire de filtrage
+        $form = $this->createForm(AccommodationFilterType::class);
+        $form->handleRequest($request);
+
+        $page = $request->query->getInt('page', 1);
+        $limit = 6;
+
+        // Si le formulaire est soumis et valide, appliquer le filtrage
+        if ($form->isSubmitted() && $form->isValid()) {
+            $query = $accommodationRepository->filterAccommodation(
+                $form->get('propertyType')->getData(),
+                $form->get('country')->getData(),
+                $form->get('priceMin')->getData(),
+                $form->get('priceMax')->getData()
+            );
+        } else {
+            // Par défaut, on récupère toutes les accommodations
+            $query = $accommodationRepository->createQueryBuilder('a')->getQuery();
+        }
+
+        // Pagination des résultats
+        $accommodations = $paginator->paginate(
+            $query,
+            $page, // Numéro de la page
+            $limit // Nombre d'éléments par page
+        );
+
+        // Rendu de la vue avec le formulaire et les accommodations (filtrées ou non)
         return $this->render('accommodation/accommodation.html.twig', [
-            'accommodations' => $accommodations,
+            'form' => $form->createView(),
+            'accommodations' => $accommodations, // Résultats paginés
         ]);
     }
+
 
     //fonction pour ajouter une accommodation
     #[Route('/new', name: 'new')]
@@ -94,23 +127,34 @@ class AccommodationController extends AbstractController
     #[Route('/show/{id}', name: 'showDetails')]
     #[IsGranted('ROLE_USER')]
     public function show( Accommodation $accommodation): Response {
+        $reservation = new Reservation();
+        $form = $this->createForm(ReservationAccommodationFormType::class, $reservation, [
+            'action' => $this->generateUrl('reservation_accommodation', ['id' => $accommodation->getId()]),
+            'method' => 'POST'
+        ]);
 
         return $this->render('accommodation/showAccommodation.html.twig',[
             'accommodation' => $accommodation,
+            'reservationForm' => $form->createView(),  // Passer le formulaire au template
         ]);
     }
 
     //fonction pour supprimer une annonce
-    #[Route('/remove/{id}', name: 'remove')]
+    #[Route('/remove/{id}', name: 'remove', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
         $user = $this->getUser();
         if (!$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')){
             return $this->redirectToRoute('app_accommodation_showAll');
         }
-        $token = $request->getPayload()->get('token');
+        $token = $request->request->get('_token');
 
         if($this->isCsrfTokenValid('delete-acommodation' . $accommodation->getId(), $token)){
+
+            //supprimer les images associées aussi
+            foreach ($accommodation->getPictures() as $picture) {
+                $entityManager->remove($picture);
+            }
             $entityManager->remove($accommodation);
             $entityManager->flush();
             return $this->redirectToRoute('app_accommodation_showAll');

@@ -6,6 +6,7 @@ use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
@@ -18,14 +19,10 @@ class Reservation
     #[ORM\Column]
     private ?\DateTimeImmutable $departureDate = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $returnDate = null;
 
-    #[ORM\Column]
-    private ?int $nbAdults = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $nbChildren = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $dateCreation = null;
@@ -46,9 +43,27 @@ class Reservation
     #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'reservations')]
     private Collection $activities;
 
+    #[ORM\Column(type: 'integer')]
+    #[Assert\GreaterThanOrEqual(value:1,message: 'Le nombre de voyageurs doit être d\'au moins 1')]
+    private ?int $voyagerNb = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $traveler = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    private ?Accommodation $accommodation = null;
+
+    /**
+     * @var Collection<int, Notification>
+     */
+    #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'reservation')]
+    private Collection $notifications;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
     }
 
 
@@ -77,30 +92,6 @@ class Reservation
     public function setReturnDate(\DateTimeImmutable $returnDate): static
     {
         $this->returnDate = $returnDate;
-
-        return $this;
-    }
-
-    public function getNbAdults(): ?int
-    {
-        return $this->nbAdults;
-    }
-
-    public function setNbAdults(int $nbAdults): static
-    {
-        $this->nbAdults = $nbAdults;
-
-        return $this;
-    }
-
-    public function getChildreb(): ?int
-    {
-        return $this->nbChildren;
-    }
-
-    public function setNbChildren(?int $nbChildren): static
-    {
-        $this->nbChildren = $nbChildren;
 
         return $this;
     }
@@ -176,4 +167,91 @@ class Reservation
 
         return $this;
     }
+
+    public function getVoyagerNb(): ?int
+    {
+        return $this->voyagerNb;
+    }
+
+    public function setVoyagerNb(int $voyagerNb): static
+    {
+        $this->voyagerNb = $voyagerNb;
+
+        return $this;
+    }
+
+    public function getTraveler(): ?User
+    {
+        return $this->traveler;
+    }
+
+    public function setTraveler(?User $traveler): static
+    {
+        $this->traveler = $traveler;
+
+        return $this;
+    }
+
+    public function getAccommodation(): ?Accommodation
+    {
+        return $this->accommodation;
+    }
+
+    public function setAccommodation(?Accommodation $accommodation): static
+    {
+        $this->accommodation = $accommodation;
+
+        return $this;
+    }
+    public function calculateTotal(): float
+    {
+        $total = 0;
+
+        if ($this->getAccommodation()) {
+            $nbNights = $this->getDepartureDate()->diff($this->getReturnDate())->days;
+            $total += $nbNights * $this->getAccommodation()->getPriceNight();
+        }
+
+        if ($this->getActivities()->count() > 0) {
+            foreach ($this->getActivities() as $activity) {
+                $total += $activity->getPrice() * $this->getVoyagerNb();
+            }
+        }
+
+        return $total;
+    }
+
+    /**
+     * @return Collection<int, Notification>
+     */
+    public function getNotifications(): Collection
+    {
+        return $this->notifications;
+    }
+
+    public function addNotification(Notification $notification): static
+    {
+        if (!$this->notifications->contains($notification)) {
+            $this->notifications->add($notification);
+            $notification->setReservation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotification(Notification $notification): static
+    {
+        if ($this->notifications->removeElement($notification)) {
+            // set the owning side to null (unless already changed)
+            if ($notification->getReservation() === $this) {
+                $notification->setReservation(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+
 }

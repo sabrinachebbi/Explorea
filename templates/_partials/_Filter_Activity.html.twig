@@ -1,0 +1,32 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
+{% endblock %}
+
+<div class="filter-form">
+    <h2 class="filter-title">Filtres</h2>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.category) }}
+        {{ form_widget(form.category) }}
+        {{ form_errors(form.category) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.country) }}
+        {{ form_widget(form.country) }}
+        {{ form_errors(form.country) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(form.duration) }}
+        {{ form_widget(form.duration) }}
+        {{ form_errors(form.duration) }}
+    </div>
+    <label class="price">Prix</label>
+    <div class="form-group1 form-group">
+        {{ form_widget(form.priceMin, { 'attr': { 'placeholder': 'Min' } }) }}
+        {{ form_errors(form.priceMin) }}
+        {{ form_widget(form.priceMax, { 'attr': { 'placeholder': 'Max' } }) }}
+        {{ form_errors(form.priceMax) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Rechercher</button>
+    {{ form_end(form) }}
+</div>

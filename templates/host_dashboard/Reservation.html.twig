@@ -1,0 +1,73 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/HostNotification.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
+{% block body %}
+    {% for message in app.flashes('success')  %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+            {% endfor %}
+    {% for message in app.flashes('warning')  %}
+        <div class="alert alert-warning flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
+
+    <h1>Mes Réservations</h1>
+
+
+    {% if reservations|length > 0 %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Hébergement/Activité</th>
+                <th>Date de départ</th>
+                <th>Nb voyageurs</th>
+                <th>Statut</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for reservation in reservations %}
+                <tr>
+                    <td>
+                        {% if reservation.accommodation %}
+                            {{ reservation.accommodation.title }}
+                        {% else %}
+                            {{ reservation.activities|first.title }}
+                            {% if reservation.activities|length > 1 %}
+                                + {{ reservation.activities|length - 1 }} autres activités
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>{{ reservation.departureDate|date('d/m/Y') }}</td>
+                    <td>{{ reservation.voyagerNb }}</td>
+                    <td>{{ reservation.status.status.value }}</td>
+                    <td>{{ reservation.total }} €</td>
+                    <td>
+                        {% if reservation.status.status.value == 'Confirmé' %}
+                            <a href="{{ path('review_accommodation', { 'id': reservation.accommodation.id }) }}">
+                                <img src="{{ asset('images/revoir.png') }}" alt="Laisser un avis" class="review-icon">
+                            </a>
+                        {% endif %}
+
+                        {% if reservation.status.status.value == 'En attente' %}
+                            <a href="{{ path('reservation_update', { 'id': reservation.id }) }}">
+                                <img src="{{ asset('images/update.png') }}" alt="Mettre à jour la réservation" class="review-icon">
+                            </a>
+                        {% endif %}
+                    </td>
+
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Vous n'avez pas encore effectué de réservations.</p>
+    {% endif %}
+{% endblock %}

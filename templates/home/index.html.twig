@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block title %}Acceuil{% endblock %}
- {% block importmap %}{{ importmap(['app','acceuil','header']) }}{% endblock %}
+ {% block importmap %}{{ importmap(['app','acceuil','header','footer']) }}{% endblock %}
    {% block stylesheets %}
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,28 +24,30 @@
 {# fin partie1#}
 
 {# partie 2 #}
-    <form class="search-bar">
-        <div class="search-field">
-            <label for="location">destination</label>
-            <input type="text" id="location" placeholder="destination préférée">
-        </div>
-        <div class="search-field">
-            <label for="check-in">date de depart</label>
-            <input type="date"  placeholder="Quand">
-        </div>
-        <div class="search-field">
-            <label for="check-out">date d'arrivéé</label>
-            <input type="date" placeholder="Quand">
-        </div>
-        <div class="search-field">
-            <label for="check-out">nombre voyageur</label>
-            <input type="number" min="1" max="10" value="1" placeholder="Ajouter">
-        </div>
-        <button class="search-btn">
-            <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search Icon">
-        </button>
-    </form>
-{#    fin partie2#}
+    <form action="{{ path('search_result') }}" method="get" class="search-bar">
+    <div class="search-field">
+        <label for="destination">Destination</label>
+        <select id="destination" name="destination" class="form-control">
+            <option value="">Sélectionnez une destination </option>
+            {% for country in countries %}
+                <option value="{{ country.name }}">{{ country.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="search-field">
+        <label for="type">Type</label>
+        <select id="type" name="type" class="form-control" >
+            <option value="">Sélectionner un type</option>
+            <option value="accommodation">Logement</option>
+            <option value="activity">Activité</option>
+        </select>
+    </div>
+
+    <button type="submit" class="search-btn">
+        <img src="{{ asset('images/search1.png') }}" alt="Search Icon">
+        Rechercher
+    </button>
+</form>
 
     {# partie3 #}
      <article id="article1">

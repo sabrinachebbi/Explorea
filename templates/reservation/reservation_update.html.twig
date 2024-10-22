@@ -1,0 +1,32 @@
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/reservationUpdate.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
+{% block body %}
+<div class="form-container">
+    <h1>Mettre à jour <br> votre réservation</h1>
+
+    {{ form_start(reservationForm) }}
+    <div class="form-group">
+        {{ form_label(reservationForm.departureDate) }}
+        {{ form_widget(reservationForm.departureDate, {'attr': {'class': 'form-control1'}}) }}
+        {{ form_errors(reservationForm.departureDate) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(reservationForm.returnDate) }}
+        {{ form_widget(reservationForm.returnDate, {'attr': {'class': 'form-control1'}}) }}
+        {{ form_errors(reservationForm.returnDate) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(reservationForm.voyagerNb) }}
+        {{ form_widget(reservationForm.voyagerNb, {'attr': {'class': 'form-control1'}}) }}
+        {{ form_errors(reservationForm.voyagerNb) }}
+    </div>
+
+    <button type="submit" class="btn_update">Mettre à jour</button>
+    {{ form_end(reservationForm) }}
+</div>
+{% endblock %}

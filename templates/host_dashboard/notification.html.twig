@@ -1,0 +1,57 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/HostNotification.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert alert-warning flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
+
+    <h1>Mes notifications</h1>
+
+    {% if notifications|length > 0 %}
+        <table class="table_notif">
+            <thead>
+            <tr>
+                <th>Notifications</th>
+                <th>Date de réservation</th>
+                <th>Hébergement</th>
+                <th>Voyageur</th>
+                <th>Date de départ</th>
+                <th>Nombre de voyageurs</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for notification in notifications %}
+                <tr>
+                    <td>{{ notification.message}}</td>
+                    <td>{{ notification.reservation.dateCreation|date('d/m/Y H:i') }}</td>
+                    <td>{{ notification.reservation.accommodation.title }}</td>
+                    <td>{{ notification.reservation.traveler.userProfile.firstName }} {{ notification.reservation.traveler.userProfile.lastName }}</td>
+                    <td>{{ notification.reservation.departureDate|date('d/m/Y') }}</td>
+                    <td>{{ notification.reservation.voyagerNb }}</td>
+                    <td>{{ notification.reservation.total }} €</td>
+                    <td class="btn_reserv">
+                        <a href="{{ path('host_confirm_host', {'id': notification.reservation.id}) }}" class="btn btn-success">Approuver</a>
+                        <a href="{{ path('host_cancel_host', {'id': notification.reservation.id}) }}" class="btn btn-danger">Annuler</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucune notification de réservation.</p>
+    {% endif %}
+{% endblock %}
+

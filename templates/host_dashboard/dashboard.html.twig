@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block importmap %}
+    {{ importmap('dashboard') }}
+{% endblock %}
+
+{% block title %}Dashboard Hôte{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+
+        <nav class="sidebar">
+            <div class="avatar-container">
+                {% if userProfile.gender.value == 'Femme' %}
+                    <img src="{{ asset('images/woman.png') }}" alt="Avatar Femme" class="avatar">
+                {% else %}
+                    <img src="{{ asset('images/man.png') }}" alt="Avatar Homme" class="avatar">
+                {% endif %}
+            </div>
+
+             {#les section de dashboard#}
+            <ul>
+                <li><a href="{{ path('host_profile') }}">Profil</a></li>
+                <li><a href="{{ path('host_accommodations') }}">Mes Hébergements</a></li>
+                <li><a href="{{ path('host_activities') }}">Mes Activités</a></li>
+                <li><a href="{{ path('host_reservations') }}">Mes Réservations</a></li>
+                <li><a href="{{ path('host_notification') }}">Notifications de Réservation</a></li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+
+        <!-- le contenue de chaque section-->
+
+        <div class="main-content">
+            {% if section == 'profile' %}
+                {% include 'user_profile/show.html.twig' %}
+            {% elseif section == 'accommodations' %}
+                {% include 'host_dashboard/HostAccommodation.html.twig' %}
+            {% elseif section == 'activities' %}
+                {% include 'host_dashboard/HostActivities.html.twig' %}
+            {% elseif section =='notification' %}
+                {% include 'host_dashboard/notification.html.twig' %}
+            {% elseif section =='reservations' %}
+                {% include 'host_dashboard/Reservation.html.twig' %}
+                {%else %}
+                <h1>Vous n'avez pas encore aucun annonces publiés</h1>
+            {% endif %}
+        </div>
+    </div>
+
+            {% endblock %}
+
+

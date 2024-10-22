@@ -1,6 +1,9 @@
-{% block importmap %}{{ importmap('notif-message') }}{% endblock %}
-<div class="flash-messages">
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/notification-message.css') }}">
+{% endblock %}
 
+
+<div class="flash-messages">
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="flash-message flash-{{ label }}">

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block importmap %}
+    {{ importmap('activity') }}
+    {{ importmap('pagination') }}
+    {{ importmap('accomodation') }}
+{% endblock %}
+{% block title %}Mes Favoris{% endblock %}
+
+{% block body %}
+
+
+    <!-- Section Hébergements Favoris -->
+    <h2 class="favoris_title">Hébergements Favoris</h2>
+    {% if accommodations|length > 0 %}
+        <div class="card-container">
+            {% for accommodation in accommodations %}
+                {% include '_partials/cardAccomodation.html.twig' %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Vous n'avez pas encore ajouté d'hébergements à vos favoris.</p>
+    {% endif %}
+
+    <!-- Section Activités Favorites -->
+    <h2 class="favoris_title">Activités Favorites</h2>
+    {% if activities|length > 0 %}
+        <div class="container_activity">
+            {% for activity in activities %}
+                <div class="card">
+                    {% include '_partials/cardActivity.html.twig' %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Vous n'avez pas encore ajouté d'activités à vos favoris.</p>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/carousel.js') }}"></script>
+{% endblock %}

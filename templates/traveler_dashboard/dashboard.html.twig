@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block importmap %}
+    {{ importmap('dashboard') }}
+{% endblock %}
+
+{% block title %}Dashboard Traveler{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+
+        <nav class="sidebar">
+            <div class="avatar-container">
+                {% if userProfile.gender.value == 'Femme' %}
+                    <img src="{{ asset('images/woman.png') }}" alt="Avatar Femme" class="avatar">
+                {% else %}
+                    <img src="{{ asset('images/man.png') }}" alt="Avatar Homme" class="avatar">
+                {% endif %}
+            </div>
+
+            {#les section de dashboard#}
+            <ul>
+                <li><a href="{{ path('traveler_profile') }}">Profil</a></li>
+                <li><a href="{{ path('traveler_reservations') }}">Mes Réservations</a></li>
+                <li><a href="{{ path('traveler_reviews') }}">Avis</a></li>
+                <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            </ul>
+        </nav>
+
+
+        <!-- le contenue de chaque section-->
+
+        <div class="main-content">
+            {% if section == 'profile' %}
+                {% include 'user_profile/show.html.twig' %}
+            {% elseif section =='reservations' %}
+                {% include 'host_dashboard/Reservation.html.twig' %}
+                {% elseif section =='avis' %}
+                    {% include 'review/ListReviews.html.twig' %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+

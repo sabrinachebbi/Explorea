@@ -6,6 +6,16 @@
                      style="display: {% if loop.first %}block{% else %}none{% endif %};">
             {% endfor %}
             </div>
+        <div class="favorite-button">
+            <a href="{{ path('toggle-favorite_activity', { 'id': activity.id }) }}">
+                {% if app.user and app.user.favoriteActivities.contains(activity) %}
+                    <img src="{{ asset('images/addFavorite.jpg') }}" alt="Retirer des favoris" class="favorite-icon filled">
+                {% else %}
+                    <img src="{{ asset('images/retireFavorite.png') }}" alt="Ajouter aux favoris" class="favorite-icon empty">
+                {% endif %}
+            </a>
+        </div>
+
         <button class="prev" onclick="plusSlides({{ activity.id }}, -1)">&#10094;</button>
         <button class="next" onclick="plusSlides({{ activity.id }}, 1)">&#10095;</button>
     </div>
@@ -13,20 +23,22 @@
     <h4>{{ activity.title }}</h4>
     <div class="position">
         <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
-        <div class="title-first"> {{ activity.address }},{{ activity.city.name }}</div>
+        <div class="title-first"> {{ activity.address }},{{ activity.city.name }} ,{{ activity.city.country.name }}</div>
     </div>
+    <p>{{ activity.duration }} jours</p>
     <p>{{ activity.description }}</p>
     <button class="price">{{ activity.price }}£</button>
         <div>{{ activity.category.name }}</div>
 
-{#<div class="btn-crud">#}
-{#    <a href="{{ path('app_activity_showAll', {'id': activity.id}) }}"><img src="{{ asset('images/info.png') }}" alt="" class="btn-show"></a>#}
-{#    {% if is_granted('ROLE_HOST') and activity.host.id == app.user.id or is_granted('ROLE_ADMIN') %}#}
-{#        <a href="{{ path('app_activity_update', {'id': activity.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>#}
-{#        <form action="{{ path('app_activity_remove', {'id': activity.id}) }}" method="post" class="form-delete">#}
-{#            <input type="hidden" name="token" value="{{ csrf_token('delete-activity-' ~ activity.id) }}">#}
-{#            <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')"><img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete"></button>#}
-{#        </form>#}
-{#    {% endif %}#}
-{#</div>#}
+<div class="btn-crud">
+    <a href="{{ path('app_activity_showDetails', {'id': activity.id}) }}"><img src="{{ asset('images/info.png') }}" alt="" class="btn-show"></a>
+    {% if is_granted('ROLE_HOST') and activity.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_activity_update', {'id': activity.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
+        <form action="{{ path('app_activity_remove', {'id': activity.id}) }}" method="post" class="form-delete">
+            <input type="hidden" name="token" value="{{ csrf_token('delete-activity-' ~ activity.id) }}">
+            <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')"><img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete"></button>
+        </form>
+    {% endif %}
+</div>
+
 

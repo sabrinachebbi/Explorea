@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\UserProfile;
+use App\Enum\GenderEnum;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,14 +24,29 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $selectedRole = $form->get('role')->getData();
+            $user->setRoles([$selectedRole]);
             $user->setPassword(
                 $userPasswordHasher-> hashPassword  (
                     $user,
                     $form->get('password')->getData()
                 )
             );
+            // Créer un nouveau profil utilisateur
+            $userProfile = new UserProfile();
+            $userProfile->setUser($user); // Lie le profil à l'utilisateur
+            $user->setUserProfile($userProfile);
+            $userProfile->setFirstName($form->get('firstName')->getData());
+            $userProfile->setLastName($form->get('lastName')->getData());
+            $userProfile->setGender($form->get('gender')->getData());
+
+
+
+
 
             $entityManager->persist($user);
+            $entityManager->persist($userProfile);
             $entityManager->flush();
             $this->addFlash('success',message: 'Bienvenue parmi nous, nouveau utilisateur !');
             return $this->redirectToRoute('app_login');

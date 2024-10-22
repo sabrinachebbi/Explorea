@@ -13,6 +13,14 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
 //
+        if ($this->getUser()) {
+
+            if ($this->isGranted('ROLE_HOST')) {
+                return $this->redirectToRoute('host_dashboard'); /*rédiriger vers l'interface hote*/
+            } elseif ($this->isGranted('ROLE_TRAVELER')) {
+                return $this->redirectToRoute('traveler_dashboard'); /*rédiriger vers l'interface voyageur*/
+            }
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

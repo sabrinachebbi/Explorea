@@ -1,0 +1,97 @@
+.accommodation-container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.filter-section {
+    width: 16%; /* Largeur de la section du formulaire */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.accommodation-list {
+    width: 93%;
+}
+
+.form-group {
+    margin-bottom: 50px;
+}
+.form-group1 {
+    display: flex;
+    gap: 10px;
+}
+/* Style des labels */
+.form-group label {
+    font-size: 17px;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Style des champs d'entrée (input, select) */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 16px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+
+/* Style du label personnalisé pour le prix */
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Style pour le bouton Filtrer */
+.btn-primary {
+    background-color: #2b5f94;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 17px;
+    width: 55%;
+    margin-left: 50px;
+}
+
+.btn-primary:hover {
+    background-color: #17a589;
+}
+
+/* Style des erreurs de validation */
+.form-group .form-error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+.filter-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 33px;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+    .accommodation-container {
+        flex-direction: column;
+    }
+
+    .filter-section,
+    .accommodation-list {
+        width: 100%;
+        margin: 0;
+    }
+}

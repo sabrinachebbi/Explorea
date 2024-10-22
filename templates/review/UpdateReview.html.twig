@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon avis{% endblock %}
+
+{% block body %}
+    <h1>Modifier mon avis</h1>
+
+    {{ form_start(reviewForm) }}
+    {{ form_widget(reviewForm) }}
+    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+    {{ form_end(reviewForm) }}
+{% endblock %}
