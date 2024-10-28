@@ -1,0 +1,15 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/MenueDéroulant.css') }}">
+{% endblock %}
+<div id="notification-menu" class="notification-menu">
+    <ul>
+        {% for notification in notifications %}
+            <li class="{{ notification.isRead ? 'read' : 'unread' }}">
+                <p>{{ notification.message }}</p>
+            </li>
+        {% else %}
+            <li><p>Aucune notification</p></li>
+        {% endfor %}
+    </ul>
+</div>
+

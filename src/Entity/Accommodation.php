@@ -9,8 +9,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AccommodationRepository::class)]
+#[Vich\Uploadable()]
 class Accommodation
 {
     #[ORM\Id]
@@ -68,12 +70,6 @@ class Accommodation
     private ?User $host = null;
 
 
-    /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'accommodationPictures')]
-    private Collection $pictures;
-
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
@@ -90,11 +86,16 @@ class Accommodation
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'accommodation')]
     private Collection $reviews;
 
+    /**
+     * @var Collection<int, Picture>
+     */
+    #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
+    private Collection $pictures;
     public function __construct()
     {
-        $this->pictures = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
 
@@ -225,36 +226,6 @@ class Accommodation
     }
 
 
-    /**
-     * @return Collection<int, Picture>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): static
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setAccommodationPictures($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getAccommodationPictures() === $this) {
-                $picture->setAccommodationPictures(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getCity(): ?City
     {
         return $this->city;
@@ -321,6 +292,36 @@ class Accommodation
             // set the owning side to null (unless already changed)
             if ($review->getAccommodation() === $this) {
                 $review->setAccommodation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setAccommodation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getAccommodation() === $this) {
+                $picture->setAccommodation(null);
             }
         }
 

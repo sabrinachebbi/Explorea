@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Review{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un avis</h1>
+
+    {{ include('administration/admin_review/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_review_index') }}">Retou à la liste</a>
+{% endblock %}

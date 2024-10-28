@@ -28,7 +28,7 @@
             </h2>
 
             <div class="form-group">
-                {{ form_label(AccommodationForm.title) }}
+                {{ form_label(AccommodationForm.title, 'Titre <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.title) }}
@@ -42,35 +42,35 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.address) }}
+                {{ form_label(AccommodationForm.address, 'Adresse <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.address) }}
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.description) }}
+                {{ form_label(AccommodationForm.description, 'Description <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.description) }}
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.priceNight) }}
+                {{ form_label(AccommodationForm.priceNight, 'Prix Nuité <span style="color: red;">*</span>', { 'label_html': true}) }}
                 {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.priceNight) }}
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.NbGuests) }}
+                {{ form_label(AccommodationForm.NbGuests, 'Nb Invités <span style="color: red;">*</span>', { 'label_html': true}) }}
                 {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.NbGuests) }}
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.NbRooms) }}
+                {{ form_label(AccommodationForm.NbRooms, 'Piéces <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.NbRooms) }}
@@ -84,11 +84,18 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(AccommodationForm.pictures) }}
-                {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
-                <div class="error">
-                    {{ form_errors(AccommodationForm.pictures) }}
-                </div>
+                {{ form_label(AccommodationForm.pictures, 'Images <span style="color: red;">*</span>', { 'label_html': true }) }}
+                <ul class="AccommodationPictures"
+                    data-index="{{ AccommodationForm.pictures|length > 0 ? AccommodationForm.pictures|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(AccommodationForm.pictures.vars.prototype)|e('html_attr') }}"
+                ></ul>
+                {% for picture in AccommodationForm.pictures %}
+                    <li>
+                        {{ form_errors(picture) }}
+                        {{ form_widget(picture, {'attr': {'class': 'form-control'}}) }}
+                    </li>
+                {% endfor %}
+                <button type="button" class="add_pictures" data-collection-holder-class="AccommodationPictures">Ajouter des images</button>
             </div>
                 <button type="submit" class="btn">
                     {% if accommodation is defined %}
@@ -108,7 +115,7 @@
             {{ form_start(ActivityForm) }}
 
             <div class="form-group">
-                {{ form_label(ActivityForm.title) }}
+                {{ form_label(ActivityForm.title, 'Titre <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(ActivityForm.title, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(ActivityForm.title) }}
@@ -123,15 +130,22 @@
             </div>
 
             <div class="form-group">
-                {{ form_label(ActivityForm.address) }}
+                {{ form_label(ActivityForm.address, 'Adresse <span style="color: red;">*</span>', { 'label_html': true })}}
                 {{ form_widget(ActivityForm.address, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(ActivityForm.address) }}
                 </div>
             </div>
+            <div class="form-group">
+                {{ form_label(ActivityForm.duration, 'Durée <span style="color: red;">*</span>', { 'label_html': true }) }}
+                {{ form_widget(ActivityForm.duration, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.duration) }}
+                </div>
+            </div>
 
             <div class="form-group">
-                {{ form_label(ActivityForm.description) }}
+                {{ form_label(ActivityForm.description, 'Description <span style="color: red;">*</span>', { 'label_html': true })  }}
                 {{ form_widget(ActivityForm.description, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(ActivityForm.description) }}
@@ -139,7 +153,7 @@
             </div>
 
             <div class="form-group">
-                {{ form_label(ActivityForm.price) }}
+                {{ form_label(ActivityForm.price, 'Prix <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(ActivityForm.price, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(ActivityForm.price) }}
@@ -154,18 +168,59 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(ActivityForm.pictures) }}
-                {{ form_widget(ActivityForm.pictures, {'attr': {'class': 'form-control'}}) }}
-                <div class="error">
-                    {{ form_errors(ActivityForm.pictures) }}
-                </div>
+                {{ form_label(ActivityForm.pictures, 'Images <span style="color: red;">*</span>', { 'label_html': true }) }}
+                <ul class="activityPictures"
+                    data-index="{{ ActivityForm.pictures|length > 0 ? ActivityForm.pictures|last.vars.name + 1 : 0 }}"
+                    data-prototype="{{ form_widget(ActivityForm.pictures.vars.prototype)|e('html_attr') }}"
+                ></ul>
+                {% for picture in ActivityForm.pictures %}
+                    <li>
+                        {{ form_errors(picture) }}
+                        {{ form_widget(picture, {'attr': {'class': 'form-control'}}) }}
+                    </li>
+                {% endfor %}
+                <button type="button" class="add_pictures" data-collection-holder-class="activityPictures">Ajouter des images</button>
             </div>
 
-            <button type="submit" class="btn">Ajouter</button>
+            <button type="submit" class="btn">
+                {% if activity is defined %}
+                    Mettre à Jour
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
+
+
+        </div>
+    </div>
 
             {{ form_end(ActivityForm) }}
-        </div>
+
+
 
 
         <script src="{{ asset('js/showForms.js') }}"></script>
+        <script>
+            document.querySelectorAll('.add_pictures').forEach(btn => {
+                btn.addEventListener("click", addFormToCollection)
+            });
+
+            function addFormToCollection(e) {
+                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                const item = document.createElement('li');
+
+                item.innerHTML = collectionHolder
+                    .dataset
+                    .prototype
+                    .replace(
+                        /__name__/g,
+                        collectionHolder.dataset.index
+                    );
+
+                collectionHolder.appendChild(item);
+                collectionHolder.dataset.index++;
+            }
+
+        </script>
+
 {% endblock %}

@@ -145,20 +145,10 @@ input:focus {
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
     .container {
         max-width: 100%;
-        height: 615px;
-    }
-
-    .authentif-form {
-        padding: 0;
-        margin: 10px;
     }
 
     .btn {
         font-size: 15px;
         left: 75px;
-    }
-
-    input {
-        font-size: 15px;
     }
 }

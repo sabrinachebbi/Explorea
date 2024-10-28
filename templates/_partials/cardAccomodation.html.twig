@@ -1,14 +1,15 @@
 
 <div class="card" data-accommodation-id="{{ accommodation.id }}">
 
-    <div class="image-gallery">
-        <div class="carousel" id="carousel-{{ accommodation.id }}">
-            {% for picture in accommodation.pictures %}
-                <img class="carousel-item" src="{{ asset(picture.imageURL)  }}" alt="Image de l'hébergement"
-                     style="display: {% if loop.first %}block{% else %}none{% endif %};">
-            {% endfor %}
-
-        </div>
+<div class="image-gallery">
+    <div class="carousel" id="carousel-{{ accommodation.id }}">
+        {% for picture in accommodation.pictures %}
+            <img class="carousel-item"
+                 src="{{ vich_uploader_asset(picture, 'accommodationImageFile') }}"
+                 alt="Image de l'accommodation"
+                 style="display: {% if loop.first %}block{% else %}none{% endif %};">
+        {% endfor %}
+    </div>
         <!-- Bouton favori -->
         <div class="favorite-button">
             <a href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">

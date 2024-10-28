@@ -1,36 +1,50 @@
-// Objet pour stocker l'index de la diapositive actuelle pour chaque hébergement
-var slideIndex = {};
+let slideIndex = {};
 
 // Fonction pour initialiser le slideIndex pour chaque carrousel
 function initSlides() {
-    // Sélectionne tous les carrousels
-    var carousels = document.querySelectorAll('.carousel');
+    // Sélectionne tous les éléments avec la classe 'carousel'
+    const carousels = document.querySelectorAll('.carousel');
+
     carousels.forEach(function(carousel) {
-        var id = carousel.id.split('-')[1]; // Supposant que l'id est 'carousel-<accommodationId>'
-        slideIndex[id] = 1; // Initialise l'index de la diapositive pour ce carrousel
-        showSlides(id, slideIndex[id]);
+        const id = carousel.id.split('-')[1]; // Récupère l'ID unique de chaque carrousel
+        slideIndex[id] = 1; // Initialise l'index de la diapositive à 1 pour chaque carrousel
+        showSlides(id, slideIndex[id]); // Affiche la première diapositive
     });
 }
 
 // Fonction pour avancer ou reculer les diapositives
 function plusSlides(accommodationId, n) {
-    slideIndex[accommodationId] += n;
-    showSlides(accommodationId, slideIndex[accommodationId]);
+    // Vérifie si l'ID du carrousel existe dans slideIndex
+    if (slideIndex.hasOwnProperty(accommodationId)) {
+        slideIndex[accommodationId] += n; // Incrémente ou décrémente l'index en fonction de 'n'
+        showSlides(accommodationId, slideIndex[accommodationId]); // Affiche la nouvelle diapositive
+    }
 }
 
 // Fonction pour afficher la diapositive correcte
 function showSlides(accommodationId, n) {
-    var carousel = document.getElementById('carousel-' + accommodationId);
-    var slides = carousel.getElementsByClassName('carousel-item');
-    if (n > slides.length) { slideIndex[accommodationId] = 1; }
-    if (n < 1) { slideIndex[accommodationId] = slides.length; }
-    // Masque toutes les diapositives
-    for (var i = 0; i < slides.length; i++) {
-        slides[i].style.display = 'none';
+    const carousel = document.getElementById('carousel-' + accommodationId);
+
+    // Vérifie que le carrousel existe
+    if (carousel) {
+        const slides = carousel.getElementsByClassName('carousel-item');
+
+        // Si on dépasse le nombre de diapositives, on revient à la première
+        if (n > slides.length) { slideIndex[accommodationId] = 1; }
+
+        // Si on passe en dessous de 1, on va à la dernière diapositive
+        if (n < 1) { slideIndex[accommodationId] = slides.length; }
+
+        // Masque toutes les diapositives
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = 'none';
+        }
+
+        // Affiche la diapositive actuelle (slideIndex est 1-based)
+        slides[slideIndex[accommodationId] - 1].style.display = 'block';
     }
-    // Affiche la diapositive actuelle
-    slides[slideIndex[accommodationId] - 1].style.display = 'block';
 }
 
 // Initialise les diapositives lorsque la page est chargée
 document.addEventListener('DOMContentLoaded', initSlides);
+

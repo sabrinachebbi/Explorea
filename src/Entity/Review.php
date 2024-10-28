@@ -34,7 +34,7 @@ class Review
     private ?User $traveler = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Reservation $reservation = null;
 
 

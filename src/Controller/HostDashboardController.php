@@ -8,8 +8,11 @@ use App\Entity\ReservationStatus;
 use App\Enum\statusResv;
 use App\Repository\AccommodationRepository;
 use App\Repository\ActivityRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -19,62 +22,82 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class HostDashboardController extends AbstractController
 {
     #[Route('/', name: 'dashboard')]
-    public function index(): Response
+    public function index(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
         $userProfile = $host->getUserProfile();
 
+        // Récupérer les notifications non lues pour l'hôte
+        $unreadNotifications = $notificationRepository->findBy([
+            'user' => $host,
+            'isRead' => false,
+        ]);
+
+
         return $this->render('host_dashboard/dashboard.html.twig', [
-            'section' => 'profile',  // Par défaut, on affiche le profil
+            'section' => 'profile',
             'userProfile' => $userProfile,
+            'unreadNotifications' => count($unreadNotifications),
         ]);
     }
 
     #[Route('/accommodations', name: 'accommodations')]
-    public function showAccommodations(AccommodationRepository $accommodationRepository): Response
+    public function showAccommodations(AccommodationRepository $accommodationRepository,NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
         $accommodations = $accommodationRepository->findBy(['host' => $host]);
         $userProfile = $host->getUserProfile();
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
+
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'userProfile' => $userProfile,
             'section' => 'accommodations',
             'accommodations' => $accommodations,
+            'unreadNotifications' => $unreadNotifications
         ]);
     }
 
     #[Route('/activities', name: 'activities')]
-    public function showActivities(ActivityRepository $activitiesRepository): Response
+    public function showActivities(ActivityRepository $activitiesRepository,NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
         $activities = $activitiesRepository->findBy(['host' => $host]);
         $userProfile = $host->getUserProfile();
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'userProfile' => $userProfile,
             'section' => 'activities',
             'activities' => $activities,
+            'unreadNotifications' => $unreadNotifications
         ]);
     }
 
     #[Route('/profile', name: 'profile')]
-    public function showProfile(): Response
+    public function showProfile(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
         $userProfile = $host->getUserProfile();
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'section' => 'profile',
             'userProfile' => $userProfile,
+            'unreadNotifications' => $unreadNotifications
         ]);
     }
     #[Route('/reservations', name: 'reservations')]
-    public function showReservations(EntityManagerInterface $entityManager): Response
+    public function showReservations(EntityManagerInterface $entityManager,NotificationRepository $notificationRepository): Response
     {
 
         $user = $this->getUser();
         $userProfile = $user->getUserProfile();
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
 
         $reservations = $entityManager->getRepository(Reservation::class)->findBy([
@@ -85,34 +108,43 @@ class HostDashboardController extends AbstractController
             'section' => 'reservations',
             'reservations' => $reservations,
             'userProfile' => $userProfile,
+            'unreadNotifications' => $unreadNotifications
 
         ]);
     }
 
 
     #[Route('/notification', name: 'notification')]
-    public function showNotifications(EntityManagerInterface $entityManager): Response
-    {
-        $host = $this->getUser();
-        $userProfile = $host->getUserProfile();// L'utilisateur connecté (l'hôte)
-        $notifications = $entityManager->getRepository(Notification::class)->findBy([
-            'user' => $host,
-            'isRead' => false,
-        ]);
+    public function showNotifications(
+        NotificationRepository $notificationRepository
+    ): Response {
+        $user = $this->getUser();
+        $userProfile = $user->getUserProfile();
 
+
+        $notifications = $notificationRepository->findBy([
+            'user' => $user,
+            'isRead' => false
+        ], ['createdAt' => 'DESC']);
+
+        // Compter les notifications non lues
+        $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'notifications' => $notifications,
             'userProfile' => $userProfile,
             'section' => 'notification',
+            'unreadNotifications' => $unreadNotifications,
         ]);
     }
 
 
-    #[Route('notification/confirm/{id}', name: 'confirm_host')]
-    public function confirmReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager): Response
+
+
+    #[Route('notification/confirm/{id}', name: 'confirm')]
+    public function confirmReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager, NotificationRepository $notificationRepository): Response
     {
-        $user = $this->getUser();  // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
 
         // Vérifier si l'utilisateur connecté est bien l'hôte de l'hébergement
         if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
@@ -126,28 +158,39 @@ class HostDashboardController extends AbstractController
             $reservation->setDateModification(new \DateTimeImmutable());
             $entityManager->flush();
 
-            // Marquer les notifications associées à cette réservation comme lues
-            $notifications = $entityManager->getRepository(Notification::class)->findBy([
-                'reservation' => $reservation,
-                'isRead' => false,
-            ]);
 
-            foreach ($notifications as $notification) {
-                $notification->setRead(true);  // Marquer comme lue
+            $hostNotification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $this->getUser()]);
+            if ($hostNotification) {
+                $hostNotification->setRead(true);  // Marquer comme lue
+                $entityManager->flush();
             }
 
-            $entityManager->flush();  // Sauvegarder les changements
+            // Créer une notification pour le voyageur
+            $traveler = $reservation->getTraveler();
+            $travelerNotification = new Notification();
+            $travelerNotification->setMessage('Votre réservation pour l\'hébergement ' . $reservation->getAccommodation()->getTitle() . ' a été confirmée.');
+            $travelerNotification->setUser($traveler);
+            $travelerNotification->setReservation($reservation);
+            $travelerNotification->setCreatedAt(new \DateTimeImmutable());
+            $travelerNotification->setRead(false);
+            $entityManager->persist($travelerNotification);
+            $entityManager->flush();
 
             // Message flash de succès
             $this->addFlash('success', 'Réservation approuvée avec succès.');
+
+            // Récupérer le nombre de notifications non lues
+            $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
 
-        return $this->redirectToRoute('host_notification');
+        // Redirection avec unreadNotifications
+        return $this->redirectToRoute('host_notification', [
+            'unreadNotifications' => $unreadNotifications
+        ]);
     }
 
-
-    #[Route('notification/cancel/{id}', name: 'cancel_host')]
-    public function cancelReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager): Response
+    #[Route('notification/cancel/{id}', name: 'cancel')]
+    public function cancelReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager,NotificationRepository $notificationRepository): Response
     {
         $user = $this->getUser();  // Récupérer l'utilisateur connecté
 
@@ -163,23 +206,30 @@ class HostDashboardController extends AbstractController
             $reservation->setDateModification(new \DateTimeImmutable());
             $entityManager->flush();
 
-            // Marquer les notifications associées à cette réservation comme lues
-            $notifications = $entityManager->getRepository(Notification::class)->findBy([
-                'reservation' => $reservation,
-                'isRead' => false,
-            ]);
-
-            foreach ($notifications as $notification) {
-                $notification->setRead(true);  // Marquer comme lue
+            $notification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $this->getUser()]);
+            if ($notification) {
+                $notification->setRead(true);
             }
-
-            $entityManager->flush();  // Sauvegarder les changements
+            $entityManager->flush();
+            // Créer une notification pour le voyageur
+            $traveler = $reservation->getTraveler();
+            $notification = new Notification();
+            $notification->setMessage('Votre réservation pour l\'hébergement ' . $reservation->getAccommodation()->getTitle() . ' a été annulée.');
+            $notification->setUser($traveler);
+            $notification->setReservation($reservation);
+            $notification->setCreatedAt(new \DateTimeImmutable());
+            $notification->setRead(false);
+            $entityManager->persist($notification);
+            $entityManager->flush();
 
             // Message flash de succès
             $this->addFlash('warning', 'Réservation annulée avec succès.');
+            // Récupérer le nombre de notifications non lues
+            $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
-
-        return $this->redirectToRoute('host_notification');
+        return $this->redirectToRoute('host_notification', [
+            'unreadNotifications' => $unreadNotifications
+        ]);
     }
 }
 

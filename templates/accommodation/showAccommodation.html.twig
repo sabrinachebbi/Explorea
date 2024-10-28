@@ -16,10 +16,10 @@
 
                 <!-- Liste des images  -->
                 <div class="image-gallery">
-                        {% for picture in accommodation.pictures %}
-                                <img class="image" src="{{ asset(picture.imageURL) }}" alt="Image de l'hébergement">
-                        {% endfor %}
-                </div>
+      {% for picture in accommodation.pictures %}
+          <img class="image" src="{{ asset('uploads/accommodations/' ~ picture.name) }}" alt="Image de l'hébergement">
+       {% endfor %}
+</div>
 
                 <!-- Détails de logement -->
                 <div class="show">

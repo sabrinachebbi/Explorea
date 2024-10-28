@@ -4,10 +4,9 @@ namespace App\Form;
 
 use App\Entity\Accommodation;
 use App\Entity\City;
-use App\Entity\Country;
 use App\Enum\propertyType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -15,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class AccommodationFormType extends AbstractType
 {
@@ -24,6 +24,7 @@ class AccommodationFormType extends AbstractType
             ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Titre',
+
             ])
                ->add('city', EntityType::class, [
                    'class' => City::class,
@@ -52,12 +53,14 @@ class AccommodationFormType extends AbstractType
                 'label' => 'Type de Bien',
                 'placeholder' => 'Sélectionnez un type',
             ])
-            ->add('pictures', FileType::class, [
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureTypeAccommodation::class,
+                'allow_add' => true,
+                'allow_delete' => true,
                 'label' => 'Images',
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false,
-                'attr' => ['accept' => 'image/*'],
+                'entry_options' => [
+                    'attr' => ['class' => 'picture-class'],
+                ],
             ]);
     }
 

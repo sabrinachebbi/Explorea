@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -12,25 +12,9 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-//
-        if ($this->getUser()) {
-
-            if ($this->isGranted('ROLE_HOST')) {
-                return $this->redirectToRoute('host_dashboard'); /*rédiriger vers l'interface hote*/
-            } elseif ($this->isGranted('ROLE_TRAVELER')) {
-                return $this->redirectToRoute('traveler_dashboard'); /*rédiriger vers l'interface voyageur*/
-            }
-        }
-        // get the login error if there is one
+        // Affichage des erreurs si présentes
         $error = $authenticationUtils->getLastAuthenticationError();
-
-
-        // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-        if ($error) {
-            $this->addFlash('error', 'Email ou mot de passe incorrect. Veuillez réessayer.');
-        }
-
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
@@ -41,6 +25,7 @@ class SecurityController extends AbstractController
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        // Cette méthode est interceptée par Symfony pour la déconnexion
+        throw new \LogicException('Cette méthode peut être vide.');
     }
 }

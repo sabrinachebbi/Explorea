@@ -17,7 +17,7 @@
 
 
             <div class="form-group">
-                {{ form_label(AccommodationForm.title) }}
+                {{ form_label(AccommodationForm.title ) }}
                 {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
                 <div class="error">
                     {{ form_errors(AccommodationForm.title) }}
@@ -75,12 +75,12 @@
                 {{ form_errors(AccommodationForm.propertyType) }}
                </div>
     <div class="form-group">
-        {{ form_label(AccommodationForm.pictures) }}
-        {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
-        <div class="error">
-            {{ form_errors(AccommodationForm.pictures) }}
-        </div>
-            </div>
+    {{ form_label(AccommodationForm.pictures) }}
+    {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
+    <div class="error">
+        {{ form_errors(AccommodationForm.pictures) }}
+    </div>
+
 
             <div class="bt">
             <button type="submit" class="btn">

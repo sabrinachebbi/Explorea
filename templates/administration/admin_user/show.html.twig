@@ -1,32 +1,44 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/details.css') }}">
+{% endblock %}
 
-{% block title %}User{% endblock %}
-
-{% block body %}
-    <h1>User</h1>
+<div class="reservation-summary">
+    <h1>Détails d'un utilisateur</h1>
 
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
+                <th>Nom</th>
+                <td>{{ user.userProfile.firstName }}</td>
             </tr>
             <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
+            <th>Prénom</th>
+            <td>{{ user.userProfile.lastName }}</td>
             </tr>
             <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <th>Pays</th>
+                <td>{{ user.userProfile.country }}</td>
             </tr>
             <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
+                <th>Genre</th>
+                <td>{{ user.userProfile.gender.value }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ user.userProfile.address}}</td>
+            </tr>
+            <tr>
+                <th>Date Naissance</th>
+                <td>{{ user.userProfile.dateBirth|date('d/m/Y') }}</td>
+            </tr>
+            <tr>
+                <th>Téleohone</th>
+                <td>{{ user.userProfile.phone}}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_user_list') }}">back to list</a>
+    <a href="{{ path('app_admin_user_list') }}">Retour à la liste</a>
 
 
-{% endblock %}
+</div>

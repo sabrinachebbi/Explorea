@@ -1,8 +1,7 @@
 .pagination {
     display: flex;
     justify-content: center;
-    margin-bottom: 50px;
-    margin-right: 90px;
+    margin: 35px auto;
 }
 
 .pagination .next  {
@@ -18,7 +17,7 @@
 }
 .pagination span{
     border: 1px solid #ddd;
-    padding: 5px 13px;
+    padding: 5px 10px;
 }
 
 .pagination span:hover {
@@ -34,6 +33,5 @@
     background-color: #19659d;
     color: white;
 }
-/* Conteneur de tri */
 
 

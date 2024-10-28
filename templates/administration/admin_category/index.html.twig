@@ -1,0 +1,41 @@
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+{% endblock %}
+{% block importmap %}
+    {{ importmap('pagination') }}
+{% endblock %}
+
+{% block body %}
+<div class="reservation-container">
+    <h1>Liste des Catégories</h1>
+    <p>Nombre total des categories : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+    <a href="{{ path('app_admin_category_new') }}" class="btn-create">Ajouter une nouvelle catégorie</a>
+
+    <table class="reservation-table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in pagination %}
+            <tr>
+                <td>{{ category.name }}</td>
+                <td class="actions">
+                    <a href="{{ path('app_admin_category_edit', {'id': category.id}) }}" class="btn-edit">Modifier</a>
+                    <form action="{{ path('app_admin_category_delete', {'id': category.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                        <button type="submit" class="btn-delete">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

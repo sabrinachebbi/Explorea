@@ -2,6 +2,9 @@
     <link rel="stylesheet" href="{{ asset('styles/HostNotification.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 {% endblock %}
+{% block importmap %}
+    {{ importmap('pagination') }}
+{% endblock %}
 {% block body %}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success flash-message">
@@ -34,7 +37,7 @@
             </thead>
             <tbody>
             {% for notification in notifications %}
-                <tr>
+                <tr class="{{ notification.isRead ? 'read' : 'unread' }}">
                     <td>{{ notification.message}}</td>
                     <td>{{ notification.reservation.dateCreation|date('d/m/Y H:i') }}</td>
                     <td>{{ notification.reservation.accommodation.title }}</td>
@@ -43,15 +46,19 @@
                     <td>{{ notification.reservation.voyagerNb }}</td>
                     <td>{{ notification.reservation.total }} €</td>
                     <td class="btn_reserv">
-                        <a href="{{ path('host_confirm_host', {'id': notification.reservation.id}) }}" class="btn btn-success">Approuver</a>
-                        <a href="{{ path('host_cancel_host', {'id': notification.reservation.id}) }}" class="btn btn-danger">Annuler</a>
+                        <a href="{{ path('host_confirm', {'id': notification.reservation.id}) }}" class="btn btn-success">Approuver</a>
+                        <a href="{{ path('host_cancel', {'id': notification.reservation.id}) }}" class="btn btn-danger">Annuler</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+{#        <div class="pagination">#}
+{#            {{ knp_pagination_render(pagination) }}#}
+{#        </div>#}
     {% else %}
         <p>Aucune notification de réservation.</p>
     {% endif %}
+
 {% endblock %}
 

@@ -14,18 +14,28 @@
 
         <nav class="navbar" id="navbar">
             <ul class="nav-links">
-                {% if is_granted('ROLE_HOST') %}
-                    <li><a href="{{ path('host_dashboard') }}">Mon Espace </a></li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href="{{ path('admin_dashboard') }}">Tableau de Bord Admin</a></li>
+                {% elseif is_granted('ROLE_HOST') %}
+                    <li><a href="{{ path('host_dashboard') }}">Mon Espace</a></li>
                 {% elseif is_granted('ROLE_TRAVELER') %}
-                    <li><a href="{{ path('traveler_dashboard') }}">Mon Espace </a></li>
+                    <li><a href="{{ path('traveler_dashboard') }}">Mon Espace</a></li>
                 {% endif %}
                 <li><a href="{{ path('app_accommodation_showAll') }}">Logements</a></li>
                 <li><a href="{{ path('app_activity_showAll') }}">Expériences</a></li>
                 {% if app.user %}
-                <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
+                    <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
                 {% endif %}
                 {% if is_granted('ROLE_HOST') %}
                     <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
+                    <div class="notification">
+                        <a href="{{ path('host_notification') }}">
+                            <img src="{{ asset('images/notification.png') }}" alt="Notifications" class="logout-icon1">
+                            {% if unreadNotifications > 0 %}
+                                <span class="badge">{{ unreadNotifications }}</span>
+                            {% endif %}
+                        </a>
+                    </div>
                 {% endif %}
                 {% if app.user %}
                     <li><a href="{{ path('app_logout') }}" class="logout-link"><img src="{{ asset('images/logout (4).png') }}" alt="Déconnexion" class="logout-icon"></a></li>
@@ -34,17 +44,15 @@
 
             <div class="auth-buttons">
                 {% if app.user %}
-                    {% if is_granted('ROLE_HOST') %}
-                        <span class="user-mode">
-                Mode Hôte
-            </span>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <span class="user-mode">Mode Admin</span>
+                    {% elseif is_granted('ROLE_HOST') %}
+                        <span class="user-mode">Mode Hôte</span>
                     {% elseif is_granted('ROLE_TRAVELER') %}
-                        <span class="user-mode1">
-                Mode Voyageur
-            </span>
+                        <span class="user-mode1">Mode Voyageur</span>
                     {% endif %}
                 {% endif %}
-            {% if not app.user %}
+                {% if not app.user %}
                     <a href="{{ path('app_login') }}" class="btn">Connexion</a>
                     <a href="{{ path('app_register') }}" class="btn">Inscription</a>
                 {% endif %}
@@ -57,8 +65,19 @@
     const menuBurger = document.getElementById('menuBurger');
     const navbar = document.getElementById('navbar');
 
+    // Toggle navbar visibility on mobile when clicking the burger icon
     menuBurger.addEventListener('click', () => {
         navbar.classList.toggle('active');
+        menuBurger.classList.toggle('active');
+    });
+
+    // Close navbar when a link is clicked (for better mobile UX)
+    document.querySelectorAll('.navbar ul li a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                menuBurger.classList.remove('active');
+            }
+        });
     });
 </script>
-

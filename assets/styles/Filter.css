@@ -4,7 +4,6 @@
 }
 
 .filter-section {
-    width: 16%; /* Largeur de la section du formulaire */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -12,7 +11,7 @@
 }
 
 .accommodation-list {
-    width: 93%;
+    width: 114%;
 }
 
 .form-group {
@@ -82,16 +81,34 @@
     font-weight: bold;
     margin-bottom: 33px;
 }
-
-/* Responsive pour petits écrans */
-@media (max-width: 768px) {
+/* Pour les écrans de 1024px et moins */
+@media (max-width: 1024px) {
     .accommodation-container {
-        flex-direction: column;
+        flex-direction: column; /* Passe en mode colonne pour les petits écrans */
     }
 
-    .filter-section,
+    .filter-section {
+        width: 100%; /* Prend toute la largeur */
+        margin-bottom: 20px;
+    }
+
     .accommodation-list {
-        width: 100%;
-        margin: 0;
+        width: 100%; /* Prend toute la largeur */
+    }
+}
+
+/* Pour les écrans de 768px et moins */
+@media (max-width: 768px) {
+    .filter-title {
+        font-size: 20px; /* Ajuste la taille du titre pour les petits écrans */
+    }
+
+    .form-group label, .price {
+        font-size: 15px; /* Réduit la taille des labels */
+    }
+
+    .btn-primary {
+        width: 100%; /* Bouton de filtrage sur toute la largeur */
+        margin-left: 0;
     }
 }

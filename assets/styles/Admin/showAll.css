@@ -1,0 +1,61 @@
+.reservation-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reservation-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.reservation-table th, .reservation-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.reservation-table th {
+    background-color: #f4f4f4;
+}
+
+.reservation-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.btn-edit, .btn-delete,.btn-show, .btn-create  {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-edit {
+    background-color: #34495e;
+}
+
+.btn-delete {
+    background-color: #f44336;
+}
+.btn-show {
+    background-color: #34495e;
+}
+.btn-create{
+    background-color: #34495e;
+}
+
+
+

@@ -12,63 +12,62 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
-
-
+        // URLs d'images pour les hébergements
         $accommodationImageURLs = [
-            'images/img1.jpg',
-            'images/img2.jpg',
-            'images/img3.jpg',
-            'images/img4.jpg',
-            'images/img7.jpg',
-            'images/img8.jpg',
-            'images/img9.jpg',
-            'images/img10.jpg',
-            'images/img11.jpg',
-            'images/img12.jpg',
-            'images/img13.jpg',
-            'images/img14.jpg',
-            'images/img15.jpg',
-            'images/img16.jpg',
-            'images/img17.jpg',
-            'images/img18.jpg',
-            'images/img19.jpg',
-            'images/img20.jpg',
-            'images/img21.jpg',
-            'images/img22.jpg',
-            'images/img24.jpg',
-            'images/img25.jpg',
-            'images/img27.jpg',
-            'images/img28.jpg',
-            'images/img29.jpg',
-            'images/img30.jpg',
+            'img1.jpg',
+            'img2.jpg',
+            'img3.jpg',
+            'img4.jpg',
+            'img7.jpg',
+            'img8.jpg',
+            'img9.jpg',
+            'img10.jpg',
+            'img11.jpg',
+            'img12.jpg',
+            'img13.jpg',
+            'img14.jpg',
+            'img15.jpg',
+            'img16.jpg',
+            'img17.jpg',
+            'img18.jpg',
+            'img19.jpg',
+            'img20.jpg',
+            'img21.jpg',
+            'img22.jpg',
+            'img24.jpg',
+            'img25.jpg',
+            'img27.jpg',
+            'img28.jpg',
+            'img29.jpg',
+            'img30.jpg',
         ];
 
+        // URLs d'images pour les activités
         $activityImageURLs = [
-            'images/nature.jpg',
-            'images/photograohie.jpg',
-            'images/sport-extreme.avif',
-            'images/sport-nautique.jpg',
-            'images/parachute.avif',
-            'images/parachute.avif',
-            'images/guide-touristique.jpg',
-            'images/gastronomie.jpg',
-            'images/detente.jpg',
-            'images/aventure.jpg',
-            'images/ateliers-creatifs.jpg',
-            'images/image1.png',
-            'images/image3.png',
+            'nature.jpg',
+            'photographie.jpg',
+            'sport-extreme.avif',
+            'sport-nautique.jpg',
+            'parachute.avif',
+            'guide-touristique.jpg',
+            'gastronomie.jpg',
+            'detente.jpg',
+            'aventure.jpg',
+            'ateliers-creatifs.jpg',
+            'image1.png',
+            'image3.png',
         ];
 
+        // Création des images pour les hébergements
         for ($i = 0; $i < 20; $i++) {
             $accommodation = $this->getReference('accommodation_' . $i);
-
 
             if ($accommodation) {
                 for ($j = 0; $j < 3; $j++) {
                     $picture = new Picture();
-                    $picture->setImageURL($faker->randomElement($accommodationImageURLs));
+                    $picture->setName($accommodationImageURLs[array_rand($accommodationImageURLs)]); // Sélectionner une image existante
                     $picture->setAccommodationPictures($accommodation);
+                    $picture->setUpdateAt(new \DateTimeImmutable()); //  Date de mise à jour
                     $manager->persist($picture);
                 }
             }
@@ -78,17 +77,19 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 15; $i++) {
             $activity = $this->getReference('activity_' . $i);
 
-            // Vérifier que l'activité existe
             if ($activity) {
+                for ($j = 0; $j < 3; $j++) {
                     $picture = new Picture();
-                    $picture->setImageURL($faker->randomElement($activityImageURLs));
+                    $picture->setName($activityImageURLs[array_rand($activityImageURLs)]); // Sélectionner une image existante
                     $picture->setActivityPictures($activity);
+                    $picture->setUpdateAt(new \DateTimeImmutable()); //  Date de mise à jour
                     $manager->persist($picture);
                 }
             }
-        $manager->flush();
         }
 
+        $manager->flush();
+    }
 
     public function getDependencies(): array
     {

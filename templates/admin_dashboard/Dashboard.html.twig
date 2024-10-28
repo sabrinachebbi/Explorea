@@ -1,0 +1,66 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/dashboardAdmin.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard-container">
+        <nav class="sidebar">
+            <ul>
+                <li><a href="{{ path('admin_reservation_index') }}">Réservations</a></li>
+                <li><a href="{{ path('app_admin_accommodation_list') }}">Hébergements</a></li>
+                <li><a href="{{ path('app_admin_activity_list') }}">Activités</a></li>
+                <li><a href="{{ path('app_admin_review_index') }}">Avis</a></li>
+                <li><a href="{{ path('app_admin_user_list') }}">Utilisateurs</a></li>
+                <li><a href="{{ path('app_admin_notification_list') }}">Notifications</a></li>
+                <li><a href="{{ path('app_admin_reservation_status_list') }}">Statuts des Réservations</a></li>
+                <li><a href="{{ path('app_admin_category_list') }}">Catégories d'Activités</a></li>
+            </ul>
+        </nav>
+
+        <div class="main-content">
+            {% if section == 'reservations' %}
+                {% include 'administration/admin_reservation/index.html.twig' %}
+            {% elseif section == 'accommodations' %}
+                {% include 'administration/admin_accommodations/index.html.twig' %}
+            {% elseif section == 'activities' %}
+                {% include 'administration/admin_activity/index.html.twig' %}
+            {% elseif section == 'reviews' %}
+                {% include 'administration/admin_review/index.html.twig' %}
+            {% elseif section == 'users' %}
+                {% include 'administration/admin_user/index.html.twig' %}
+            {% elseif section == 'notifications' %}
+                {% include 'administration/admin_notification/index.html.twig' %}
+            {% elseif section == 'status' %}
+                {% include 'administration/admin_reservation_status/index.html.twig' %}
+            {% elseif section == 'categories' %}
+                {% include 'administration/admin_category/index.html.twig' %}
+            {% else %}
+                <h1>Tableau de bord Administrateur</h1>
+
+                <div class="dashboard-summary">
+                    <div class="stat">
+                        <h2>Utilisateurs</h2>
+                        <p>{{ userCount }} utilisateurs inscrits</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2>Réservations</h2>
+                        <p>{{ reservationCount }} réservations effectuées</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2>Activités</h2>
+                        <p>{{ activityCount }} activités disponibles</p>
+                    </div>
+
+                    <div class="stat">
+                        <h2>Hébergements</h2>
+                        <p>{{ accommodationCount }} hébergements disponibles</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div> <!-- fermeture main-content -->
+    </div> <!-- fermeture dashboard-container -->
+{% endblock %}

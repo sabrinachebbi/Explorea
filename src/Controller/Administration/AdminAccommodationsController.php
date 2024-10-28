@@ -6,6 +6,7 @@ use App\Entity\Accommodation;
 use App\Form\administration\AccommodationType;
 use App\Repository\AccommodationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,17 @@ use DateTimeImmutable;
 class AdminAccommodationsController extends AbstractController
 {
     #[Route('/', name: 'list', methods: ['GET'])]
-    public function list(AccommodationRepository $accommodationRepository): Response
+    public function list(AccommodationRepository $accommodationRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render('administration/admin_accommodations/index.html.twig', [
-            'accommodations' => $accommodationRepository->findAll(),
+        $queryBuilder = $accommodationRepository->findAll();
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
+        return $this->render('admin_dashboard/Dashboard.html.twig', [
+            'pagination' => $pagination,
+            'section' => 'accommodations',
         ]);
     }
 

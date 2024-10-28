@@ -53,21 +53,21 @@ class ActivityFixture extends Fixture implements DependentFixtureInterface
 
 
         $titles = [
-            'Randonnée guidée dans les montagnes de Chamonix',
-            'Cours de cuisine italienne traditionnelle à Rome',
-            'Balade en bateau sur la Seine à Paris',
-            'Cours de surf à Barcelone',
-            'Excursion en montgolfière à Cappadoce',
-            'Visite guidée du Colisée à Rome',
-            'Tour gastronomique des marchés locaux à Istanbul',
-            'Excursion en kayak autour des îles d’Ibiza',
-            'Séance de yoga au lever du soleil à Phuket',
-            'Dégustation de vins dans les vignes de Bordeaux',
-            'Excursion à vélo à travers les calanques de Marseille',
-            'Balade en segway à travers les rues historiques de Séville',
-            'Cours de voile à Valence',
-            'Safari en quad dans les montagnes d’Antalya',
-            'Tour de Tuk-tuk à travers Bangkok',
+            'Randonnée guidée dans les montagnes ',
+            'Cours de cuisine italienne traditionnelle ',
+            'Balade en bateau sur la Seine ',
+            'Cours de surf ',
+            'Excursion en montgolfière ',
+            'Visite guidée du Colisée ',
+            'Tour gastronomique des marchés locaux ',
+            'Excursion en kayak autour des îles ',
+            'Séance de yoga au lever du soleil ',
+            'Dégustation de vins dans les vignes ',
+            'Excursion à vélo à travers les calanques ',
+            'Balade en segway à travers les rues historiques ',
+            'Cours de voile ',
+            'Safari en quad dans les montagnes ',
+            'photographie ',
         ];
 
         for ($i = 0; $i < 15; $i++) {

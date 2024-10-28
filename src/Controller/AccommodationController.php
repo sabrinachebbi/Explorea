@@ -9,7 +9,7 @@ use App\Form\AccommodationFilterType;
 use App\Form\AccommodationFormType;
 use App\Form\ReservationAccommodationFormType;
 use App\Repository\AccommodationRepository;
-use App\Repository\CountryRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +23,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/accommodation', name: 'app_accommodation_')]
 class AccommodationController extends AbstractController
 {
-    //fonction pour afficher mes accomodations
-    // Fonction pour afficher les accommodations avec pagination et filtrage
     #[Route('/', name: 'showAll')]
-    public function index(Request $request, AccommodationRepository $accommodationRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, AccommodationRepository $accommodationRepository, PaginatorInterface $paginator,NotificationRepository $notificationRepository): Response
     {
         // Créer le formulaire de filtrage
         $form = $this->createForm(AccommodationFilterType::class);
@@ -54,11 +52,13 @@ class AccommodationController extends AbstractController
             $page, // Numéro de la page
             $limit // Nombre d'éléments par page
         );
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
-        // Rendu de la vue avec le formulaire et les accommodations (filtrées ou non)
         return $this->render('accommodation/accommodation.html.twig', [
             'form' => $form->createView(),
-            'accommodations' => $accommodations, // Résultats paginés
+            'accommodations' => $accommodations,
+            'unreadNotifications' => $unreadNotifications
         ]);
     }
 
@@ -78,14 +78,13 @@ class AccommodationController extends AbstractController
             $accommodation->setCreateDate(new DateTimeImmutable());
             $accommodation ->setUpdateDate(new DateTimeImmutable());
             // Gérer les images
-            $pictures = $form->get('pictures')->getData();  // Récupérer les fichiers d'images
-            foreach ($pictures as $image) {
-                $pictureEntity = new Picture();
-                // Associer l'image à l'hébergement
-                $pictureEntity->setImageURL('images/');
-                $pictureEntity->setAccommodationPictures($accommodation);
-                $entityManager->persist($pictureEntity);
+            foreach ($accommodation->getPictures() as $picture) {
+                $picture->setAccommodationPictures($accommodation);
+                $entityManager->persist($picture);
             }
+
+            $entityManager->persist($accommodation);
+
 
 
             $entityManager->persist($accommodation);

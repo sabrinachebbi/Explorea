@@ -40,6 +40,13 @@
             {{ form_errors(ActivityForm.address) }}
         </div>
     </div>
+    <div class="form-group">
+        {{ form_label(ActivityForm.duration) }}
+        {{ form_widget(ActivityForm.duration, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(ActivityForm.duration) }}
+        </div>
+    </div>
 
     <div class="form-group">
         {{ form_label(ActivityForm.description) }}

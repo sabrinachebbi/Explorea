@@ -1,11 +1,14 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}New Accommodation{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Accommodation</h1>
+<div class="container">
+    <h1>Ajouter une Accommodation</h1>
 
     {{ include('administration/admin_accommodations/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_accommodation_list') }}">back to list</a>
+    <a href="{{ path('app_admin_accommodation_list') }}">Retour à la liste</a>
 {% endblock %}
+</div>

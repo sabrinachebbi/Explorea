@@ -3,6 +3,7 @@ footer {
     padding: 40px 0;
     position: relative;
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
 
 }
 .footer-container {
@@ -14,11 +15,11 @@ footer {
 
 }
 
-.footer-section {
+
+.footer-section h2{
+    margin-bottom: 15px;.footer-section {
     flex-basis: 17%;
 }
-.footer-section h2{
-    margin-bottom: 15px;
     font-size: 18px;
     margin-left: 42px;
 }
@@ -93,6 +94,12 @@ footer {
     padding: 5px;
     color:#1BBC9B ;
 }
+@media (max-width: 1024px) {
+    .footer-section {
+        flex-basis: 25%;
+    }
+}
+
 
 @media (max-width: 768px) {
     .footer-container {

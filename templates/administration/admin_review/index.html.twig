@@ -1,0 +1,45 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+{% endblock %}
+
+{% block importmap %}
+    {{ importmap('pagination') }}
+{% endblock %}
+{% block body %}
+<div class="reservation-container">
+    <h1> Avis</h1>
+    <p>Nombre total des avis : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+    <table class="reservation-table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Note</th>
+                <th>Comment</th>
+                <th>DateReView</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for review in pagination %}
+            <tr>
+                <td>{{ review.id }}</td>
+                <td>{{ review.note }}</td>
+                <td>{{ review.comment }}</td>
+                <td>{{ review.dateReView ? review.dateReView|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="actions">
+                    <form method="post" action="{{ path('app_admin_review_delete', {'id': review.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet hébergement ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ review.id) }}">
+                    <button class="btn-delete" type="submit">Supprimer</button>
+                    </form>
+                    <a href="{{ path('app_admin_review_edit', {'id': review.id}) }}" class="btn-edit">modifier</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
+{% endblock %}

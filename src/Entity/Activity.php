@@ -6,8 +6,11 @@ use App\Repository\ActivityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
+#[Vich\Uploadable()]
 class Activity
 {
     #[ORM\Id]
@@ -16,12 +19,19 @@ class Activity
     private ?int $id = null;
 
     #[ORM\Column(length: 200)]
+    #[Assert\NotBlank(message: "Le titre est obligatoire.")]
+    #[Assert\Length(
+        max: 200,
+        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères.")]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "La Description est obligatoire.")]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotNull(message: "Le prix est obligatoire.")]
+    #[Assert\Positive(message: "Le prix doit être un nombre positif.")]
     private ?float $price = null;
 
     #[ORM\Column]
@@ -31,6 +41,11 @@ class Activity
     private ?\DateTimeImmutable $updateDate= null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: "L'adresse ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $address = null;
 
     #[ORM\ManyToOne(inversedBy: 'activities')]
@@ -51,14 +66,14 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
-    /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\OneToMany(targetEntity: Picture::class, mappedBy: 'activityPictures')]
-    private Collection $pictures;
 
     #[ORM\Column]
-    private ?int $duration = null;
+    #[Assert\NotBlank(message: "La durée est obligatoire.")]
+    #[Assert\Positive(message: "La durée doit être un nombre positif.")]
+    #[Assert\Range(
+        min: 1, max: 7,
+        notInRangeMessage: "La durée doit être comprise entre {{ min }} et {{ max }} jours.")]
+    private ?int $duration = 1;
 
     /**
      * @var Collection<int, Review>
@@ -66,11 +81,17 @@ class Activity
     #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'activity')]
     private Collection $reviews;
 
+    /**
+     * @var Collection<int, Picture>
+     */
+    #[ORM\OneToMany(mappedBy: 'activity', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
+    private Collection $pictures;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
 
@@ -216,35 +237,6 @@ class Activity
         return $this;
     }
 
-    /**
-     * @return Collection<int, Picture>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): static
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setActivityPictures($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getActivityPictures() === $this) {
-                $picture->setActivityPictures(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getDuration(): ?int
     {
@@ -288,4 +280,35 @@ class Activity
         return $this;
     }
 
+    /**
+     * @return Collection<int, Picture>
+     */
+    public function getPictures(): Collection
+    {
+        return $this->pictures;
+    }
+
+    public function addPicture(Picture $picture): static
+    {
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures->add($picture);
+            $picture->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): static
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getActivity() === $this) {
+                $picture->setActivity(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
+

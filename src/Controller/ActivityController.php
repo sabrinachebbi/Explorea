@@ -8,8 +8,8 @@ use App\Form\ActivityFilterType;
 use App\Form\ActivityFormType;
 use App\Repository\ActivityRepository;
 use App\Repository\CategoryRepository;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,7 @@ class ActivityController extends AbstractController
 
     //fonction pour afficher mes activities
     #[Route('/', name: 'showAll')]
-    public function index(Request $request , ActivityRepository $activityRepository,PaginatorInterface $paginator): Response
+    public function index(Request $request , ActivityRepository $activityRepository,PaginatorInterface $paginator,NotificationRepository $notificationRepository): Response
     {
         // Créer le formulaire de filtrage
         $form = $this->createForm(ActivityFilterType::class);
@@ -51,10 +51,14 @@ class ActivityController extends AbstractController
             $page, // Numéro de la page
             $limit // Nombre d'éléments par page
         );
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
+
 
         return $this->render('activity/activity.html.twig', [
             'form' => $form->createView(),
             'activities' => $activities,
+            'unreadNotifications' => $unreadNotifications
         ]);
     }
 
@@ -74,8 +78,14 @@ class ActivityController extends AbstractController
             $activities->setHost($this->getUser());
             $activities->setCreateDate(new DateTimeImmutable());
             $activities ->setUpdateDate(new DatetimeImmutable());
+            $activities->setDuration($request->request->get('duration'));
+            foreach ($activities->getPictures() as $picture) {
+                $picture->setActivityPictures($activities);
+                $entityManager->persist($picture);
+            }
 
             $entityManager->persist($activities);
+
             $entityManager->flush();
             return $this->redirectToRoute('app_activity_showAll');
         }
@@ -120,12 +130,17 @@ class ActivityController extends AbstractController
     }
 
 //fonction pour supprimer une annonce
-    #[Route('/remove/{id}', name: 'remove')]
-    public function remove( Activity $activities, EntityManagerInterface $entityManager): Response {
+    #[Route('/remove/{id}', name: 'remove', methods: ['POST'])]
+    public function remove(int $id, EntityManagerInterface $entityManager): Response
+    {
+        // Recherche de l'activité à supprimer
+        $activity = $entityManager->getRepository(Activity::class)->find($id);
 
-        $entityManager->remove($activities);
+        // Suppression de l'activité
+        $entityManager->remove($activity);
         $entityManager->flush();
 
+        // Redirection après suppression
         return $this->redirectToRoute('app_activity_showAll');
     }
 

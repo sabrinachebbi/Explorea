@@ -14,15 +14,22 @@
         <h1>{{ activity.title }}</h1>
 
 
-        {% for picture in activity.pictures %}
-            <img class="image1" src="{{ asset(picture.imageURL) }}" alt="">
-        {% endfor %}
+        <div class="image-gallery">
+            {% for picture in activity.pictures %}
+                {% set imagePath = 'uploads/activities/' ~ picture.name %}
+                {% if asset(imagePath) %}
+                    <img class="image" src="{{ asset(imagePath) }}" alt="Image de l'hébergement">
+                {% endif %}
+            {% endfor %}
+        </div>
+
 
         <!-- Détails de activities -->
 
         <div class="details-section">
             <p><strong>Hôte :</strong> {{ activity.host.userProfile.firstName}} </p>
             <p><strong>Prix :</strong> {{ activity.price }} €</p>
+            <p><strong>Durations :</strong> {{ activity.duration }}</p>
             <p><strong>Catégorie :</strong> {{ activity.category.name }}</p>
             <p><strong>Description :</strong> {{ activity.description }}</p>
             <p><strong>Adresse :</strong> {{ activity.address }}</p>

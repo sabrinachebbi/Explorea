@@ -1,0 +1,45 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/details.css') }}">
+{% endblock %}
+<div class="reservation-summary">
+    <h2>Détail de la réservation</h2>
+
+    {% if reservation.accommodation %}
+        <p><strong>Hébergement :</strong> {{ reservation.accommodation.title }}</p>
+    {% endif %}
+
+    {% if reservation.activities|length > 0 %}
+        <p><strong>Activités :</strong></p>
+        <ul>
+            {% for activity in reservation.activities %}
+                <li>
+                    <p><strong>Activité :</strong> {{ activity.title }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><strong>Voyageur :</strong> {{ reservation.traveler.userProfile.firstName }} {{ reservation.traveler.userProfile.lastName }}</p>
+
+    {% if reservation.accommodation %}
+        <p><strong>Date de départ :</strong> {{ reservation.departureDate|date('d/m/Y') }}</p>
+        <p><strong>Date de retour :</strong> {{ reservation.returnDate|date('d/m/Y') }}</p>
+    {% elseif reservation.activities|length > 0 %}
+        <p><strong>Date :</strong> {{ reservation.departureDate|date('d/m/Y') }}</p>
+    {% endif %}
+
+    <p><strong>Nombre de voyageurs :</strong> {{ reservation.voyagerNb }}</p>
+    <p><strong>Total :</strong> {{ reservation.total }} €</p>
+
+    <p><strong>Statut :</strong>
+        {% if reservation.status.status.value == 'En attente' %}
+            En attente de confirmation
+        {% elseif reservation.status.status.value == 'Confirmé' %}
+            Réservation confirmée
+        {% elseif reservation.status.status.value == 'Annulé' %}
+            Réservation annulée
+        {% endif %}
+    </p>
+
+    <a href="{{ path('admin_reservation_index') }}" class="btn-back">Retour à la liste</a>
+</div>

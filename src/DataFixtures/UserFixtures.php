@@ -44,6 +44,17 @@ class UserFixtures extends Fixture
             $this->addReference('user_traveler_'.$i, $user);
             $manager->persist($user);
         }
+        // Création d'un administrateur
+        $adminUser = new User();
+        $adminUser->setEmail('sabrina.chebbi@gmail.com');
+        $adminUser->setRoles(['ROLE_ADMIN']);
+        $adminUser->setPassword($this->passwordHasher->hashPassword(
+            $adminUser,
+            'password'
+        ));
+
+        $this->addReference('admin_user', $adminUser);
+        $manager->persist($adminUser);
 
         $manager->flush();
     }

@@ -1,10 +1,13 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
+{% endblock %}
 
-{% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+<div class="container">
+    <h1>Modifier l'Utilisateur</h1>
     {{ include('administration/admin_user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_admin_user_list') }}">back to list</a>
+    <a href="{{ path('app_admin_user_list') }}">Retour à la liste</a>
 {% endblock %}
+</div>

@@ -251,7 +251,4 @@ class Reservation
         return $this;
     }
 
-
-
-
 }

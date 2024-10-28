@@ -1,16 +1,12 @@
-{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/details.css') }}">
+{% endblock %}
 
-{% block title %}Accommodation{% endblock %}
-
-{% block body %}
-    <h1>Accommodation</h1>
+<div class="reservation-summary">
+    <h2>Détails d'accommodation</h2>
 
     <table class="table">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ accommodation.id }}</td>
-            </tr>
             <tr>
                 <th>Title</th>
                 <td>{{ accommodation.title }}</td>
@@ -41,7 +37,7 @@
             </tr>
             <tr>
                 <th>Host</th>
-                <td>{{ accommodation.host.email }}</td>
+                <td>{{ accommodation.host.userProfile.firstName }}</td>
             </tr>
             <tr>
                 <th>city</th>
@@ -50,7 +46,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_accommodation_list') }}">back to list</a>
+    <a href="{{ path('app_admin_accommodation_list') }}">Retour à la liste</a>
 
 
-{% endblock %}
+</div>

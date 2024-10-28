@@ -76,11 +76,12 @@
     </div>
     <div class="form-group">
         {{ form_label(AccommodationForm.pictures) }}
-        {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(AccommodationForm.pictures, {'attr': {'class': 'form-control '}}) }}
         <div class="error">
             {{ form_errors(AccommodationForm.pictures) }}
         </div>
     </div>
+
 
     <div class="bt">
     <button type="submit" class="btn">

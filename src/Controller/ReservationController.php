@@ -10,6 +10,7 @@ use App\Entity\ReservationStatus;
 use App\Enum\statusResv;
 use App\Form\ReservationAccommodationFormType;
 use App\Form\ReservationActivityFormType;
+use App\Form\ReservationActivityType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -106,7 +107,7 @@ class ReservationController extends AbstractController
     }
     #[Route('/show/{id}', name: 'details')]
     #[IsGranted('ROLE_TRAVELER')]
-    public function recap(Reservation $reservation): Response
+    public function recap(Reservation $reservation, Request $request, EntityManagerInterface $entityManager): Response
     {
         // Vérifier si l'utilisateur connecté est bien le propriétaire de la réservation
         $user = $this->getUser();
@@ -114,13 +115,18 @@ class ReservationController extends AbstractController
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à voir cette réservation.');
         }
 
-        $accommodation = $reservation->getAccommodation();
-        $activities = $reservation->getActivities();
+        $form = $this->createForm(ReservationActivityType::class, $reservation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('reservation_confirm', ['id' => $reservation->getId()]);
+        }
 
         return $this->render('reservation/reservation_summary.html.twig', [
             'reservation' => $reservation,
-            'accommodation' => $accommodation,
-            'activities' => $activities,
+            'form' => $form
         ]);
     }
 

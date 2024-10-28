@@ -6,6 +6,7 @@ use App\Entity\Activity;
 use App\Form\administration\ActivityType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +17,17 @@ use DateTimeImmutable;
 class AdminActivityController extends AbstractController
 {
     #[Route('/', name: 'list', methods: ['GET'])]
-    public function list(ActivityRepository $activitiesRepository): Response
+    public function list(ActivityRepository $activitiesRepository,PaginatorInterface $paginator, Request $request): Response
     {
-        return $this->render('administration/admin_activity/index.html.twig', [
-            'activities' => $activitiesRepository->findAll(),
+        $queryBuilder = $activitiesRepository->findAll();
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            10
+        );
+        return $this->render('admin_dashboard/Dashboard.html.twig', [
+            'pagination' => $pagination,
+            'section' => 'activities',
         ]);
     }
 

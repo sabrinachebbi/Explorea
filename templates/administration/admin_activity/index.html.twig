@@ -1,44 +1,46 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Activity index{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+{% endblock %}
+{% block importmap %}
+    {{ importmap('pagination') }}
+{% endblock %}
 
 {% block body %}
+<div class="reservation-container">
     <h1>Activity index</h1>
+    <p>Nombre total des activities : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+    <a href="{{ path('app_admin_activity_new') }}" class="btn-create">Créer une nouvelle Activity </a>
 
-    <table class="table">
+    <table class="reservation-table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Address</th>
-                <th>Category</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Catégorie</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
-        {% for activity in activities %}
+        {% for activity in pagination %}
             <tr>
                 <td>{{ activity.id }}</td>
                 <td>{{ activity.title }}</td>
-                <td>{{ activity.description }}</td>
-                <td>{{ activity.price }}</td>
-                <td>{{ activity.address }}</td>
                 <td>{{ activity.category.name }}</td>
-                <td>
-                    <a href="{{ path('app_admin_activity_show', {'id': activity.id}) }}">show</a>
-                    <a href="{{ path('app_admin_activity_edit', {'id': activity.id}) }}">edit</a>
-                    <a href="{{ path('app_admin_activity_delete', {'id': activity.id}) }}">delete</a>
+                <td class="actions">
+                    <a href="{{ path('app_admin_activity_show', { 'id': activity.id }) }}" class="btn-show">Afficher</a>
+                    <a href="{{ path('app_admin_activity_edit', { 'id': activity.id }) }}" class="btn-edit">Modifier</a>
+                    <form method="post" action="{{ path('app_admin_activity_delete', { 'id': activity.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette activité?');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ activity.id) }}">
+                        <button class="btn-delete">Supprimer</button>
+                    </form>
                 </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_admin_activity_new') }}">Create new</a>
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+</div>
 {% endblock %}

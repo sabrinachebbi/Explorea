@@ -1,52 +1,51 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Accommodation index{% endblock %}
-
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+{% endblock %}
+{% block importmap %}
+    {{ importmap('pagination') }}
+{% endblock %}
 {% block body %}
-    <h1>Accommodation index</h1>
-
-    <table class="table">
-        <thead>
+    <div class="reservation-container">
+        <h1>Liste des Hébergements</h1>
+        <p>Nombre total des Hébergements : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+        <a href="{{ path('app_admin_accommodation_new') }}" class="btn-create">Créer un nouvel hébergement </a>
+        <table class="reservation-table">
+            <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Address</th>
-                <th>PriceNight</th>
-                <th>NbGuests</th>
-                <th>NbRooms</th>
-                <th>PropertyType</th>
-                <th>Host</th>
-                <th>city</th>
-                <th>actions</th>
+                <th>Title</th>>
+                <th>Prix/Nuit</th>
+                <th>Type</th>
+                <th>Hôte</th>
+                <th>Ville</th>
+                <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for accommodation in accommodations %}
+            </thead>
+            <tbody>
+            {% for accommodation in pagination %}
             <tr>
                 <td>{{ accommodation.id }}</td>
                 <td>{{ accommodation.title }}</td>
-                <td>{{ accommodation.description }}</td>
-                <td>{{ accommodation.address }}</td>
-                <td>{{ accommodation.priceNight }}</td>
-                <td>{{ accommodation.NbGuests }}</td>
-                <td>{{ accommodation.NbRooms }}</td>
-                <td>{{ accommodation.propertyType.value}}</td>
-                <td>{{ accommodation.host.email }}</td>
-                <td>{{ accommodation.city.name}}</td>
-                <td>
-                    <a href="{{ path('app_admin_accommodation_show', {'id': accommodation.id}) }}">show</a>
-                    <a href="{{ path('app_admin_accommodation_edit', {'id': accommodation.id}) }}">edit</a>
-                    <a href="{{ path('app_admin_accommodation_delete', {'id': accommodation.id}) }}">delete</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <td>{{ accommodation.priceNight }} €</td>
+                <td>{{ accommodation.propertyType.value }}</td>
+                <td>{{ accommodation.host.userProfile.firstName }} {{ accommodation.host.userProfile.lastName }}</td>
+                <td>{{ accommodation.city.name }}</td>
 
-    <a href="{{ path('app_admin_accommodation_new') }}">Create new</a>
+                    <td class="actions">
+                        <a href="{{ path('app_admin_accommodation_show', {'id': accommodation.id}) }}" class="btn-show">Afficher</a>
+                        <a href="{{ path('app_admin_accommodation_edit', {'id': accommodation.id}) }}" class="btn-edit">Modifier</a>
+                        <form method="post" action="{{ path('app_admin_accommodation_delete', {'id': accommodation.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet hébergement ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ accommodation.id) }}">
+                            <button class="btn-delete" type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
 {% endblock %}

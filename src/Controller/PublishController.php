@@ -19,31 +19,50 @@ class PublishController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
-        // crée la formulaire pour accommodation
+        // Crée la formulaire pour accommodation
         $accommodation = new Accommodation();
         $form1 = $this->createForm(AccommodationFormType::class, $accommodation);
-        // crée la formulaire pour activity
+
+        // Crée la formulaire pour activity
         $activity = new Activity();
         $form = $this->createForm(ActivityFormType::class, $activity);
 
-
+        // Traitement du formulaire pour Accommodation
         $form1->handleRequest($request);
         if ($form1->isSubmitted() && $form1->isValid()) {
             $accommodation->setHost($this->getUser());
             $accommodation->setCreateDate(new \DateTimeImmutable());
-            $accommodation ->setUpdateDate(new \DateTimeImmutable());
+            $accommodation->setUpdateDate(new \DateTimeImmutable());
+
             $entityManager->persist($accommodation);
             $entityManager->flush();
-            return $this->redirectToRoute('app_accommodation_showAll');  //rediriger vers la page d'affichage aprés l'ajout
+
+            // Ajouter un message flash pour Accommodation
+            $this->addFlash('success', 'Votre hébergement a été ajouté avec succès !');
+
+            return $this->redirectToRoute('app_accommodation_showAll');
         }
 
+        // Traitement du formulaire pour Activity
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $activity->setHost($this->getUser());
             $activity->setCreateDate(new \DateTimeImmutable());
-            $activity ->setUpdateDate(new \DateTimeImmutable());
+            $activity->setUpdateDate(new \DateTimeImmutable());
+
+            $duration = $activity->getDuration();
+            if ($duration === null) {
+                $duration = 1;
+            }
+            $activity->setDuration((int) $duration);
+
+
             $entityManager->persist($activity);
             $entityManager->flush();
+
+            // Ajouter un message flash pour Activity
+            $this->addFlash('success', 'Votre activité a été ajoutée avec succès !');
+
             return $this->redirectToRoute('app_activity_showAll');
         }
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Accommodation;
 use App\Entity\Activity;
+use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,30 +41,34 @@ class FavoriteController extends AbstractController
 
         if ($user->getFavoriteActivities()->contains($activity)) {
             $user->removeFavoriteActivity($activity);
-            $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');// Retirer des favoris
+            $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');
         } else {
             $user->addFavoriteActivity($activity);
-            $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');// Ajouter aux favoris
+            $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');
         }
 
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_activity_showAll'); // Redirection après modification
+        return $this->redirectToRoute('app_activity_showAll');
     }
 
     #[Route('/List', name: 'List')]
-    public function listFavorites(EntityManagerInterface $em): Response
+    public function listFavorites(EntityManagerInterface $em ,NotificationRepository $notificationRepository): Response
     {
-        // Récupérer l'utilisateur connecté
+         // Récupérer l'utilisateur connecté
         $user = $this->getUser();
 
         // Récupérer les hébergements et les activités favoris de l'utilisateur
-        $favoriteAccommodations = $user->getFavoriteAccommodation(); // Assure-toi que cette relation existe dans l'entité User
-        $favoriteActivities = $user->getFavoriteActivities(); // Assure-toi que cette relation existe également
+        $favoriteAccommodations = $user->getFavoriteAccommodation();
+        $favoriteActivities = $user->getFavoriteActivities();
+        $user = $this->getUser();
+        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
+
 
         return $this->render('favorite/favorite.html.twig', [
             'accommodations' => $favoriteAccommodations,
             'activities' => $favoriteActivities,
+            'unreadNotifications' => $unreadNotifications
         ]);
 
     }

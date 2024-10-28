@@ -8,7 +8,9 @@ use App\Entity\City;
 use App\Entity\Country;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,12 +48,16 @@ class ActivityFormType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
             ])
-            ->add('pictures', FileType::class, [
+            ->add('duration', IntegerType::class, [
+                'required' => true,
+                'label' => 'Durée',
+            ])
+            ->add('pictures', CollectionType::class, [
+                'entry_type' => PictureTypeActivity::class, // Formulaire pour une seule image
+                'allow_add' => true, // Permet d'ajouter des images
+                'allow_delete' => true, // Permet de supprimer des images
+                'by_reference' => false,
                 'label' => 'Images',
-                'multiple' => true,  /*user peut telecharger plusier images a la fois*/
-                'mapped' => false,
-                'required' => false,
-                'attr' => ['accept' => 'image/*'],
             ]);
         ;
     }
