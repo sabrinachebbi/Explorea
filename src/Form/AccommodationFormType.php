@@ -14,6 +14,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Doctrine\ORM\EntityRepository;
 
 
 class AccommodationFormType extends AbstractType
@@ -26,11 +27,20 @@ class AccommodationFormType extends AbstractType
                 'label' => 'Titre',
 
             ])
-               ->add('city', EntityType::class, [
-                   'class' => City::class,
-                   'choice_label' => 'name',
-                   'placeholder' => 'Sélectionnez une ville',
-               ])
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'choice_label' => 'name',
+                'placeholder' => 'Sélectionnez une ville',
+                'group_by' => function (City $city) {
+                    return $city->getCountry()->getName();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->join('c.country', 'country')
+                        ->orderBy('country.name', 'ASC')
+                        ->addOrderBy('c.name', 'ASC');
+                },
+            ])
             ->add('address', TextType::class, [
                 'required' => false,
                 'label' => 'Adresse',

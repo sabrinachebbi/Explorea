@@ -8,8 +8,8 @@ table {
     top: 364px;
 }
 .table_notif{
-    width: 77%;
-    margin-left: 80px;
+    width: 74%;
+    margin-left: 73px;
 }
 h1{
     font-family: "Poppins", sans-serif;
@@ -19,7 +19,7 @@ h1{
     font-weight: bold;
     position: relative;
     bottom: 123px;
-    right: 564px;
+    right: 380px;
 }
 
 table th, table td {

@@ -79,9 +79,9 @@ class ActivityController extends AbstractController
             $activities->setCreateDate(new DateTimeImmutable());
             $activities ->setUpdateDate(new DatetimeImmutable());
             $activities->setDuration($request->request->get('duration'));
-            foreach ($activities->getPictures() as $picture) {
-                $picture->setActivityPictures($activities);
-                $entityManager->persist($picture);
+            if ($activities->getPicture()) {
+                $activities->getPicture()->setActivity($activities);
+                $entityManager->persist($activities->getPicture());
             }
 
             $entityManager->persist($activities);
@@ -95,7 +95,7 @@ class ActivityController extends AbstractController
 
     }
 #[Route('/update/{id}', name: 'update')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_HOST')]
 
     public function update(
         Activity $activities,

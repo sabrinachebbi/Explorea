@@ -11,8 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 #[ORM\Entity(repositoryClass: AccommodationRepository::class)]
-#[Vich\Uploadable()]
+#[Vich\Uploadable]
 class Accommodation
 {
     #[ORM\Id]
@@ -21,18 +22,18 @@ class Accommodation
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
-    #[Assert\Length(min: 3,max: 50)]
+    #[Assert\Length(min: 3, max: 50)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\Length(min: 10,max: 500,minMessage: "La Description doit comporter au moins 10 caractères.")]
+    #[Assert\Length(min: 10, max: 500, minMessage: "La Description doit comporter au moins 10 caractères.")]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
     private ?string $description = null;
 
     #[ORM\Column(length: 200)]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
-    #[Assert\Length(min: 5,max: 250,minMessage: "L'adresse doit comporter au moins 5 caractères.", )]
+    #[Assert\Length(min: 5, max: 250, minMessage: "L'adresse doit comporter au moins 5 caractères.")]
     private ?string $address = null;
 
     #[ORM\Column]
@@ -41,18 +42,14 @@ class Accommodation
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
-    #[Assert\Type(type: 'integer',
-        message: "La valeur doit être un nombre entier.")]
-    #[Assert\GreaterThan(value: 0,
-        message: "Le nombre doit être supérieur à 0.")]
+    #[Assert\Type(type: 'integer', message: "La valeur doit être un nombre entier.")]
+    #[Assert\GreaterThan(value: 0, message: "Le nombre doit être supérieur à 0.")]
     private ?int $NbGuests = null;
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Veuillez remplir ce champ.")]
-    #[Assert\Type(type: 'integer',
-        message: "La valeur doit être un nombre entier.")]
-    #[Assert\GreaterThan(value: 0,
-        message: "Le nombre doit être supérieur à 0.")]
+    #[Assert\Type(type: 'integer', message: "La valeur doit être un nombre entier.")]
+    #[Assert\GreaterThan(value: 0, message: "Le nombre doit être supérieur à 0.")]
     private ?int $NbRooms = null;
 
     #[ORM\Column]
@@ -69,36 +66,23 @@ class Accommodation
     #[ORM\JoinColumn(nullable: false)]
     private ?User $host = null;
 
-
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
-    /**
-     * @var Collection<int, Reservation>
-     */
-    #[ORM\OneToMany(targetEntity: Reservation::class, mappedBy: 'accommodation')]
+    #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Reservation::class)]
     private Collection $reservations;
 
-    /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'accommodation')]
-    private Collection $reviews;
-
-    /**
-     * @var Collection<int, Picture>
-     */
     #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
     private Collection $pictures;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
         $this->pictures = new ArrayCollection();
     }
 
-
+    // Getters et Setters
 
     public function getId(): ?int
     {
@@ -113,7 +97,6 @@ class Accommodation
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -125,7 +108,6 @@ class Accommodation
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -137,7 +119,6 @@ class Accommodation
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -149,7 +130,6 @@ class Accommodation
     public function setPriceNight(float $priceNight): static
     {
         $this->priceNight = $priceNight;
-
         return $this;
     }
 
@@ -161,7 +141,6 @@ class Accommodation
     public function setNbGuests(int $NbGuests): static
     {
         $this->NbGuests = $NbGuests;
-
         return $this;
     }
 
@@ -173,7 +152,6 @@ class Accommodation
     public function setNbRooms(int $NbRooms): static
     {
         $this->NbRooms = $NbRooms;
-
         return $this;
     }
 
@@ -185,7 +163,6 @@ class Accommodation
     public function setCreateDate(\DateTimeImmutable $createDate): static
     {
         $this->createDate = $createDate;
-
         return $this;
     }
 
@@ -197,7 +174,6 @@ class Accommodation
     public function setUpdateDate(\DateTimeImmutable $updateDate): static
     {
         $this->updateDate = $updateDate;
-
         return $this;
     }
 
@@ -209,7 +185,6 @@ class Accommodation
     public function setPropertyType(propertyType $propertyType): static
     {
         $this->propertyType = $propertyType;
-
         return $this;
     }
 
@@ -221,10 +196,8 @@ class Accommodation
     public function setHost(?User $host): static
     {
         $this->host = $host;
-
         return $this;
     }
-
 
     public function getCity(): ?City
     {
@@ -234,13 +207,9 @@ class Accommodation
     public function setCity(?City $city): static
     {
         $this->city = $city;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
     public function getReservations(): Collection
     {
         return $this->reservations;
@@ -252,55 +221,19 @@ class Accommodation
             $this->reservations->add($reservation);
             $reservation->setAccommodation($this);
         }
-
         return $this;
     }
 
     public function removeReservation(Reservation $reservation): static
     {
         if ($this->reservations->removeElement($reservation)) {
-            // set the owning side to null (unless already changed)
             if ($reservation->getAccommodation() === $this) {
                 $reservation->setAccommodation(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setAccommodation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getAccommodation() === $this) {
-                $review->setAccommodation(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Picture>
-     */
     public function getPictures(): Collection
     {
         return $this->pictures;
@@ -312,20 +245,16 @@ class Accommodation
             $this->pictures->add($picture);
             $picture->setAccommodation($this);
         }
-
         return $this;
     }
 
     public function removePicture(Picture $picture): static
     {
         if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
             if ($picture->getAccommodation() === $this) {
                 $picture->setAccommodation(null);
             }
         }
-
         return $this;
     }
-
 }

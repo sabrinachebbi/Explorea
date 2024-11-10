@@ -1,13 +1,11 @@
+<div class="card" data-activity-id="{{ activity.id }}">
+{% if activity.picture %}
+    <img src="{{ vich_uploader_asset(activity.picture, 'activityImageFile') }}" alt="Image de l'activité">
 
-<div class="image-gallery">
-    <div class="carousel" id="carousel-{{ activity.id }}">
-        {% for picture in activity.pictures %}
-            <img class="carousel-item"
-                 src="{{ vich_uploader_asset(picture, 'activityImageFile') }}"
-                 alt="Image de l'activité"
-                 style="display: {% if loop.first %}block{% else %}none{% endif %};">
-        {% endfor %}
-    </div>
+{% else %}
+    <p>Aucune image disponible pour cette activité.</p>
+{% endif %}
+
 
     <div class="favorite-button">
         <a href="{{ path('toggle-favorite_activity', { 'id': activity.id }) }}">
@@ -19,38 +17,35 @@
         </a>
     </div>
 
-    <button class="prev" onclick="plusSlides({{ activity.id }}, -1)">&#10094;</button>
-    <button class="next" onclick="plusSlides({{ activity.id }}, 1)">&#10095;</button>
-</div>
+    <h4>{{ activity.title }}</h4>
 
-<h4>{{ activity.title }}</h4>
-<div class="position">
-    <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
-    <div class="title-first">{{ activity.address }}, {{ activity.city.name }}, {{ activity.city.country.name }}</div>
-</div>
-<p>{{ activity.duration }} jours</p>
-<p>{{ activity.description }}</p>
-<button class="price">{{ activity.price }}£</button>
-<div>{{ activity.category.name }}</div>
+    <div class="position">
+        <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
+        <div class="title-first">{{ activity.address }}, {{ activity.city.name }}, {{ activity.city.country.name }}</div>
+    </div>
 
-<div class="btn-crud">
-    <a href="{{ path('app_activity_showDetails', { 'id': activity.id }) }}">
-        <img src="{{ asset('images/info.png') }}" alt="Voir les détails" class="btn-show">
-    </a>
+    <p>{{ activity.duration }} jours</p>
+    <p>{{ activity.description }}</p>
+    <button class="price">{{ activity.price }}£</button>
+    <div>{{ activity.category.name }}</div>
 
-    {% if is_granted('ROLE_HOST') and activity.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_activity_update', { 'id': activity.id }) }}" class="btn-edit">
-            <img src="{{ asset('images/pen.png') }}" alt="Éditer" class="btn-edit">
+    <div class="btn-crud">
+        <a href="{{ path('app_activity_showDetails', { 'id': activity.id }) }}">
+            <img src="{{ asset('images/info.png') }}" alt="Voir les détails" class="btn-show">
         </a>
 
-        <form action="{{ path('app_activity_remove', { 'id': activity.id }) }}" method="post" class="form-delete">
-            <input type="hidden" name="token" value="{{ csrf_token('delete-activity-' ~ activity.id) }}">
-            <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">
-                <img src="{{ asset('images/delete.png') }}" alt="Supprimer" class="btn-delete">
-            </button>
-        </form>
+        {% if is_granted('ROLE_HOST') and activity.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_activity_update', { 'id': activity.id }) }}" class="btn-edit">
+                <img src="{{ asset('images/pen.png') }}" alt="Éditer" class="btn-edit">
+            </a>
 
-    {% endif %}
+            <form action="{{ path('app_activity_remove', { 'id': activity.id }) }}" method="post" class="form-delete">
+                <input type="hidden" name="token" value="{{ csrf_token('delete-activity-' ~ activity.id) }}">
+                <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">
+                    <img src="{{ asset('images/delete.png') }}" alt="Supprimer" class="btn-delete">
+                </button>
+            </form>
+        {% endif %}
+    </div>
 </div>
-
 

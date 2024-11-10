@@ -23,37 +23,36 @@ class ReviewController extends AbstractController
     #[Route('/accommodation/{id}', name: 'accommodation')]
     public function AccommodationReview(
         Accommodation $accommodation,
-        ReservationRepository $reservationRepository, // Récupérer la réservation
+        ReservationRepository $reservationRepository,
         ReviewRepository $reviewRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
         $traveler = $this->getUser();
 
-        // Vérifier s'il y a une réservation pour cet hébergement pour ce voyageur
+        // Vérifiez si le voyageur a une réservation pour cet hébergement
         $reservation = $reservationRepository->findOneBy([
             'accommodation' => $accommodation,
             'traveler' => $traveler,
         ]);
 
-        // Vérifier si l'utilisateur a déjà laissé un avis pour cette réservation
-        $existingReview = $reviewRepository->findOneBy([
-            'accommodation' => $accommodation,
-            'traveler' => $traveler,
-            'reservation' => $reservation,
-        ]);
+        if (!$reservation) {
+            $this->addFlash('error', 'Vous devez réserver cet hébergement avant de laisser un avis.');
+            return $this->redirectToRoute('app_accommodation_showDetails', ['id' => $accommodation->getId()]);
+        }
+
+        // Vérifier si un avis a déjà été laissé pour cette réservation
+        $existingReview = $reviewRepository->findOneBy(['reservation' => $reservation]);
 
         if ($existingReview) {
             $this->addFlash('warning', 'Vous avez déjà laissé un avis pour cet hébergement.');
-            return $this->redirectToRoute('traveler_reservations', ['id' => $accommodation->getId()]);
+            return $this->redirectToRoute('traveler_reservations');
         }
 
-        // Créer un nouveau formulaire d'avis
+        // Création de l'avis
         $review = new Review();
-        $review->setAccommodation($accommodation);
-        $review->setTraveler($traveler);
-        $review->setReservation($reservation);  // Lier l'avis à la réservation
-        $review->setDateReView(new \DateTimeImmutable());
+        $review->setReservation($reservation);  // Associez l'avis à la réservation
+        $review->setDateReview(new \DateTimeImmutable());
 
         $form = $this->createForm(ReviewFormType::class, $review);
         $form->handleRequest($request);
@@ -75,12 +74,38 @@ class ReviewController extends AbstractController
 
 
     #[Route('/activity/{id}', name: 'activity')]
-    public function ActivityReview(Activity $activity, Request $request, EntityManagerInterface $entityManager): Response
-    {
+    public function ActivityReview(
+        Activity $activity,
+        ReservationRepository $reservationRepository,
+        ReviewRepository $reviewRepository,
+        Request $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $traveler = $this->getUser();
+
+        // Rechercher une réservation pour cette activité et ce voyageur
+        $reservation = $reservationRepository->findOneBy([
+            'activity' => $activity,
+            'traveler' => $traveler,
+        ]);
+
+        if (!$reservation) {
+            $this->addFlash('error', 'Vous devez réserver cette activité avant de laisser un avis.');
+            return $this->redirectToRoute('app_activity_showDetails', ['id' => $activity->getId()]);
+        }
+
+        // Vérifier si un avis existe déjà pour cette réservation
+        $existingReview = $reviewRepository->findOneBy(['reservation' => $reservation]);
+
+        if ($existingReview) {
+            $this->addFlash('warning', 'Vous avez déjà laissé un avis pour cette activité.');
+            return $this->redirectToRoute('traveler_reservations');
+        }
+
+        // Créer un nouvel avis lié à la réservation
         $review = new Review();
-        $review->setDateReView(new \DateTimeImmutable());
-        $review->setTraveler($this->getUser());
-        $review->setActivity($activity);
+        $review->setReservation($reservation);
+        $review->setDateReview(new \DateTimeImmutable());
 
         $form = $this->createForm(ReviewFormType::class, $review);
         $form->handleRequest($request);
@@ -90,7 +115,6 @@ class ReviewController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre avis a été ajouté avec succès.');
-
             return $this->redirectToRoute('app_activity_showDetails', ['id' => $activity->getId()]);
         }
 

@@ -4,91 +4,76 @@ namespace App\Entity;
 
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
-#[vich\Uploadable()]
+#[Vich\Uploadable]
 class Picture
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
     #[ORM\Column(type: 'string', nullable: true)]
     private ?string $name = null;
+
     #[Vich\UploadableField(mapping: 'accommodations', fileNameProperty: 'name')]
-    private ?File $accommodationImageFile = null ;
+    private ?File $accommodationImageFile = null;
 
     #[Vich\UploadableField(mapping: 'activities', fileNameProperty: 'name')]
     private ?File $activityImageFile = null;
 
-
     #[ORM\Column]
     private ?\DateTimeImmutable $updateAt = null;
 
-    #[ORM\ManyToOne(targetEntity: Activity::class, inversedBy: 'pictures')]
-    #[ORM\JoinColumn(nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'pictures')]
+    private ?Accommodation $accommodation = null;
+
+    #[ORM\OneToOne(mappedBy: 'picture', cascade: ['persist', 'remove'])]
     private ?Activity $activity = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pictures')]
-    private ?accommodation $accommodation = null;
-
+    // Getters and Setters
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
-
         return $this;
     }
-
 
     public function getUpdateAt(): ?\DateTimeImmutable
     {
         return $this->updateAt;
     }
 
-    public function setUpdateAt(\DateTimeImmutable $updateAt): static
+    public function setUpdateAt(\DateTimeImmutable $updateAt): self
     {
         $this->updateAt = $updateAt;
-
-        return $this;
-    }
-    public function setAccommodationImageFile(?File $imageFile): self
-    {
-        $this->accommodationImageFile = $imageFile;
-        if (null !== $imageFile) {
-            $this->updateAt = new \DateTimeImmutable();
-        }
         return $this;
     }
 
-    public function getAccommodationImageFile(): ?File
+
+    public function getAccommodation(): ?Accommodation
     {
-        return $this->accommodationImageFile;
+        return $this->accommodation;
     }
 
-    public function setActivityImageFile(?File $imageFile): self
-{
-    $this->activityImageFile = $imageFile;
-    if (null !== $imageFile) {
-        $this->updateAt = new \DateTimeImmutable();
-    }
-    return $this;
-}
-
-    public function getActivityImageFile(): ?File
+    public function setAccommodation(?Accommodation $accommodation): self
     {
-        return $this->activityImageFile;
+        $this->accommodation = $accommodation;
+        return $this;
     }
 
     public function getActivity(): ?Activity
@@ -96,22 +81,45 @@ class Picture
         return $this->activity;
     }
 
-    public function setActivity(?Activity $activity): static
+    public function setActivity(?Activity $activity): self
     {
+        // Manage the OneToOne relationship
+        if ($activity === null && $this->activity !== null) {
+            $this->activity->setPicture(null);
+        }
+
+        if ($activity !== null && $activity->getPicture() !== $this) {
+            $activity->setPicture($this);
+        }
+
         $this->activity = $activity;
-
         return $this;
     }
-
-    public function getAccommodation(): ?accommodation
+    public function getAccommodationImageFile(): ?File
     {
-        return $this->accommodation;
+        return $this->accommodationImageFile;
     }
 
-    public function setAccommodation(?accommodation $accommodation): static
+    public function setAccommodationImageFile(?File $accommodationImageFile): void
     {
-        $this->accommodation = $accommodation;
+        $this->accommodationImageFile = $accommodationImageFile;
 
-        return $this;
+        if ($accommodationImageFile) {
+            $this->updateAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getActivityImageFile(): ?File
+    {
+        return $this->activityImageFile;
+    }
+
+    public function setActivityImageFile(?File $activityImageFile): void
+    {
+        $this->activityImageFile = $activityImageFile;
+
+        if ($activityImageFile) {
+            $this->updateAt = new \DateTimeImmutable();
+        }
     }
 }

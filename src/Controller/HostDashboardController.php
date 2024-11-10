@@ -14,6 +14,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -21,6 +23,12 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[IsGranted('ROLE_HOST')]
 class HostDashboardController extends AbstractController
 {
+    private $mailer;
+    // Injection du service MailerInterface dans le constructeur
+    public function __construct(MailerInterface $mailer)
+    {
+        $this->mailer = $mailer;
+    }
     #[Route('/', name: 'dashboard')]
     public function index(NotificationRepository $notificationRepository): Response
     {
@@ -138,7 +146,29 @@ class HostDashboardController extends AbstractController
         ]);
     }
 
+    private function envoyerEmailAuVoyageur(Reservation $reservation, string $sujet): void
+    {
+        // Récupération des informations pour le contenu de l'email
+        $firstName = $reservation->getTraveler()->getUserProfile()->getFirstName(); // Prénom du voyageur
+        $title = $reservation->getAccommodation()->getTitle(); // Nom de l'hébergement
+        $city = $reservation->getAccommodation()->getCity()->getName(); // Ville de l'hébergement
+        $status = strtolower($reservation->getStatus()->getStatus()->value); // Statut (confirmée ou annulée)
 
+        // Construction du contenu de l'email
+        $contenu = "Bonjour " . $firstName . ",\n\n";
+        $contenu .= "Votre réservation pour \"" . $title . "\" à " . $city . " a été " . $status . ".\n\n";
+        $contenu .= "Merci d'utiliser Exploréa !";
+
+        // Création de l'email
+        $emailMessage = (new Email())
+            ->from('no-reply@explorea.com')
+            ->to($reservation->getTraveler()->getEmail())
+            ->subject($sujet)
+            ->text($contenu);
+
+        // Envoi de l'email
+        $this->mailer->send($emailMessage);
+    }
 
 
     #[Route('notification/confirm/{id}', name: 'confirm')]
@@ -165,23 +195,19 @@ class HostDashboardController extends AbstractController
                 $entityManager->flush();
             }
 
-            // Créer une notification pour le voyageur
-            $traveler = $reservation->getTraveler();
-            $travelerNotification = new Notification();
-            $travelerNotification->setMessage('Votre réservation pour l\'hébergement ' . $reservation->getAccommodation()->getTitle() . ' a été confirmée.');
-            $travelerNotification->setUser($traveler);
-            $travelerNotification->setReservation($reservation);
-            $travelerNotification->setCreatedAt(new \DateTimeImmutable());
-            $travelerNotification->setRead(false);
-            $entityManager->persist($travelerNotification);
-            $entityManager->flush();
-
             // Message flash de succès
             $this->addFlash('success', 'Réservation approuvée avec succès.');
 
             // Récupérer le nombre de notifications non lues
             $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
+        // Envoi de l'email de confirmation au voyageur
+        $this->envoyerEmailAuVoyageur(
+            $reservation,
+            'Réservation Confirmée'
+        );
+
+        $this->addFlash('success', 'Réservation confirmée.');
 
         // Redirection avec unreadNotifications
         return $this->redirectToRoute('host_notification', [
@@ -211,22 +237,17 @@ class HostDashboardController extends AbstractController
                 $notification->setRead(true);
             }
             $entityManager->flush();
-            // Créer une notification pour le voyageur
-            $traveler = $reservation->getTraveler();
-            $notification = new Notification();
-            $notification->setMessage('Votre réservation pour l\'hébergement ' . $reservation->getAccommodation()->getTitle() . ' a été annulée.');
-            $notification->setUser($traveler);
-            $notification->setReservation($reservation);
-            $notification->setCreatedAt(new \DateTimeImmutable());
-            $notification->setRead(false);
-            $entityManager->persist($notification);
-            $entityManager->flush();
-
             // Message flash de succès
             $this->addFlash('warning', 'Réservation annulée avec succès.');
             // Récupérer le nombre de notifications non lues
             $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
+        // Envoi de l'email de confirmation au voyageur
+        $this->envoyerEmailAuVoyageur(
+            $reservation,
+            'Réservation Annulée'
+        );
+
         return $this->redirectToRoute('host_notification', [
             'unreadNotifications' => $unreadNotifications
         ]);

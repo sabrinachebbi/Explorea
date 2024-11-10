@@ -26,12 +26,13 @@
                 {% if app.user %}
                     <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
                 {% endif %}
-                {% if is_granted('ROLE_HOST') %}
+
                     <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
+                {% if is_granted('ROLE_HOST') %}
                     <div class="notification">
                         <a href="{{ path('host_notification') }}">
                             <img src="{{ asset('images/notification.png') }}" alt="Notifications" class="logout-icon1">
-                            {% if unreadNotifications > 0 %}
+                            {% if unreadNotifications is defined and unreadNotifications > 0 %}
                                 <span class="badge">{{ unreadNotifications }}</span>
                             {% endif %}
                         </a>

@@ -48,7 +48,7 @@ class Reservation
     private ?int $voyagerNb = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false,onDelete: "CASCADE")]
     private ?User $traveler = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]

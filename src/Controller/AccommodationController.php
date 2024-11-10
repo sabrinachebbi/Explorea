@@ -10,6 +10,7 @@ use App\Form\AccommodationFormType;
 use App\Form\ReservationAccommodationFormType;
 use App\Repository\AccommodationRepository;
 use App\Repository\NotificationRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -79,7 +80,7 @@ class AccommodationController extends AbstractController
             $accommodation ->setUpdateDate(new DateTimeImmutable());
             // Gérer les images
             foreach ($accommodation->getPictures() as $picture) {
-                $picture->setAccommodationPictures($accommodation);
+                $picture->setAccommodation($accommodation);
                 $entityManager->persist($picture);
             }
 
@@ -97,7 +98,7 @@ class AccommodationController extends AbstractController
     }
 
     #[Route('/update/{id}', name: 'update')]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_HOST')]
 
     public function update(
         Accommodation $accommodation,
@@ -124,23 +125,25 @@ class AccommodationController extends AbstractController
     }
     //fonction pour afficher les details d' une seul annonce
     #[Route('/show/{id}', name: 'showDetails')]
-    #[IsGranted('ROLE_USER')]
-    public function show( Accommodation $accommodation): Response {
+    public function show( Accommodation $accommodation, ReviewRepository $reviewRepository): Response {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationAccommodationFormType::class, $reservation, [
             'action' => $this->generateUrl('reservation_accommodation', ['id' => $accommodation->getId()]),
             'method' => 'POST'
         ]);
+        // Récupérer les avis associés aux réservations de l'hébergement
+        $reviews = $reviewRepository->findByAccommodation($accommodation);
 
         return $this->render('accommodation/showAccommodation.html.twig',[
             'accommodation' => $accommodation,
             'reservationForm' => $form->createView(),  // Passer le formulaire au template
+            'reviews' => $reviews,  // Passez les avis au template
         ]);
     }
 
     //fonction pour supprimer une annonce
     #[Route('/remove/{id}', name: 'remove', methods: ['POST'])]
-    #[IsGranted('ROLE_USER')]
+    #[IsGranted('ROLE_TRAVELER')]
     public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
         $user = $this->getUser();
         if (!$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')){

@@ -12,7 +12,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     max-width: 910px;
-    height: 815px;
+    height: 848px;
 }
 
 .authentif-form {
@@ -126,6 +126,26 @@ input:focus {
 .img-register {
     margin-right: 10px;
 }
+.password-container {
+    position: relative;
+    display: inline-block;
+}
+
+.password-container .form-control {
+    padding-right: 30px; /* espace pour l'icône */
+}
+
+.eye-icon {
+    position: absolute;
+    right: 115px;
+    top: 27%;
+    cursor: pointer;
+}
+.required-symbol {
+    position: absolute;
+    color: red;
+}
+
 
 /* Responsive */
 @media only screen and (max-width: 768px) {

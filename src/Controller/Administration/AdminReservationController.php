@@ -77,6 +77,8 @@ class AdminReservationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            // Ajouter un message flash pour la mise à jour
+            $this->addFlash('success', 'La réservation a été mise à jour avec succès.');
 
             return $this->redirectToRoute('admin_reservation_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -94,6 +96,9 @@ class AdminReservationController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$reservation->getId(), $request->request->get('_token'))) {
             $entityManager->remove($reservation);
             $entityManager->flush();
+            // Ajouter un message flash pour la suppression
+            $this->addFlash('success', 'La réservation a été supprimée avec succès.');
+
         }
 
         return $this->redirectToRoute('admin_reservation_index', [], Response::HTTP_SEE_OTHER);

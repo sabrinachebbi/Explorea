@@ -62,8 +62,8 @@ header {
    color: #19659d;
    font-size: 16px;
  font-family: 'Helvetica', sans-serif;
-   margin-top: 17px;
-   margin-right: 76px;
+   margin-top: 22px;
+   margin-right: 80px;
 }
 .user-mode1 {
    font-weight: bolder;
@@ -102,12 +102,12 @@ header {
    height: 30px;
 }
 .logout-icon {
-   width: 30px;
-   height: 30px;
+   width: 27px;
+   height: 27px;
    cursor: pointer;
    position: absolute;
-   top: 19px;
-   right:169px;
+   top: 18px;
+   right:143px;
    border-bottom: none;
 }
 .logout-link:hover .logout-icon ,.logout-icon1 {
@@ -121,15 +121,18 @@ header {
 }
 
 .logout-icon1 {
-   width: 30px; /* Taille de l'icône */
-   height: 30px;
+   width: 27px; /* Taille de l'icône */
+   height: 27px;
+   position: absolute;
+   top: -9px;
+   right:114px;
 }
 
 .badge {
    position: absolute;
-   top: -5px;
-   right: -3px;
-   padding:3px 8px;
+   top: -12px;
+   right: 109px;
+   padding:2px 6px;
    border-radius: 50%;
    background-color: red;
    color: white;
@@ -161,6 +164,8 @@ header {
 
    .menu-burger {
       display: flex;
+      position: absolute;
+      right: 24px;
    }
 
    .navbar {
@@ -177,11 +182,8 @@ header {
       top: 100px;
       right: 0;
       width: 30%;
-      height: 200px;
       background-color: white;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      z-index: 100;
-      margin-bottom: 20px;
    }
 
    .navbar ul {
@@ -191,7 +193,6 @@ header {
    }
 
    .navbar ul li a {
-      margin: 10px 0;
       font-size: 16px;
    }
 
@@ -204,9 +205,8 @@ header {
       align-items: center;
 
    }
-
    .btn {
-      width: 30%;
+      width: 50%;
       text-align: center;
       padding: 3px;
       font-size: 14px;
@@ -219,89 +219,67 @@ header {
 /* Téléphones et très petits écrans */
 @media (max-width: 768px) {
 
-   .container {
-      display: flex;
-      justify-content: flex-start;
-      padding: 0 10px;
-      flex-direction: row-reverse;
-   }
-
    /* Logo centré et réduit */
    .logo img {
       width: 140px;
-      height: auto;
-      position: static;
-      margin-left: 0;
+    margin-top:18px ;
    }
 
    /* Menu burger */
    .menu-burger {
       display: flex;
+      position: absolute;
+      top: 43px;
+      right: 10px;
    }
 
-   /* Navigation cachée par défaut et affichée avec burger */
-   /*.navbar {*/
-   /*   display: none;*/
-   /*}*/
-   /*.navbar.active {*/
-   /*   display: flex;*/
-   /*   flex-direction: column;*/
-   /*   position: absolute;*/
-   /*   top: -67px;*/
-   /*   right: 0;*/
-   /*   width: 43%;*/
-   /*   background-color: #ffffff;*/
-   /*   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);*/
-   /*   z-index: 100;*/
-   /*   padding: 20px;*/
-   /*}*/
+   .navbar.active {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      width: 43%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+   }
 
-   /*.navbar ul {*/
-   /*   flex-direction: column;*/
-   /*   align-items: center;*/
-   /*   gap: 15px;*/
-   /*}*/
+   .navbar ul {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+   }
 
-   /*.navbar ul li a {*/
-   /*   font-size: 14px;*/
-   /*}*/
+   .navbar ul li a {
+      font-size: 14px;
+   }
 
-   /*!* Boutons d'authentification alignés au centre *!*/
-   /*.auth-buttons {*/
-   /*   flex-direction: column;*/
-   /*   align-items: center;*/
-   /*   margin-top: 15px;*/
-   /*}*/
+   .btn {
+      width: 70%;
+      text-align: center;
+      padding: 5px;
+   }
 
-   /*.btn {*/
-   /*   width: 80%;*/
-   /*   text-align: center;*/
-   /*   padding: 5px;*/
-   /*   font-size: 14px;*/
-   /*}*/
+   .user-mode, .user-mode1 {
+      margin-right: 0;
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+   }
 
-   /*.user-mode, .user-mode1 {*/
-   /*   margin-right: 0;*/
-   /*   text-align: center;*/
-   /*   margin-top: 10px;*/
-   /*   font-size: 14px;*/
-   /*}*/
+   /* Notifications et icônes adaptés */
+   .notification, .logout-icon, .logout-icon1 {
+      top: 10px;
+      right: 15px;
+      width: 25px;
+      height: 25px;
+   }
 
-   /*!* Notifications et icônes adaptés *!*/
-   /*.notification, .logout-icon, .logout-icon1 {*/
-   /*   top: 10px;*/
-   /*   right: 15px;*/
-   /*   width: 25px;*/
-   /*   height: 25px;*/
-   /*}*/
-
-   /*!* Badge des notifications *!*/
-   /*.badge {*/
-   /*   top: -3px;*/
-   /*   right: -3px;*/
-   /*   padding: 2px 6px;*/
-   /*   font-size: 10px;*/
-   /*}*/
+   /* Badge des notifications */
+   .badge {
+      top: -3px;
+      right: -3px;
+      padding: 2px 6px;
+      font-size: 10px;
+   }
 }
 
 

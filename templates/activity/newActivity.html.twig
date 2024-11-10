@@ -1,24 +1,85 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}newActivity{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
+{% endblock %}
+
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block body %}
-    <div class="">
-        <div class="">
-            <h2>Ajouter une nouvelle Activity</h2>
-
+    <div class="form-container1">
             {{ form_start(ActivityForm) }}
-            {{ form_row(ActivityForm.title) }}
-            {{ form_row(ActivityForm.address) }}
-            {{ form_row(ActivityForm.duration)}}
-            {{ form_row(ActivityForm.description) }}
-            {{ form_row(ActivityForm.price) }}
-            {{ form_row(ActivityForm.category)}}
 
+            <div class="form-group">
+                {{ form_label(ActivityForm.title, 'Titre <span style="color: red;">*</span>', { 'label_html': true }) }}
+                {{ form_widget(ActivityForm.title, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(ActivityForm.city) }}
+                {{ form_widget(ActivityForm.city, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.city) }}
+                </div>
+            </div>
 
-            <button type="submit" class="btn">Ajouter</button>
-            {{ form_end(ActivityForm) }}
+            <div class="form-group">
+                {{ form_label(ActivityForm.address, 'Adresse <span style="color: red;">*</span>', { 'label_html': true })}}
+                {{ form_widget(ActivityForm.address, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.address) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(ActivityForm.duration, 'Durée <span style="color: red;">*</span>', { 'label_html': true }) }}
+                {{ form_widget(ActivityForm.duration, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.duration) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.description, 'Description <span style="color: red;">*</span>', { 'label_html': true })  }}
+                {{ form_widget(ActivityForm.description, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.description) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.price, 'Prix <span style="color: red;">*</span>', { 'label_html': true }) }}
+                {{ form_widget(ActivityForm.price, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.price) }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                {{ form_label(ActivityForm.category) }}
+                {{ form_widget(ActivityForm.category, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.category) }}
+                </div>
+            </div>
+        <div class="form-group">
+            {{ form_label(ActivityForm.picture, 'Image <span style="color: red;">*</span>', { 'label_html': true }) }}
+            {{ form_widget(ActivityForm.picture, { 'attr': { 'class': 'form-control picture-class' } }) }}
+            <div class="error">
+                {{ form_errors(ActivityForm.picture) }}
+            </div>
         </div>
-    </div>
+
+            <button type="submit" class="btn">
+                {% if activity is defined %}
+                    Mettre à Jour
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
+
+
+        </div>
+    {{ form_end(ActivityForm) }}
+
 {% endblock %}

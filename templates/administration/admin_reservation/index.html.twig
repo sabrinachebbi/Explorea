@@ -1,10 +1,23 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notification-message.css') }}">
 {% endblock %}
 {% block importmap %}
     {{ importmap('pagination') }}
 {% endblock %}
 {% block body %}
+    <!-- Message flash  -->
+
+        <div class="flash-messages">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-message flash-{{ label }}">
+                        <span>{{ message }}</span>
+                        <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
     <div class="reservation-container">
         <h1>Liste des Réservations</h1>
         <p>Nombre total de réservations : <strong>{{ pagination.getTotalItemCount }}</strong></p>
@@ -29,11 +42,11 @@
                     <td>{{ reservation.returnDate ? reservation.returnDate|date('d/m/Y') : '' }}</td>
                     <td class="actions">
                         <a href="{{ path('admin_reservation_show', {'id': reservation.id}) }}" class="btn-show">Afficher</a>
+                        <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}" class="btn-edit">Modifier</a>
                         <form method="post" action="{{ path('admin_reservation_delete', {'id': reservation.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette réservation ?');">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
                             <button type="submit" class="btn-delete">Supprimer</button>
                         </form>
-                        <a href="{{ path('admin_reservation_edit', {'id': reservation.id}) }}" class="btn-edit">Modifier</a>
 
                     </td>
                 </tr>

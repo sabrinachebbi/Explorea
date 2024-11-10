@@ -97,17 +97,16 @@
                 {% endfor %}
                 <button type="button" class="add_pictures" data-collection-holder-class="AccommodationPictures">Ajouter des images</button>
             </div>
-                <button type="submit" class="btn">
-                    {% if accommodation is defined %}
-                        Mettre à Jour
-                    {% else %}
-                        Ajouter
-                    {% endif %}
-                </button>
+            <button type="submit" class="btn">
+                {% if accommodation is defined %}
+                    Mettre à Jour
+                {% else %}
+                    Ajouter
+                {% endif %}
+            </button>
 
             {{ form_end(AccommodationForm) }}
         </div>
-
         <!-- Formulaire d'activité (caché par défaut) -->
         <div id="activity-form" class="form-container" style="display: none;">
             <h2>Proposez une Expérience Unique <br> aux Voyageurs</h2>
@@ -168,20 +167,12 @@
                 </div>
             </div>
             <div class="form-group">
-                {{ form_label(ActivityForm.pictures, 'Images <span style="color: red;">*</span>', { 'label_html': true }) }}
-                <ul class="activityPictures"
-                    data-index="{{ ActivityForm.pictures|length > 0 ? ActivityForm.pictures|last.vars.name + 1 : 0 }}"
-                    data-prototype="{{ form_widget(ActivityForm.pictures.vars.prototype)|e('html_attr') }}"
-                ></ul>
-                {% for picture in ActivityForm.pictures %}
-                    <li>
-                        {{ form_errors(picture) }}
-                        {{ form_widget(picture, {'attr': {'class': 'form-control'}}) }}
-                    </li>
-                {% endfor %}
-                <button type="button" class="add_pictures" data-collection-holder-class="activityPictures">Ajouter des images</button>
+                {{ form_label(ActivityForm.picture, 'Image <span style="color: red;">*</span>', { 'label_html': true }) }}
+                {{ form_widget(ActivityForm.picture, {'attr': {'class': 'form-control'}}) }}
+                <div class="error">
+                    {{ form_errors(ActivityForm.picture) }}
+                </div>
             </div>
-
             <button type="submit" class="btn">
                 {% if activity is defined %}
                     Mettre à Jour
@@ -193,34 +184,9 @@
 
         </div>
     </div>
+    {{ form_end(ActivityForm) }}
 
-            {{ form_end(ActivityForm) }}
-
-
-
-
-        <script src="{{ asset('js/showForms.js') }}"></script>
-        <script>
-            document.querySelectorAll('.add_pictures').forEach(btn => {
-                btn.addEventListener("click", addFormToCollection)
-            });
-
-            function addFormToCollection(e) {
-                const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
-                const item = document.createElement('li');
-
-                item.innerHTML = collectionHolder
-                    .dataset
-                    .prototype
-                    .replace(
-                        /__name__/g,
-                        collectionHolder.dataset.index
-                    );
-
-                collectionHolder.appendChild(item);
-                collectionHolder.dataset.index++;
-            }
-
-        </script>
+    <script src="{{ asset('js/showForms.js') }}"></script>
+    <script src="{{ asset('js/addPictures.js') }}"></script>
 
 {% endblock %}

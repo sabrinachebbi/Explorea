@@ -79,20 +79,24 @@
     }
 }
 
-/* Pour les écrans max-width de 1024px (tablettes et petits écrans) */
+/* Pour les écrans max-width de 1024px (tablettes) */
 @media (max-width: 1024px) {
+    #section1{
+        height: 238px;
+    }
     .search-bar {
-        max-width: 600px;
-        bottom: 134px;
-        right: 134px;
+        max-width: 562px;
+        bottom: 113px;
+        right: 77px;
     }
 
     .search-btn {
-        width: 100%;
         justify-content: center;
     }
     #img1{
-        right: 27px;
+        right: 14px;
+        width: 150px;
+        height: 226px;
     }
 }
 
@@ -121,7 +125,7 @@
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-left: 50px;
-    text-align: center;
+    /*text-align: center;*/
 }
 #article1 p{
     font-family: "Poppins", sans-serif;
@@ -138,9 +142,9 @@
     border-radius: 5px;
     color: white;
     background-color: #19659d;
-    margin-left: 85px;
     padding: 7px;
     cursor: pointer;
+    margin-bottom: -18px;
 }
 #article1 button:hover {
     background-color: #1BBC9B;
@@ -160,10 +164,12 @@
         font-size: 25px;
     }
     .title1 {
-        font-size: 31px;
+        font-size:30px;
     }
     #article1 button {
         font-size: 12px;
+        width: 103px;
+        margin-right: 8px;
     }
 }
 /*fin style partie3*/
@@ -183,13 +189,13 @@ figure{
     width: 285px;
     border-radius: 10px 10px 10px 10px;
 }
-.icon-image {
-    position: absolute;
-    top: 23px;
-    left: 10px;
-    width: 40px;
-    height: 40px;
-    animation: float 6s ease-in-out infinite;
+    .icon-image {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 10px;
+        left: 5px;
+     animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
@@ -280,7 +286,7 @@ figure{
 }
 @media screen and (max-width: 1024px) {
     .background-image {
-        width: 195px;
+        width: 215px;
     }
 
     .icon-image {
@@ -289,13 +295,13 @@ figure{
     }
 
     .card-image img {
-        width: 196px;
+        width: 215px;
         height: 150px;
     }
 
     .card {
-        width: 196px;
-        height: 370px;
+        width:215px;
+        height: auto;
     }
 
     .duration {
@@ -337,7 +343,7 @@ figure{
     font-weight: bold;
     position: absolute;
     top: 288px;
-    left: 285px;
+    left:158px;
     text-align: center;
 }
 @media screen and (max-width: 1024px){
@@ -346,8 +352,8 @@ figure{
         margin-top: 60px;
     }
     .title4 {
-        top: 118px;
-        font-size: 25px;
+        top: 78px;
+        font-size: 22px;
         left: 83px;
     }
 }
@@ -610,5 +616,106 @@ figure{
             top: 118px;
             left: 157px;
         }
+    .afficher{
+        right:5px;
+    }
     }
 
+/* Media Queries pour les écrans de mobile (moins de 768px) */
+@media screen and (max-width: 768px) {
+    #section1 {
+        height:130px;
+    }
+    #img1{
+        display: none;
+    }
+    /* Barre de recherche */
+    .search-bar {
+        max-width: 61%;
+        flex-direction: column;
+        padding: 15px;
+        bottom: 36px;
+        left: 0;
+
+    }
+    .search-btn {
+        width: 58%;
+        padding: 10px;
+        font-size: 14px;
+        margin-left: 50px;
+    }
+
+    /* Section article */
+    #article1 {
+        background-size: 100% auto;
+    }
+    .title1 {
+        font-size: 25px;
+        margin-left: 20px;
+    }
+    .title2 {
+        font-size: 20px;
+        margin-left: 20px;
+    }
+    #article1 p {
+        font-size: 13px;
+        margin-left: 20px;
+    }
+    #article1 button {
+        margin-left: 20px;
+        padding: 5px;
+        font-size: 10px;
+        width: 155px;
+    }
+
+    /* Section des cartes (Partie 4) */
+    figure {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    /* Cartes */
+    .card {
+        width: 66%;
+        margin: 10px 0;
+        height: auto;
+    }
+    .card-image img {
+        width: 100%;
+        height: auto;
+    }
+    .duration, .contact, .location, .description, .price , .title {
+        font-size: 12px;
+    }
+
+    /* Section background image (Partie 5) */
+    .image4 {
+        height: 180px;
+        margin-top: 40px;
+    }
+    .title4 {
+        font-size:16px;
+        left: 5px;
+        top: 61px;
+    }
+
+    /* Section blog et avis (Partie 9) */
+    .container2 {
+    display: none;
+    }
+    /* Section partie8 */
+    .figure2 {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .article3 {
+        height: auto;
+    }
+    .title1-1 {
+        font-size: 25px;
+        text-align: center;
+    }
+    .afficher {
+      display: none;
+    }
+}

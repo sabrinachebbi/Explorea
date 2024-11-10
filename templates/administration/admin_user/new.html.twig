@@ -5,10 +5,6 @@
 
 {% block body %}
 <div class="container">
-    <h1>Ajouter un utilisateur</h1>
-
-    {{ include('administration/admin_accommodations/_form.html.twig') }}
-
-    <a href="{{ path('app_admin_accommodation_list') }}">Retour à la liste</a>
+    {{ include('administration/admin_user/_form.html.twig') }}
     {% endblock %}
 </div>

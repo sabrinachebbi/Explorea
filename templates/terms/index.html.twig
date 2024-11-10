@@ -1,0 +1,97 @@
+
+{% block body %}
+    <div class="terms-container">
+        <h1>Conditions Générales d'Utilisation du Site Exploréa</h1>
+
+        <section>
+            <h2>1. Introduction</h2>
+            <p>Bienvenue sur Exploréa, une plateforme qui permet aux utilisateurs de réserver des hébergements et des activités dans différentes destinations. En accédant à ce site, vous acceptez les présentes conditions d’utilisation.</p>
+        </section>
+
+        <section>
+            <h2>2. Acceptation des Conditions</h2>
+            <p>L'utilisation du site Exploréa implique l'acceptation complète des présentes conditions générales d’utilisation. Si vous n'êtes pas d'accord, veuillez ne pas utiliser ce site.</p>
+        </section>
+
+        <section>
+            <h2>3. Inscription et Sécurité des Comptes</h2>
+            <p>Pour utiliser certaines fonctionnalités, vous devrez créer un compte. Vous êtes responsable de la confidentialité de vos informations de connexion. Exploréa ne sera pas responsable en cas d’utilisation frauduleuse de votre compte.</p>
+        </section>
+
+        <section>
+            <h2>4. Utilisation Acceptable</h2>
+            <ul>
+                <li>Ne pas publier de contenus illégaux, offensants ou nuisibles.</li>
+                <li>Ne pas essayer de pirater ou perturber le fonctionnement du site.</li>
+                <li>Respecter les autres utilisateurs et le personnel du site.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>5. Réservations et Paiements</h2>
+            <p>Exploréa propose la réservation d’hébergements et d’activités. Les utilisateurs sont responsables de lire et de comprendre les conditions spécifiques de chaque réservation. Toute demande de remboursement ou d’annulation sera traitée conformément à la politique de remboursement d’Exploréa.</p>
+        </section>
+
+        <section>
+            <h2>6. Politique de Confidentialité</h2>
+            <p>Exploréa respecte votre vie privée. Nous collectons et utilisons vos informations personnelles uniquement pour les services liés à votre expérience utilisateur sur notre site. Pour plus de détails, veuillez consulter notre <a href="{{ path('terms') }}">Politique de Confidentialité</a>.</p>
+        </section>
+
+        <section>
+            <h2>7. Propriété Intellectuelle</h2>
+            <p>Tous les contenus du site Exploréa (textes, images, logos) sont protégés par les lois sur la propriété intellectuelle. Toute reproduction ou utilisation non autorisée est interdite.</p>
+        </section>
+
+        <section>
+            <h2>8. Limitation de Responsabilité</h2>
+            <p>Exploréa ne peut être tenu responsable en cas d’interruptions, d’erreurs ou de dommages liés à l’utilisation du site. Vous utilisez le site à vos propres risques.</p>
+        </section>
+
+        <section>
+            <h2>9. Modifications des Conditions</h2>
+            <p>Exploréa se réserve le droit de modifier ces conditions d’utilisation. Les utilisateurs seront informés de toute mise à jour importante, et l’utilisation continue du site implique l’acceptation des nouvelles conditions.</p>
+        </section>
+
+        <section>
+            <h2>10. Contact</h2>
+            <p>Pour toute question ou demande d’information, veuillez nous contacter à <a href="mailto:contact@explorea.com">contact@explorea.com</a>.</p>
+        </section>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .terms-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .terms-container h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #000;
+            text-align: center;
+        }
+        .terms-container h2 {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: #444;
+        }
+        .terms-container p, .terms-container ul {
+            margin-bottom: 15px;
+        }
+        .terms-container ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .terms-container a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .terms-container a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}

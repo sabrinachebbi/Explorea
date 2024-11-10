@@ -66,7 +66,7 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
                 for ($j = 0; $j < 3; $j++) {
                     $picture = new Picture();
                     $picture->setName($accommodationImageURLs[array_rand($accommodationImageURLs)]); // Sélectionner une image existante
-                    $picture->setAccommodationPictures($accommodation);
+                    $picture->setAccommodation($accommodation);
                     $picture->setUpdateAt(new \DateTimeImmutable()); //  Date de mise à jour
                     $manager->persist($picture);
                 }
@@ -78,13 +78,11 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
             $activity = $this->getReference('activity_' . $i);
 
             if ($activity) {
-                for ($j = 0; $j < 3; $j++) {
-                    $picture = new Picture();
-                    $picture->setName($activityImageURLs[array_rand($activityImageURLs)]); // Sélectionner une image existante
-                    $picture->setActivityPictures($activity);
-                    $picture->setUpdateAt(new \DateTimeImmutable()); //  Date de mise à jour
-                    $manager->persist($picture);
-                }
+                $picture = new Picture();
+                $picture->setName($activityImageURLs[array_rand($activityImageURLs)]);
+                $picture->setActivity($activity);
+                $picture->setUpdateAt(new \DateTimeImmutable());
+                $manager->persist($picture);
             }
         }
 

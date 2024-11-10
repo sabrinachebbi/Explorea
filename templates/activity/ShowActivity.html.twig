@@ -14,13 +14,9 @@
         <h1>{{ activity.title }}</h1>
 
 
-        <div class="image-gallery">
-            {% for picture in activity.pictures %}
-                {% set imagePath = 'uploads/activities/' ~ picture.name %}
-                {% if asset(imagePath) %}
-                    <img class="image" src="{{ asset(imagePath) }}" alt="Image de l'hébergement">
-                {% endif %}
-            {% endfor %}
+        <div class="activity-image">
+            {% set imagePath = 'uploads/activities/' ~ activity.picture.name %}
+            <img class="image" src="{{ asset(imagePath) }}" alt="Image de l'activité">
         </div>
 
 
@@ -35,13 +31,11 @@
             <p><strong>Adresse :</strong> {{ activity.address }}</p>
             <p><strong>Ville :</strong> {{ activity.city.name }}</p>
             <p><strong>Pays :</strong> {{ activity.city.country.name }}</p>
+
         </div>
 
         <a href="{{ path('reservation_activity', {'id': activity.id }) }}">Réserver cette activité</a>
 
     </div>
 
-{% endblock %}
-{% block javascripts %}
-    <script src="{{ asset('js/ReservationDate.js') }}"></script>
 {% endblock %}

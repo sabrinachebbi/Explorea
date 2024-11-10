@@ -5,17 +5,16 @@ namespace App\Form;
 use App\Entity\Activity;
 use App\Entity\Category;
 use App\Entity\City;
-use App\Entity\Country;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ActivityFormType extends AbstractType
 {
@@ -37,6 +36,15 @@ class ActivityFormType extends AbstractType
                 'class' => City::class,
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionnez une ville',
+                'group_by' => function (City $city) {
+                    return $city->getCountry()->getName();
+                },
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->join('c.country', 'country')
+                        ->orderBy('country.name', 'ASC')
+                        ->addOrderBy('c.name', 'ASC');
+                },
             ])
 
             ->add('address', TextType::class, [
@@ -52,14 +60,10 @@ class ActivityFormType extends AbstractType
                 'required' => true,
                 'label' => 'Durée',
             ])
-            ->add('pictures', CollectionType::class, [
-                'entry_type' => PictureTypeActivity::class, // Formulaire pour une seule image
-                'allow_add' => true, // Permet d'ajouter des images
-                'allow_delete' => true, // Permet de supprimer des images
-                'by_reference' => false,
-                'label' => 'Images',
+            ->add('picture', PictureTypeActivity::class, [
+                'label' => 'Image de l\'activité',
+                'required' => false,
             ]);
-        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

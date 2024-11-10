@@ -1,9 +1,9 @@
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
 {% endblock %}
-
-    {% block body %}
-<div class="container">
+{% block body %}
+        <div class="container">
         <h1>Modifier la Réservation</h1>
 
         {{ form_start(form) }}
@@ -15,5 +15,5 @@
 
 
     <a href="{{ path('admin_reservation_index') }}">Retour à la liste</a>
-{% endblock %}
 </div>
+{% endblock %}

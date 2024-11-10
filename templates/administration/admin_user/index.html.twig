@@ -1,11 +1,24 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notification-message.css') }}">
 {% endblock %}
 {% block importmap %}
     {{ importmap('pagination') }}
 {% endblock %}
 {% block body %}
+    <!-- Message flash  -->
+
+    <div class="flash-messages">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-message flash-{{ label }}">
+                    <span>{{ message }}</span>
+                    <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
 <div class="reservation-container">
     <h1>Gestion des Utilisateurs</h1>
 
@@ -25,7 +38,7 @@
         {% for user in pagination %}
             <tr>
                 <td>{{ user.id }}</td>
-                <td>{{ user.userProfile.firstName }}</td>
+                <td>{{ user.userProfile.firstName|default('Nom non défini') }}</td>
                 <td>{{ user.email }}</td>
                 <td class="actions">
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn-show">Voir</a>

@@ -3,6 +3,7 @@
 namespace App\Controller\Administration;
 
 use App\Entity\Activity;
+use App\Form\ActivityFormType;
 use App\Form\administration\ActivityType;
 use App\Repository\ActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class AdminActivityController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $activity = new Activity();
-        $form = $this->createForm(ActivityType::class, $activity);
+        $form = $this->createForm(ActivityFormType::class, $activity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,13 +44,12 @@ class AdminActivityController extends AbstractController
             $activity ->setUpdateDate(new DateTimeImmutable());
             $entityManager->persist($activity);
             $entityManager->flush();
-
             return $this->redirectToRoute('app_admin_activity_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('administration/admin_activity/new.html.twig', [
+        return $this->render('activity/newActivity.html.twig', [
             'activity' => $activity,
-            'form' => $form,
+            'ActivityForm' => $form,
         ]);
     }
 
@@ -64,7 +64,7 @@ class AdminActivityController extends AbstractController
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Activity $activity, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ActivityType::class, $activity);
+        $form = $this->createForm(ActivityFormType::class, $activity);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -74,9 +74,9 @@ class AdminActivityController extends AbstractController
             return $this->redirectToRoute('app_admin_activity_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('administration/admin_activity/edit.html.twig', [
+        return $this->render('activity/updateActivities.html.twig', [
             'activity' => $activity,
-            'form' => $form,
+            'ActivityForm' => $form,
         ]);
     }
 

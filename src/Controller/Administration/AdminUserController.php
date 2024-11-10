@@ -49,6 +49,8 @@ class AdminUserController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+            // Message flash pour la création d'un utilisateur
+            $this->addFlash('success', 'L\'utilisateur a été créé avec succès.');
 
             return $this->redirectToRoute('app_admin_user_list');
         }
@@ -74,6 +76,8 @@ class AdminUserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
+            // Message flash pour la modification d'un utilisateur
+            $this->addFlash('success', 'L\'utilisateur a été modifié avec succès.');
 
             return $this->redirectToRoute('app_admin_user_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -90,6 +94,11 @@ class AdminUserController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
+            // Message flash pour la suppression d'un utilisateur
+            $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
+        } else {
+            // Message flash en cas d'échec de la suppression (par exemple, si le token CSRF est invalide)
+            $this->addFlash('error', 'La suppression de l\'utilisateur a échoué.');
         }
 
         return $this->redirectToRoute('app_admin_user_list', [], Response::HTTP_SEE_OTHER);

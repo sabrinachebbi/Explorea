@@ -26,7 +26,7 @@
 
 /* Types de messages flash */
 .flash-success {
-    background-color: #28a745; /* Vert */
+    background-color: #67c66ade; /* Vert */
 }
 
 .flash-error {

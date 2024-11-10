@@ -24,14 +24,6 @@ class Review
     private ?\DateTimeImmutable $dateReView = null;
 
 
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?Accommodation $accommodation = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?Activity $activity = null;
-
-    #[ORM\ManyToOne(inversedBy: 'reviews')]
-    private ?User $traveler = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
@@ -80,42 +72,6 @@ class Review
         return $this;
     }
 
-
-    public function getAccommodation(): ?Accommodation
-    {
-        return $this->accommodation;
-    }
-
-    public function setAccommodation(?Accommodation $accommodation): static
-    {
-        $this->accommodation = $accommodation;
-
-        return $this;
-    }
-
-    public function getActivity(): ?Activity
-    {
-        return $this->activity;
-    }
-
-    public function setActivity(?Activity $activity): static
-    {
-        $this->activity = $activity;
-
-        return $this;
-    }
-
-    public function getTraveler(): ?User
-    {
-        return $this->traveler;
-    }
-
-    public function setTraveler(?User $traveler): static
-    {
-        $this->traveler = $traveler;
-
-        return $this;
-    }
 
     public function getReservation(): ?Reservation
     {

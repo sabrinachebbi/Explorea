@@ -3,6 +3,7 @@
 namespace App\Controller\Administration;
 
 use App\Entity\Accommodation;
+use App\Form\AccommodationFormType;
 use App\Form\administration\AccommodationType;
 use App\Repository\AccommodationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,21 +36,31 @@ class AdminAccommodationsController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $accommodation = new Accommodation();
-        $form = $this->createForm(AccommodationType::class, $accommodation);
+        $form = $this->createForm(AccommodationFormType::class, $accommodation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $host = $this->getUser(); // ou récupérer un hôte spécifique
+            $accommodation->setHost($host);
             $accommodation->setCreateDate(new DateTimeImmutable());
             $accommodation ->setUpdateDate(new DateTimeImmutable());
+            foreach ($accommodation->getPictures() as $picture) {
+                $picture->setAccommodation($accommodation);
+                $entityManager->persist($picture);
+            }
+
             $entityManager->persist($accommodation);
             $entityManager->flush();
+            // Ajouter un message flash pour la création réussie
+            $this->addFlash('success', 'L\'hébergement a été créé avec succès.');
+
 
             return $this->redirectToRoute('app_admin_accommodation_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('administration/admin_accommodations/new.html.twig', [
+        return $this->render('accommodation/newAccommodation.html.twig', [
             'accommodation' => $accommodation,
-            'form' => $form,
+            'AccommodationForm' => $form,
         ]);
     }
 
@@ -70,13 +81,19 @@ class AdminAccommodationsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $accommodation->setUpdateDate(new DateTimeImmutable());
             $entityManager->flush();
+            foreach ($accommodation->getPictures() as $picture) {
+                $picture->setAccommodation($accommodation);
+                $entityManager->persist($picture);
+            }
+            // Ajouter un message flash pour la modification réussie
+            $this->addFlash('success', 'L\'hébergement a été mis à jour avec succès.');
 
             return $this->redirectToRoute('app_admin_accommodation_list', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('administration/admin_accommodations/edit.html.twig', [
+        return $this->render('accommodation/updateAccommodation.html.twig', [
             'accommodation' => $accommodation,
-            'form1' => $form,
+            'AccommodationForm' => $form,
         ]);
     }
 
@@ -86,8 +103,14 @@ class AdminAccommodationsController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$accommodation->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($accommodation);
             $entityManager->flush();
+            // Ajouter un message flash pour la suppression réussie
+            $this->addFlash('success', 'L\'hébergement a été supprimé avec succès.');
+        } else {
+            // Ajouter un message flash pour un échec de la suppression
+            $this->addFlash('error', 'Échec de la suppression de l\'hébergement.');
         }
 
-        return $this->redirectToRoute('app_admin_accommodation_list', [], Response::HTTP_SEE_OTHER);
+
+        return $this->redirectToRoute('app_admin_accommodation_list');
     }
 }

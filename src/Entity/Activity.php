@@ -9,8 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
-#[Vich\Uploadable()]
+#[Vich\Uploadable]
 class Activity
 {
     #[ORM\Id]
@@ -22,7 +23,8 @@ class Activity
     #[Assert\NotBlank(message: "Le titre est obligatoire.")]
     #[Assert\Length(
         max: 200,
-        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères.")]
+        maxMessage: "Le titre ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
@@ -35,10 +37,10 @@ class Activity
     private ?float $price = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createDate= null;
+    private ?\DateTimeImmutable $createDate = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updateDate= null;
+    private ?\DateTimeImmutable $updateDate = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
@@ -52,9 +54,6 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    /**
-     * @var Collection<int, Reservation>
-     */
     #[ORM\ManyToMany(targetEntity: Reservation::class, mappedBy: 'activities')]
     private Collection $reservations;
 
@@ -66,35 +65,24 @@ class Activity
     #[ORM\JoinColumn(nullable: false)]
     private ?City $city = null;
 
-
     #[ORM\Column]
     #[Assert\NotBlank(message: "La durée est obligatoire.")]
     #[Assert\Positive(message: "La durée doit être un nombre positif.")]
     #[Assert\Range(
         min: 1, max: 7,
-        notInRangeMessage: "La durée doit être comprise entre {{ min }} et {{ max }} jours.")]
+        notInRangeMessage: "La durée doit être comprise entre {{ min }} et {{ max }} jours."
+    )]
     private ?int $duration = 1;
 
-    /**
-     * @var Collection<int, Review>
-     */
-    #[ORM\OneToMany(targetEntity: Review::class, mappedBy: 'activity')]
-    private Collection $reviews;
-
-    /**
-     * @var Collection<int, Picture>
-     */
-    #[ORM\OneToMany(mappedBy: 'activity', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
-    private Collection $pictures;
+    #[ORM\OneToOne(inversedBy: 'activity', cascade: ['persist', 'remove'])]
+    private ?Picture $picture = null;
 
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
-        $this->reviews = new ArrayCollection();
-        $this->pictures = new ArrayCollection();
     }
 
-
+    // Getters et Setters
 
     public function getId(): ?int
     {
@@ -109,7 +97,6 @@ class Activity
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -121,7 +108,6 @@ class Activity
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -133,7 +119,6 @@ class Activity
     public function setPrice(float $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 
@@ -144,11 +129,9 @@ class Activity
 
     public function setCreateDate(\DateTimeImmutable $createDate): static
     {
-        $this->createDate= $createDate;
-
+        $this->createDate = $createDate;
         return $this;
     }
-
 
     public function getUpdateDate(): ?\DateTimeImmutable
     {
@@ -158,7 +141,6 @@ class Activity
     public function setUpdateDate(\DateTimeImmutable $updateDate): static
     {
         $this->updateDate = $updateDate;
-
         return $this;
     }
 
@@ -170,7 +152,6 @@ class Activity
     public function setAddress(string $address): static
     {
         $this->address = $address;
-
         return $this;
     }
 
@@ -182,13 +163,9 @@ class Activity
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Reservation>
-     */
     public function getReservations(): Collection
     {
         return $this->reservations;
@@ -200,7 +177,6 @@ class Activity
             $this->reservations->add($reservation);
             $reservation->addActivity($this);
         }
-
         return $this;
     }
 
@@ -209,7 +185,6 @@ class Activity
         if ($this->reservations->removeElement($reservation)) {
             $reservation->removeActivity($this);
         }
-
         return $this;
     }
 
@@ -221,7 +196,6 @@ class Activity
     public function setHost(?User $host): static
     {
         $this->host = $host;
-
         return $this;
     }
 
@@ -233,10 +207,8 @@ class Activity
     public function setCity(?City $city): static
     {
         $this->city = $city;
-
         return $this;
     }
-
 
     public function getDuration(): ?int
     {
@@ -246,69 +218,20 @@ class Activity
     public function setDuration(int $duration): static
     {
         $this->duration = $duration;
+        return $this;
+    }
+
+    public function getPicture(): ?Picture
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?Picture $picture): static
+    {
+        $this->picture = $picture;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Review>
-     */
-    public function getReviews(): Collection
-    {
-        return $this->reviews;
-    }
-
-    public function addReview(Review $review): static
-    {
-        if (!$this->reviews->contains($review)) {
-            $this->reviews->add($review);
-            $review->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeReview(Review $review): static
-    {
-        if ($this->reviews->removeElement($review)) {
-            // set the owning side to null (unless already changed)
-            if ($review->getActivity() === $this) {
-                $review->setActivity(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Picture>
-     */
-    public function getPictures(): Collection
-    {
-        return $this->pictures;
-    }
-
-    public function addPicture(Picture $picture): static
-    {
-        if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
-            $picture->setActivity($this);
-        }
-
-        return $this;
-    }
-
-    public function removePicture(Picture $picture): static
-    {
-        if ($this->pictures->removeElement($picture)) {
-            // set the owning side to null (unless already changed)
-            if ($picture->getActivity() === $this) {
-                $picture->setActivity(null);
-            }
-        }
-
-        return $this;
-    }
 
 }
-

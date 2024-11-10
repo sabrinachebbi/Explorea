@@ -7,6 +7,7 @@
 {% block body %}
     <div class="dashboard-container">
         <nav class="sidebar">
+            <button class="menu-button" onclick="toggleSidebar()">☰</button>
             <ul>
                 <li><a href="{{ path('admin_reservation_index') }}">Réservations</a></li>
                 <li><a href="{{ path('app_admin_accommodation_list') }}">Hébergements</a></li>
@@ -14,7 +15,6 @@
                 <li><a href="{{ path('app_admin_review_index') }}">Avis</a></li>
                 <li><a href="{{ path('app_admin_user_list') }}">Utilisateurs</a></li>
                 <li><a href="{{ path('app_admin_notification_list') }}">Notifications</a></li>
-                <li><a href="{{ path('app_admin_reservation_status_list') }}">Statuts des Réservations</a></li>
                 <li><a href="{{ path('app_admin_category_list') }}">Catégories d'Activités</a></li>
             </ul>
         </nav>
@@ -32,8 +32,6 @@
                 {% include 'administration/admin_user/index.html.twig' %}
             {% elseif section == 'notifications' %}
                 {% include 'administration/admin_notification/index.html.twig' %}
-            {% elseif section == 'status' %}
-                {% include 'administration/admin_reservation_status/index.html.twig' %}
             {% elseif section == 'categories' %}
                 {% include 'administration/admin_category/index.html.twig' %}
             {% else %}
@@ -62,5 +60,12 @@
                 </div>
             {% endif %}
         </div> <!-- fermeture main-content -->
-    </div> <!-- fermeture dashboard-container -->
+    </div>
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        }
+    </script>
+
+    }<!-- fermeture dashboard-container -->
 {% endblock %}

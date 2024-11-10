@@ -52,10 +52,10 @@ h1 {
 }
 
 /* Agrandir l'image au survol */
-.image:hover {
-    transform: scale(1.80);
-    cursor: pointer;
-}
+/*.image:hover {*/
+/*    transform: scale(1.10);*/
+/*    cursor: pointer;*/
+/*}*/
 .image1
 {
         width: 100%;

@@ -134,16 +134,62 @@ h1{
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .dashboard-container {
-        flex-direction: column;
+    .stat {
+
+        width: 100px;
+
+    }
+    .table-container table, .table-container thead, .table-container tbody, .table-container th, .table-container td, .table-container tr {
+        display: block;
+        width: 100%;
     }
 
+    .table-container tr {
+        margin-bottom: 15px;
+    }
+
+    .table-container td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table-container td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 15px;
+        width: calc(50% - 15px);
+        text-align: left;
+        font-weight: bold;
+
+    }
     .sidebar {
         width: 100%;
+        padding: 20px;
         height: auto;
+        flex-direction: row;
+        justify-content: space-around;
     }
 
-    .main-content {
-        padding: 20px;
+    /* Cacher la liste par défaut */
+    .sidebar ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Bouton de menu burger pour afficher/masquer la liste */
+    .menu-button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Affichage de la liste quand on clique sur le bouton */
+    .sidebar.open ul {
+        display: flex;
     }
 }
+

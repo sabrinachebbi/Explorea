@@ -22,6 +22,7 @@
                 <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
                 <label for="password">Password</label>
                 <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                <span  class="eye-icon" onclick="showPassword('password')">👁️</span>
 
                 <input type="hidden" name="_csrf_token"
                        value="{{ csrf_token('authenticate') }}"
@@ -31,7 +32,7 @@
                     <label>
                         <input type="checkbox" name="_remember_me"> Remember me
                     </label>
-                    <a href="#">Forgot Password?</a>
+                    <a href="{{ path('app_forgot_password_request') }}">Forgot Password?</a>
                 </div>
 
                 <button type="submit" class="btn">
@@ -43,4 +44,7 @@
             <img class="img-authentif" src="{{ asset('images/login (2).png') }}" alt="Illustration">
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/showPassword.js') }}"></script>
 {% endblock %}

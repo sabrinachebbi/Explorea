@@ -18,9 +18,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
 #[Route('/reservation', name: 'reservation_')]
 class ReservationController extends AbstractController
 {
+
     #[Route('/accommodation/{id}', name: 'accommodation')]
     #[IsGranted('ROLE_TRAVELER')]
     public function AccommodationReservation(Accommodation $accommodation, Request $request, EntityManagerInterface $entityManager): Response
@@ -141,7 +143,9 @@ class ReservationController extends AbstractController
         $entityManager->persist($notification);
         $entityManager->flush();
     }
-    #[Route('/confirm/{id}', name: 'confirm')]
+
+
+        #[Route('/confirm/{id}', name: 'confirm')]
     public function confirmReservation(Reservation $reservation, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
@@ -161,7 +165,6 @@ class ReservationController extends AbstractController
 
         // Message flash pour indiquer que la réservation est en attente
         $this->addFlash('success', 'Votre réservation est effectuée et en attente de confirmation');
-
 
         // Au lieu de rediriger, rendre la vue directement pour tester l'affichage des messages flash
         return $this->render('reservation/reservation_summary.html.twig', [
@@ -189,6 +192,7 @@ class ReservationController extends AbstractController
         // Sauvegarder les modifications
         $entityManager->flush();
         $this->addFlash('warning', 'Vous avez annulé votre réservation');
+//
         // Rediriger vers la page de liste des réservations ou autre page pertinente
         return $this->redirectToRoute('reservation_details', ['id' => $reservation->getId()]);
     }

@@ -28,7 +28,13 @@
                 <td>{{ accommodation.title }}</td>
                 <td>{{ accommodation.priceNight }} €</td>
                 <td>{{ accommodation.propertyType.value }}</td>
-                <td>{{ accommodation.host.userProfile.firstName }} {{ accommodation.host.userProfile.lastName }}</td>
+                <td>
+                    {% if accommodation.host and accommodation.host.userProfile %}
+                        {{ accommodation.host.userProfile.firstName }} {{ accommodation.host.userProfile.lastName }}
+                    {% else %}
+                        Hôte non défini
+                    {% endif %}
+                </td>
                 <td>{{ accommodation.city.name }}</td>
 
                     <td class="actions">

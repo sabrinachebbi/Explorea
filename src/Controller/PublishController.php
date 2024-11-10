@@ -11,7 +11,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+#[IsGranted('ROLE_HOST')]
 class PublishController extends AbstractController
 {
     #[Route('/publish', name: 'app_publish')]
@@ -34,6 +36,11 @@ class PublishController extends AbstractController
             $accommodation->setCreateDate(new \DateTimeImmutable());
             $accommodation->setUpdateDate(new \DateTimeImmutable());
 
+            foreach ($accommodation->getPictures() as $picture) {
+                $picture->setAccommodation($accommodation);
+                $entityManager->persist($picture);
+            }
+
             $entityManager->persist($accommodation);
             $entityManager->flush();
 
@@ -49,6 +56,10 @@ class PublishController extends AbstractController
             $activity->setHost($this->getUser());
             $activity->setCreateDate(new \DateTimeImmutable());
             $activity->setUpdateDate(new \DateTimeImmutable());
+            foreach ($activity->getPictures() as $picture) {
+                $picture->setActivity($activity);
+                $entityManager->persist($picture);
+            }
 
             $duration = $activity->getDuration();
             if ($duration === null) {

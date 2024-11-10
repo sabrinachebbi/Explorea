@@ -8,7 +8,7 @@
     border-radius: 10px;
 }
 .form-container1 {
-    max-width: 30%;
+    max-width:35%;
     margin-left: auto;
     margin-right: auto;
     padding: 30px;
@@ -59,12 +59,11 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-left: 210px;
+    margin-left: 248px;
 }
 .btn:hover {
     background-color: #139178;
 }
-
 
 .error {
     color: red;
