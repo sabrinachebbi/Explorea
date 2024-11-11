@@ -12,19 +12,6 @@
         <div class="logo">
             <a href="{{ path('home') }}"><img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa"></a>
         </div>
-        <nav class="navbar" id="navbar">
-            <ul class="nav-links">
-                <li><a href="{{ path('app_logout') }}" class="logout-link">
-                        <img src="{{ asset('images/logout (4).png') }}" alt="Déconnexion" class="logout-icon"></a>
-                </li>
-            </ul>
-            <div class="auth-buttons">
-                {% if not app.user %}
-                    <a href="{{ path('app_login') }}" class="btn">Connexion</a>
-                    <a href="{{ path('app_register') }}" class="btn">Inscription</a>
-                {% endif %}
-            </div>
-        </nav>
     </header>
 {% endblock %}
 

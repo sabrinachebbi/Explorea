@@ -1,8 +1,7 @@
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
-{% endblock %}
 
-<div class="filter-form">
+<div class="filter-Form" id="FilterForm" style="display: none;">
+    <div class="filter-content">
+        <span class="close-icon" onclick="toggleFilterModal()">✖</span>
     <h2 class="filter-title">Filtres</h2>
     {{ form_start(form) }}
     <div class="form-group">
@@ -27,6 +26,7 @@
         {{ form_widget(form.priceMax, { 'attr': { 'placeholder': 'Max' } }) }}
         {{ form_errors(form.priceMax) }}
     </div>
-    <button type="submit" class="btn btn-primary">Rechercher</button>
+    <button type="submit" class=" btn-primary">Rechercher</button>
     {{ form_end(form) }}
+</div>
 </div>

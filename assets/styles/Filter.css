@@ -1,114 +1,164 @@
-.accommodation-container {
-    display: flex;
-    align-items: flex-start;
-}
-
-.filter-section {
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-}
-
-.accommodation-list {
-    width: 114%;
-}
-
-.form-group {
-    margin-bottom: 50px;
-}
-.form-group1 {
-    display: flex;
-    gap: 10px;
-}
-/* Style des labels */
-.form-group label {
-    font-size: 17px;
-    color: #333;
-    margin-bottom: 10px;
-    display: block;
-    font-weight: bold;
-    font-family: "Poppins", sans-serif;
-}
-
-/* Style des champs d'entrée (input, select) */
-.form-group input[type="text"],
-.form-group input[type="number"],
-.form-group select {
-    width: 100%;
-    padding: 16px;
-    font-size: 14px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-
-/* Style du label personnalisé pour le prix */
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
-    color: #333;
-    font-family: "Poppins", sans-serif;
-}
-
-/* Style pour le bouton Filtrer */
-.btn-primary {
+/* Bouton de filtre pour desktop */
+.filter-toggle-btn {
+    display: none; /* Masqué par défaut */
     background-color: #2b5f94;
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 17px;
-    width: 55%;
-    margin-left: 50px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Icône de filtre pour mobile et tablette */
+.filter-toggle {
+
+    font-size: 16px;
+    position: absolute;
+    top: 120px;
+    right: 44px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #d7dbdf;
+    padding: 11px ;
+    border-radius: 8px;
+
+}
+
+.filter-icon {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+/* Modale de filtre */
+.filter-Form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Bouton de fermeture de la modale */
+.close-icon {
+    position: relative;
+    left: 190px;
+    cursor: pointer;
+
+    font-weight: bold;
+}
+/* Style général pour la modale de filtre */
+.filter-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    max-width: 90%;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Titre du formulaire */
+.filter-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2b5f94;
+   font-family: "Poppins", sans-serif;
+}
+
+/* Champs de formulaire */
+.form-group {
+    width: 100%;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-group label,
+.price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Champ de saisie et de sélection */
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    border-color: #2b5f94;
+    box-shadow: 0 0 5px rgba(43, 95, 148, 0.2);
+}
+
+/* Style pour la section Prix */
+.form-group1 {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.form-group1 input[type="number"] {
+    flex: 1;
+}
+
+/* Boutons */
+.btn-primary {
+    background-color: #2b5f94;
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .btn-primary:hover {
     background-color: #17a589;
 }
 
-/* Style des erreurs de validation */
-.form-group .form-error-message {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 5px;
-}
-.filter-title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 33px;
-}
-/* Pour les écrans de 1024px et moins */
+/* Responsive pour tablette et mobile */
 @media (max-width: 1024px) {
-    .accommodation-container {
-        flex-direction: column; /* Passe en mode colonne pour les petits écrans */
-    }
-
-    .filter-section {
-        width: 100%; /* Prend toute la largeur */
-        margin-bottom: 20px;
-    }
-
-    .accommodation-list {
-        width: 100%; /* Prend toute la largeur */
+    .filter-content {
+        max-width: 45%;
     }
 }
-
-/* Pour les écrans de 768px et moins */
 @media (max-width: 768px) {
-    .filter-title {
-        font-size: 20px; /* Ajuste la taille du titre pour les petits écrans */
+.filter-content {
+    max-width: 68%;
+}
+    .close-icon {
+        left: 130px;
     }
-
-    .form-group label, .price {
-        font-size: 15px; /* Réduit la taille des labels */
+    .filter-icon {
+        width: 16px;
+        height: 16px;
     }
+    .filter-toggle {
+        font-size: 13px;
 
-    .btn-primary {
-        width: 100%; /* Bouton de filtrage sur toute la largeur */
-        margin-left: 0;
     }
 }

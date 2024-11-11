@@ -1,37 +1,65 @@
+/* Styles par défaut pour les grands écrans */
 .pagination {
     display: flex;
     justify-content: center;
     margin: 35px auto;
+    position: relative;
+    right: 50px;
 }
 
-.pagination .next  {
-    display: none;
-}
-
-.pagination a{
+.pagination a {
     text-decoration: none;
-    color: black;
-    border-radius: 4px;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
 }
-.pagination span{
+.pagination span {
     border: 1px solid #ddd;
-    padding: 5px 10px;
+    text-align: center;
+    width: 30px;
+    height: 20px;
+    padding: 6px 2px;
 }
 
 .pagination span:hover {
     background-color: #1BBC9B;
     cursor: pointer;
 }
-.last a {
-    width: 10px;
-    height: 10px;
-}
 
 .pagination .current {
     background-color: #19659d;
     color: white;
+    /*width: 20px;*/
+    text-align: center;
+    /*padding: 5px 10px;*/
 }
+
+/* Responsive pour tablettes (moins de 1024px) */
+@media (max-width: 1024px) {
+    .pagination {
+        right: 23px;
+    }
+
+
+    .pagination a, .pagination span {
+        font-size: 14px;
+        padding: 4px 0 ;
+    }
+}
+
+/* Responsive pour mobiles (moins de 768px) */
+@media (max-width: 768px) {
+    .pagination {
+      left: 0;
+    }
+
+    .pagination a, .pagination span {
+        font-size: 13px;
+        padding: 4px 0;
+    }
+   .pagination .current{
+       padding: 4px 0 ;
+   }
+}
+
 
 

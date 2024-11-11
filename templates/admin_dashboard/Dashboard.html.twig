@@ -1,12 +1,12 @@
-{% extends 'admin_base.html.twig' %}
 
+{% extends 'admin_base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('styles/Admin/dashboardAdmin.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/Admin/dashboard.css') }}">
 {% endblock %}
 
 {% block body %}
     <div class="dashboard-container">
-        <nav class="sidebar">
+        <nav class="sidebar" id="sidebar">
             <button class="menu-button" onclick="toggleSidebar()">☰</button>
             <ul>
                 <li><a href="{{ path('admin_reservation_index') }}">Réservations</a></li>
@@ -63,9 +63,7 @@
     </div>
     <script>
         function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('open');
+            document.getElementById('sidebar').classList.toggle('open');
         }
     </script>
-
-    }<!-- fermeture dashboard-container -->
 {% endblock %}

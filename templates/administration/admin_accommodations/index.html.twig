@@ -1,43 +1,38 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
 {% endblock %}
-{% block importmap %}
-    {{ importmap('pagination') }}
-{% endblock %}
-{% block body %}
-    <div class="reservation-container">
-        <h1>Liste des Hébergements</h1>
-        <p>Nombre total des Hébergements : <strong>{{ pagination.getTotalItemCount }}</strong></p>
-        <a href="{{ path('app_admin_accommodation_new') }}" class="btn-create">Créer un nouvel hébergement </a>
+<div class="reservation-container">
+    <h1>Liste des Hébergements</h1>
+    <p>Nombre total des Hébergements : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+    <a href="{{ path('app_admin_accommodation_new') }}" class="btn-create">Créer un nouvel hébergement</a>
+
         <table class="reservation-table">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>>
-                <th>Prix/Nuit</th>
-                <th>Type</th>
-                <th>Hôte</th>
-                <th>Ville</th>
-                <th>Actions</th>
+                <th class="title-column">Titre</th>
+                <th class="price-column">Prix/Nuit</th>
+                <th class="type-column">Type</th>
+                <th class="host-column">Hôte</th>
+                <th class="city-column">Ville</th>
+                <th class="actions-column">Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for accommodation in pagination %}
-            <tr>
-                <td>{{ accommodation.id }}</td>
-                <td>{{ accommodation.title }}</td>
-                <td>{{ accommodation.priceNight }} €</td>
-                <td>{{ accommodation.propertyType.value }}</td>
-                <td>
-                    {% if accommodation.host and accommodation.host.userProfile %}
-                        {{ accommodation.host.userProfile.firstName }} {{ accommodation.host.userProfile.lastName }}
-                    {% else %}
-                        Hôte non défini
-                    {% endif %}
-                </td>
-                <td>{{ accommodation.city.name }}</td>
-
-                    <td class="actions">
+                <tr>
+                    <td class="title-column">{{ accommodation.title }}</td>
+                    <td class="price-column">{{ accommodation.priceNight }} €</td>
+                    <td class="type-column">{{ accommodation.propertyType.value }}</td>
+                    <td class="host-column">
+                        {% if accommodation.host and accommodation.host.userProfile %}
+                            {{ accommodation.host.userProfile.firstName }} {{ accommodation.host.userProfile.lastName }}
+                        {% else %}
+                            Hôte non défini
+                        {% endif %}
+                    </td>
+                    <td class="city-column">{{ accommodation.city.name }}</td>
+                    <td class="actions-column actions">
                         <a href="{{ path('app_admin_accommodation_show', {'id': accommodation.id}) }}" class="btn-show">Afficher</a>
                         <a href="{{ path('app_admin_accommodation_edit', {'id': accommodation.id}) }}" class="btn-edit">Modifier</a>
                         <form method="post" action="{{ path('app_admin_accommodation_delete', {'id': accommodation.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet hébergement ?');">
@@ -49,9 +44,10 @@
             {% endfor %}
             </tbody>
         </table>
-
-        <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </div>
     </div>
-{% endblock %}
+
+    <!-- Pagination -->
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+

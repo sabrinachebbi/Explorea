@@ -1,6 +1,6 @@
 <div class="card" data-activity-id="{{ activity.id }}">
 {% if activity.picture %}
-    <img src="{{ vich_uploader_asset(activity.picture, 'activityImageFile') }}" alt="Image de l'activité">
+    <img class="activity-image" src="{{ vich_uploader_asset(activity.picture, 'activityImageFile') }}" alt="Image de l'activité">
 
 {% else %}
     <p>Aucune image disponible pour cette activité.</p>

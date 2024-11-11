@@ -23,7 +23,7 @@ class AdminReservationController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder, // Requête
             $request->query->getInt('page', 1),
-            10
+            5
         );
 
 

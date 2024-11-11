@@ -9,6 +9,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -25,13 +26,15 @@
             <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
     {% endfor %}
+    {# Bouton pour ouvrir la modale de filtre #}
+    <div class="filter-toggle" onclick="toggleFilterModal()">
+        <img src="{{ asset('images/filter.webp') }}" alt="Filtrer" class="filter-icon">
+        <span>Filtrage</span>
+    </div>
 
-    <div class="accommodation-container">
-        {# Section de filtrage #}
-        <div class="filter-section">
-            {% include '_partials/_Filter_Activity.html.twig' %}
+    {# Inclusion de la modale de filtrage #}
+    {% include '_partials/_Filter_Activity.html.twig' %}
 
-        </div>
         {# Conteneur pour les cartes d'annonces #}
         <div class="container_activity">
             {% if activities is not empty %}
@@ -44,9 +47,11 @@
         </div>
 
         {# Pagination #}
-        <div class="pagination-container">
-            {{ knp_pagination_render(activities) }}
-        </div>
+    <div class="pagination-container">
+        {{ knp_pagination_render(activities) }}
     </div>
 
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/Filter.js') }}"></script>
 {% endblock %}

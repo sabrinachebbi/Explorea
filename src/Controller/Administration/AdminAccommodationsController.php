@@ -24,7 +24,7 @@ class AdminAccommodationsController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-            10
+           5
         );
         return $this->render('admin_dashboard/Dashboard.html.twig', [
             'pagination' => $pagination,

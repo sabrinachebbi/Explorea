@@ -42,29 +42,25 @@
     display: block;
 }
 
-.prev, .next {
+.carousel-prev, .carousel-next {
     cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     border: none;
     border-radius: 50%;
-    font-size: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
+    font-size: 15px;
 }
 
-.prev {
+.carousel-prev {
     left: 10px;
 }
 
-.next {
+.carousel-next {
     right: 10px;
 }
 
@@ -76,8 +72,8 @@
 }
 
 .favorite-icon {
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
@@ -146,7 +142,6 @@ h4 {
 /* --- Boutons CRUD --- */
 .btn-crud {
     display: flex;
-    justify-content: space-between;
     gap: 10px;
     margin-top: 15px;
     cursor: pointer;
@@ -155,12 +150,8 @@ h4 {
 .btn-show, .btn-edit, .btn-delete {
     width: 25px;
     height: 25px;
-    transition: transform 0.3s ease;
 }
 
-.btn-show:hover, .btn-edit:hover, .btn-delete:hover {
-    transform: scale(1.2);
-}
 
 .btn-delete {
     border: none;
@@ -169,56 +160,50 @@ h4 {
 
 /* --- Grid des cartes d'annonces --- */
 .card-container {
+    max-width: 1705px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 cartes par ligne */
     gap: 20px;
-    padding: 20px;
+    padding: 40px;
     justify-items: center;
 }
 
-/* --- Media Queries --- */
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
-    .card-container {
-        grid-template-columns: repeat(2, 1fr); /* 2 cartes par ligne */
-    }
-}
-
+/* Pour les tablettes (max-width: 1024px) */
 @media screen and (max-width: 1024px) {
     .card-container {
-        grid-template-columns: 1fr; /* 1 carte par ligne */
+        grid-template-columns: repeat(2, 1fr); /* 2 cartes par ligne */
         gap: 20px;
+        margin-top: 30px;
     }
-    
+
     .card {
-        width: 100%;
+        width: 80%;
     }
 
-    .card img.house1 {
-        height: 200px;
-    }
-
-    .favorite-icon {
-        width: 25px;
-        height: 25px;
+    .carousel-item img {
+        height: 180px; /* Réduction de la hauteur de l'image pour les tablettes */
     }
 }
 
-@media screen and (max-width: 767px) {
+/* Pour les mobiles (max-width: 767px) */
+@media screen and (max-width: 768px) {
     .card-container {
         grid-template-columns: 1fr; /* 1 carte par ligne */
         gap: 15px;
+        margin-top: 30px;
     }
-    
+
     .card {
         padding: 15px;
+        width: 86%; /* Prend toute la largeur de la colonne sur mobile */
     }
 
-    .card img.house1 {
-        height: 150px;
+    .carousel-item img {
+        height: 150px; /* Réduction supplémentaire de la hauteur de l'image pour les petits écrans */
     }
 
-    .card h4, .card .price, .card .title-first, .card p {
-        font-size: 14px;
+    h4, .price, .title-first, p {
+        font-size: 14px; /* Ajustement de la taille du texte */
     }
 
     .favorite-button {
@@ -229,9 +214,15 @@ h4 {
     .prev, .next {
         width: 30px;
         height: 30px;
+        font-size: 16px;
+    }
+
+    .btn-crud {
+        gap: 5px;
+    }
+
+    .btn-show, .btn-edit, .btn-delete {
+        width: 20px;
+        height: 20px;
     }
 }
-
-
-
-

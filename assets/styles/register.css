@@ -27,7 +27,7 @@ h2 {
     text-align: center;
     font-family: "Poetsen One", sans-serif;
     margin-top: 10px;
-    margin-right: 118px;
+    margin-right:61px;
     margin-bottom: 31px;
 }
 
@@ -149,16 +149,18 @@ input:focus {
 
 /* Responsive */
 @media only screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        height: 640px;
-    }
-
     .illustration {
         display: none;
     }
     .btn {
         font-size: 14px;
+        left: 83px;
+    }
+    .eye-icon {
+
+        right: 66px;
+        top: 21%;
+
     }
 }
 
@@ -169,6 +171,12 @@ input:focus {
 
     .btn {
         font-size: 15px;
-        left: 75px;
+        left: 81px;
+    }
+    .eye-icon {
+
+        right: 57px;
+        top: 27%;
+
     }
 }

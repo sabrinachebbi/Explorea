@@ -20,7 +20,7 @@
     margin: 0 auto;
     box-shadow: 0 2px 8px rgb(0 0 0 / 19%);
     position: relative;
-    bottom: 136px;
+    bottom: 153px;
 }
 
 /* Style des champs de recherche */
@@ -35,7 +35,7 @@
     margin-bottom: 6px;
     font-size: 16px;
     margin-left: 4px;
-    font-weight: bold;
+   font-family: "Poppins", sans-serif;
 }
 
 .search-field select, .search-field input {
@@ -86,7 +86,7 @@
     }
     .search-bar {
         max-width: 562px;
-        bottom: 113px;
+        bottom: 125px;
         right: 77px;
     }
 
@@ -125,7 +125,9 @@
     font-family: "Poppins", sans-serif;
     font-weight: bold;
     margin-left: 50px;
-    /*text-align: center;*/
+    white-space: pre-line;
+    line-height: 1.6;
+    color: black;
 }
 #article1 p{
     font-family: "Poppins", sans-serif;
@@ -133,6 +135,8 @@
     margin-left: 50px;
     margin-top: 25px;
     color: #6E6E6E;
+    line-height: 1.6;
+    max-width: 634px;
 
 }
 #article1 button {
@@ -144,7 +148,9 @@
     background-color: #19659d;
     padding: 7px;
     cursor: pointer;
-    margin-bottom: -18px;
+   position: absolute;
+    left: 604px;
+    bottom: 10px;
 }
 #article1 button:hover {
     background-color: #1BBC9B;
@@ -158,7 +164,8 @@
 /* Styles pour les écrans de tablette (de moins de 1024px) */
 @media screen and (max-width: 1024px){
     #article1 p {
-        font-size: 13px;
+        font-size: 14px;
+
     }
     .title2 {
         font-size: 25px;
@@ -169,7 +176,8 @@
     #article1 button {
         font-size: 12px;
         width: 103px;
-        margin-right: 8px;
+        bottom: 366px;
+        left: 49px;
     }
 }
 /*fin style partie3*/
@@ -321,7 +329,7 @@ figure{
     }
 
     .description {
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 /*fin style partie4 */
@@ -338,13 +346,15 @@ figure{
 }
 .title4{
     font-family: Poppins, sans-serif;
-    font-size: 35px;
+    font-size: 37px;
     color: white;
     font-weight: bold;
     position: absolute;
-    top: 288px;
+    top: 316px;
     left:158px;
     text-align: center;
+    white-space: pre-line;
+    line-height: 1.8;
 }
 @media screen and (max-width: 1024px){
     .image4 {
@@ -352,9 +362,10 @@ figure{
         margin-top: 60px;
     }
     .title4 {
-        top: 78px;
+        top:106px;
         font-size: 22px;
-        left: 83px;
+        left: 15px;
+        line-height: 1.6;
     }
 }
 
@@ -364,6 +375,8 @@ figure{
 .title3{
     margin-top: 60px;
     margin-bottom: 55px;
+    line-height: 1.6;
+    color: black;
 }
 .card-container {
     display: flex;
@@ -446,11 +459,14 @@ figure{
         padding: 7px;
         cursor: pointer;
     }
-    .title5{
+    .title5 {
         font-size: 32px;
         font-family: "Poppins", sans-serif;
         font-weight: bold;
         margin-left: 54px;
+        line-height: 1.6;
+        text-align: start;
+        color: black;
     }
 @media screen and (min-width: 1025px) and (max-width: 1280px){
     .article2{
@@ -511,12 +527,13 @@ figure{
 .title4-1{
     font-family: Poppins, sans-serif;
     position: absolute;
-    font-size: 35px;
+    font-size: 37px;
     color: white;
     font-weight: bold;
     left:370px;
     top: 83px;
     text-align: center;
+    line-height: 1.6;
 }
 .container2 p{
     color: white;
@@ -631,21 +648,24 @@ figure{
     }
     /* Barre de recherche */
     .search-bar {
-        max-width: 61%;
+        max-width: 52%;
         flex-direction: column;
-        padding: 15px;
+        padding: 30px;
         bottom: 36px;
         left: 0;
+        gap: 22px;
 
     }
     .search-btn {
-        width: 58%;
         padding: 10px;
         font-size: 14px;
-        margin-left: 50px;
+        margin-top: 10px;
+    }
+    .search-field label{
+        font-size: 14px;
     }
 
-    /* Section article */
+        /* Section article */
     #article1 {
         background-size: 100% auto;
     }
@@ -653,20 +673,22 @@ figure{
         font-size: 25px;
         margin-left: 20px;
     }
-    .title2 {
-        font-size: 20px;
+    .title2
+    {
+        font-size: 18px;
         margin-left: 20px;
+        color: black;
     }
     #article1 p {
-        font-size: 13px;
-        margin-left: 20px;
+        font-size: 12px;
+        margin-left: 11px;
     }
-    #article1 button {
-        margin-left: 20px;
-        padding: 5px;
-        font-size: 10px;
-        width: 155px;
-    }
+        #article1 button {
+            font-size: 11px;
+            width: 72px;
+            bottom: 77px;
+            left: 8px;
+        }
 
     /* Section des cartes (Partie 4) */
     figure {
@@ -676,7 +698,7 @@ figure{
     }
     /* Cartes */
     .card {
-        width: 66%;
+        width: 83%;
         margin: 10px 0;
         height: auto;
     }
@@ -686,6 +708,7 @@ figure{
     }
     .duration, .contact, .location, .description, .price , .title {
         font-size: 12px;
+        text-align: start;
     }
 
     /* Section background image (Partie 5) */
@@ -694,9 +717,10 @@ figure{
         margin-top: 40px;
     }
     .title4 {
-        font-size:16px;
-        left: 5px;
-        top: 61px;
+        font-size: 12px;
+       left: 0;
+        top: 67px;
+        margin-left: 15px;
     }
 
     /* Section blog et avis (Partie 9) */

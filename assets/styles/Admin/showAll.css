@@ -1,17 +1,25 @@
 .reservation-container {
-    width: 90%;
+    width: 88%;
     margin: 0 auto;
 }
 
 h1 {
-    text-align: center;
+   text-align: start;
     margin-bottom: 20px;
+    font-family: "Poppins", sans-serif;
+    color: black;
 }
-
+p{
+    font-family: "Poppins", sans-serif;
+    font-weight: bolder;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
 .reservation-table {
     width: 90%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .reservation-table th, .reservation-table td {
@@ -27,35 +35,134 @@ h1 {
 .reservation-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-
 .actions {
     display: flex;
     gap: 10px;
     align-items: flex-start;
 }
 
-.btn-edit, .btn-delete,.btn-show, .btn-create  {
+.btn-edit, .btn-delete, .btn-show, .btn-create {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
     text-decoration: none;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
+    font-family: "Poppins", sans-serif;
 }
 
-.btn-edit {
+.btn-edit,.btn-create {
     background-color: #34495e;
 }
 
 .btn-delete {
+
     background-color: #f44336;
 }
-.btn-show {
-    background-color: #34495e;
+
+.btn-show{
+    background-color: #1BBC9B;
+
 }
-.btn-create{
-    background-color: #34495e;
+@media (max-width: 1024px) {
+    .reservation-table th, .reservation-table td {
+        padding:11px;
+        font-size: 13px;
+    }
+    .btn-edit, .btn-delete, .btn-show, .btn-create {
+        font-size: 13px;
+        width: 87px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
+    .actions {
+        flex-direction: column;
+        font-size: 10px;
+    }
 }
 
+@media (max-width: 768px) {
+    /* Masquer les colonnes "Total" et "Nombre de voyageurs" */
+    .reservation-table .total-column,
+    .reservation-table .voyager-column {
+        display: none;
+    }
+    .reservation-table .price-column,
+    .reservation-table .city-column {
+        display: none;
+    }
 
+    /* Ajuster la largeur des colonnes restantes */
+    .reservation-table th, .reservation-table td {
+        padding: 8px;
+    }
 
+    .reservation-table th.id-column,
+    .reservation-table td.id-column {
+        width: 15%;
+    }
+
+    .reservation-table th.date-column,
+    .reservation-table td.date-column {
+        width: 35%;
+    }
+
+    .actions {
+        flex-direction: column;
+        font-size: 10px;
+    }
+    .btn-edit, .btn-delete, .btn-show, .btn-create {
+        font-size: 13px;
+        width: 80px;
+    }
+    h1 {
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    .btn-create{
+     margin-bottom: 10px;
+    }
+}
+@media (max-width: 480px) {
+    .reservation-table{
+        position: relative;
+        right: 30px;
+    }
+        /* Largeur de table ajustée */
+    .reservation-table th, .reservation-table td {
+        padding: 7px;
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    /* Réduire la taille des boutons d'action */
+    .btn-edit, .btn-delete, .btn-show, .btn-create {
+        width: 70px;
+        padding: 5px;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+    .btn-create{
+        margin-left: 25px;
+    }
+}

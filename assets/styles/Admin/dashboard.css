@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: row; /* Par défaut, disposition en ligne pour bureau */
+}
+
+.sidebar {
+    width: 240px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    display: block;
+    padding: 12px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    margin-top: 10px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #1BBC9B;
+    color: #fff;
+}
+
+.sidebar ul li a.active {
+    background-color: #1BBC9B;
+    color: #fff;
+    font-weight: bold;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    margin-left: auto;
+}
+
+.main-content {
+    background-color: #f4f4f9;
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+    border-top-left-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 30px;
+    color: #1a285d;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.dashboard-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 40px;
+}
+
+.stat {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: box-shadow 0.2s;
+}
+
+.stat:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.stat h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.stat p {
+    font-size: 17px;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* Ajustements pour mobile */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* Sur mobile, empile les éléments verticalement */
+    }
+
+    /* Barre latérale en tant que barre de navigation en haut */
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar ul {
+        display: none; /* Cache les liens par défaut */
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+        background-color: #2c3e50;
+        width: 100%;
+        padding: 20px 0;
+    }
+        /* Affiche le bouton de menu uniquement sur mobile */
+
+        .menu-button {
+            display: block;
+        }
+        /* Affiche les liens lorsque la classe "open" est activée */
+
+        .sidebar.open ul {
+            display: flex;
+        }
+        .stat{
+            width: 220px;
+        }
+    .stat p{
+       font-size: 16px;
+    }
+    }
+
+
