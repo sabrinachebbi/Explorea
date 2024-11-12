@@ -71,7 +71,6 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
             'activity14.jpeg',
             'activity15 (2).jpeg',
             'activity16.jpeg',
-            'activity17.webp',
             'activity18.jpeg',
             'activity19.jpeg',
         ];

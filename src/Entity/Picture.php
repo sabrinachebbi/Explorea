@@ -47,7 +47,7 @@ class Picture
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
         return $this;
@@ -105,10 +105,10 @@ class Picture
         $this->accommodationImageFile = $accommodationImageFile;
 
         if ($accommodationImageFile) {
+            $this->name = $accommodationImageFile->getFilename();
             $this->updateAt = new \DateTimeImmutable();
         }
     }
-
     public function getActivityImageFile(): ?File
     {
         return $this->activityImageFile;
@@ -121,5 +121,9 @@ class Picture
         if ($activityImageFile) {
             $this->updateAt = new \DateTimeImmutable();
         }
+    }
+    public function __sleep()
+    {
+        return ['id', 'name', 'updateAt','accommodation','activity'];
     }
 }

@@ -21,7 +21,7 @@ class PictureTypeActivity extends AbstractType
                     new Assert\File([
                         'maxSize' => '2000k',
                         'mimeTypes' => ['image/jpg', 'image/png', 'image/jpeg'],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPEG ou PNG ou JPEG).',
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPG ou PNG ou JPEG).',
                     ])
                 ]
             ])

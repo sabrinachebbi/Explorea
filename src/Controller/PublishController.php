@@ -56,7 +56,7 @@ class PublishController extends AbstractController
             $activity->setHost($this->getUser());
             $activity->setCreateDate(new \DateTimeImmutable());
             $activity->setUpdateDate(new \DateTimeImmutable());
-            foreach ($activity->getPictures() as $picture) {
+            foreach ($activity->getPicture() as $picture) {
                 $picture->setActivity($activity);
                 $entityManager->persist($picture);
             }

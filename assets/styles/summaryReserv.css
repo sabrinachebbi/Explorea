@@ -27,6 +27,64 @@
     color: #000;
 }
 
+/* Titre pour les activités disponibles */
+.activity-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Conteneur pour les activités */
+.activity-checkboxes {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 8px;
+}
+.activity-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.8;
+}
+/* Boutons de confirmation et d'annulation */
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+label{
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+}
+.buttons .btn_confirm,
+.buttons .btn_cancel {
+    padding: 10px 20px;
+    font-size: 18px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn_confirm {
+    background-color: #2ecc71;
+}
+
+.btn_cancel {
+    background-color: #e74c3c;
+}
+
+.btn_confirm:hover {
+    background-color: #27ae60;
+}
+
+.btn_cancel:hover {
+    background-color: #c0392b;
+}
+
 .buttons{
     padding: 10px 20px;
     text-align: center;

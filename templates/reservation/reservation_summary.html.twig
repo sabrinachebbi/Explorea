@@ -70,13 +70,22 @@
         </p>
         {% if form is defined %}
             {{ form_start(form) }}
-                {{ form_widget(form.activities) }}
+            {% if form.activities is defined %}
+                <h3 class="activity-title">Activités disponibles dans la même ville</h3>
+                <div class="activity-checkboxes">
+                    {% for activity in form.activities %}
+                        <div class="activity-option">
+                            {{ form_widget(activity) }} {# Affiche la case à cocher #}
+                            {{ form_label(activity) }} {# Affiche le label de la case à cocher #}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
                 <div class="buttons">
                     <button type="submit" class="buttons btn_confirm">Confirmer</button>
                     <a href="{{ path('reservation_cancel', {'id': reservation.id}) }}" class="buttons btn_cancel">Annuler</a>
                 </div>
-            {{ form_end(form) }}
+        {{ form_end(form) }}
         {% endif %}
-
     </div>
 {% endblock %}
