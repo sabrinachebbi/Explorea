@@ -83,7 +83,7 @@ label {
     position: absolute;
     cursor: pointer;
     right: 136px;
-    top: 285px;
+    top: 252px;
 }
 .options {
     position: relative;
@@ -94,9 +94,9 @@ label {
 }
 
 .options input[type="checkbox"] {
-    margin-right: 8px;
     position: absolute;
-    top: 0px;
+    top: 0;
+    right: 90px;
 }
 
 .options a {

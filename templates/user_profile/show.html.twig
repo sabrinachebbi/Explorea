@@ -1,4 +1,3 @@
-
 {% block importmap %}
     {{ importmap('showProfile') }}
 {% endblock %}
@@ -53,13 +52,17 @@
             </tbody>
         </table>
 
+        <!-- Section des boutons d'action alignés correctement -->
         <div class="buttons">
-            <a href="{{ path('userProfile_edit', {'id': userProfile.id}) }}"><img src="{{ asset('images/edit.jpg') }}" alt=""></a>
+            <a href="{{ path('userProfile_edit', {'id': userProfile.id}) }}" class="btn-edit">
+                <img src="{{ asset('images/edit.jpg') }}" alt="Éditer">
+            </a>
 
-            <!-- Mon Formulaire de suppression -->
             <form action="{{ path('userProfile_delete', {'id': userProfile.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre profil ?');" style="display:inline;">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ userProfile.id) }}">
-                <button type="submit" class="btn_suppr"><img src="{{ asset('images/delete.jpg') }}" alt=""></button>
+                <button type="submit" class="btn-delete">
+                    <img src="{{ asset('images/delete.jpg') }}" alt="Supprimer">
+                </button>
             </form>
         </div>
     </div>

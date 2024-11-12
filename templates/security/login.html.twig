@@ -13,14 +13,14 @@
 
             {% if app.user %}
                 <div >
-                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}"Déconnexion</a>
                 </div>
             {% endif %}
             <h2 >Se Connecter</h2>
             <form method="post">
                 <label for="username">Email</label>
                 <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-                <label for="password">Password</label>
+                <label for="password">Mot de Passe</label>
                 <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
                 <span  class="eye-icon" onclick="showPassword('password')">👁️</span>
 
@@ -29,13 +29,13 @@
 
                 <div class="options">
                     <label>
-                        <input type="checkbox" name="_remember_me"> Remember me
+                        <input type="checkbox" name="_remember_me"> Se souvenir de moi
                     </label>
-                    <a href="{{ path('app_forgot_password_request') }}">Forgot Password?</a>
+                    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié?</a>
                 </div>
 
                 <button type="submit" class="btn">
-                    Sign in
+                   Se Connecter
                 </button>
             </form>
         </div>

@@ -60,5 +60,63 @@ table th {
     height: 30px;
     margin-left: 20px;
 }
+/* Responsive styles */
 
+/* Tablette (max-width: 1024px) */
+@media (max-width: 1024px) {
+    table {
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+    h1 {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    .review-icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .table, .table thead, .table tbody, .table th, .table td, .table tr {
+        display: block;
+        width: 93%;
+    }
+
+    .table thead {
+        display: none; /* Cache les en-têtes */
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+    }
+
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .table td::before {
+        content: attr(data-label); /* Utilise data-label comme étiquette */
+        font-weight: bold;
+        color: #2b5f94;
+        width: 50%;
+        display: inline-block;
+    }
+}

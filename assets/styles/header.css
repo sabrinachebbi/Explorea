@@ -28,7 +28,7 @@ header {
 
 .navbar ul {
    display: flex;
-   gap: 50px;
+   gap: 41px;
    padding: 0;
    margin-bottom: 8px;
 }
@@ -58,14 +58,6 @@ header {
    right: 33px;
 }
 
-.user-mode, .user-mode1 {
-   font-weight: bold;
-   color: #19659d;
-   font-size: 16px;
-   font-family: 'Helvetica', sans-serif;
-   margin-top: 22px;
-}
-
 .btn {
    background-color: #19659d;
    color: white;
@@ -82,23 +74,15 @@ header {
    transform: translateY(-2px);
 }
 
-.img_bienvenue {
-   width: 30px;
-   height: 30px;
-}
-
-.logout-icon, .logout-icon1 {
+ .logout-icon1 {
    width: 27px;
    height: 27px;
-   cursor: pointer;
-   position: absolute;
-   top: 18px;
 }
 
 .notification {
-   position: relative;
-   left: 229px;
-   top: 2px;
+   position: absolute;
+   top: 37px;
+ right: 140px;
 }
 
 .badge {
@@ -111,6 +95,20 @@ header {
    color: white;
    font-size: 12px;
    font-weight: bold;
+}
+.user-firstname {
+   color: #333; /* Couleur discrète */
+   font-size: 16px;
+   font-weight: bold;
+   font-family: "Poppins", sans-serif;
+   margin-right: 20px;
+}
+
+/* Si vous voulez placer le prénom à droite */
+.auth-buttons .user-firstname {
+   position: absolute;
+   right: 6px;
+   top: 12px;
 }
 
 /* Style pour le menu burger */
@@ -138,49 +136,55 @@ header {
       display: flex;
       position: absolute;
       right: 24px;
+      top: 35px; /* Positionnez le menu burger en haut à droite */
    }
 
    .navbar {
-      display: none;
+      display: none; /* Cache la navbar par défaut en version mobile et tablette */
    }
 
    .navbar.active {
-      top: 100px;
+      display: flex; /* Affiche la navbar lorsque la classe active est ajoutée */
+      position: absolute;
+      top: 100px; /* Ajustez cette valeur en fonction de la hauteur du header */
       right: 0;
-      width: 50%;
+      width: 23%; /* Largeur ajustée pour mobile */
       background-color: white;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       padding: 20px;
+      flex-direction: column;
+      align-items: center;
+      height: 267px;
    }
 
    .navbar ul {
       flex-direction: column;
       align-items: center;
       gap: 20px;
+      position: absolute;
+      top: 30px;
    }
 
    .auth-buttons {
-      display: flex;
-      margin-top: 20px;
-      margin-bottom: 25px;
-      position: static;
+      top: 202px;
       flex-direction: column;
-      align-items: center;
+      margin-right: 48px;
    }
 
    .btn {
-      width: 70%;
-      text-align: center;
-      padding: 5px;
+   border-radius: 5px;
    }
-
-   .user-mode, .user-mode1 {
-      margin-right: 0;
+   .user-mode1 {
       text-align: center;
    }
-
-   .logo img {
-      margin-left: -40px;
+   .user-firstname {
+      display: none;
+   }
+   .notification {
+      position: relative;
+      top: 0;
+      right: 0;
+      margin-top: 10px;
    }
 }
 
@@ -199,7 +203,7 @@ header {
    }
 
    .navbar.active {
-      width: 60%; /* Largeur ajustée pour mobile */
+      width: 54%; /* Largeur ajustée pour mobile */
       padding: 20px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
    }
@@ -213,27 +217,20 @@ header {
    .navbar ul li a {
       font-size: 14px;
    }
-
-   .auth-buttons {
-      flex-direction: column;
-      align-items: center;
-      margin-top: 15px;
-   }
-
    .btn {
-      width: 45%;
+      width:100%;
       padding: 5px;
       font-size: 14px;
       border-radius: 3px;
    }
 
-   .user-mode, .user-mode1 {
+    .user-mode1 {
       font-size: 14px;
       margin-top: 10px;
       text-align: center;
    }
 
-   .notification, .logout-icon, .logout-icon1 {
+   .logout-icon1 {
       top: 10px;
       right: 15px;
       width: 25px;
@@ -245,6 +242,21 @@ header {
       right: -3px;
       padding: 2px 6px;
       font-size: 10px;
+   }
+  .user-firstname {
+    display: none;
+   }
+   .notification {
+      position: relative;
+      top: 0;
+      right: 0;
+      margin-top: 10px;
+   }
+
+   .auth-buttons {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
    }
 }
 

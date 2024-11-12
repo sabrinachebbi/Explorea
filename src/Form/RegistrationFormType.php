@@ -52,8 +52,8 @@ class RegistrationFormType extends AbstractType
               'invalid_message' => 'The password fields must match.',
               'options' => ['attr' => ['class' => 'password-field']],
               'required' => true,
-              'first_options'  => ['label' => 'Password'],
-              'second_options' => ['label' => 'Repeat Password'],
+              'first_options'  => ['label' => 'Mot de passe'],
+              'second_options' => ['label' => 'Confirmer le mot de passe'],
               'constraints' => [
                   new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
                   new Length([

@@ -2,13 +2,15 @@
 {% block importmap %}
     {{ importmap('dashboard') }}
 {% endblock %}
-
 {% block title %}Dashboard Hôte{% endblock %}
 
 {% block body %}
     <div class="dashboard-container">
-
-        <nav class="sidebar">
+        <!-- Sidebar with a toggle button for mobile -->
+        <button class="menu-button" onclick="toggleSidebar()">
+            Espace Hôte
+        </button>
+        <nav class="sidebar" id="sidebar">
             <div class="avatar-container">
                 {% if userProfile.gender.value == 'Femme' %}
                     <img src="{{ asset('images/woman.png') }}" alt="Avatar Femme" class="avatar">
@@ -17,7 +19,6 @@
                 {% endif %}
             </div>
 
-             {#les section de dashboard#}
             <ul>
                 <li><a href="{{ path('host_profile') }}">Profil</a></li>
                 <li><a href="{{ path('host_accommodations') }}">Mes Hébergements</a></li>
@@ -28,9 +29,7 @@
             </ul>
         </nav>
 
-
-        <!-- le contenue de chaque section-->
-
+        <!-- Main content area -->
         <div class="main-content">
             {% if section == 'profile' %}
                 {% include 'user_profile/show.html.twig' %}
@@ -38,16 +37,21 @@
                 {% include 'host_dashboard/HostAccommodation.html.twig' %}
             {% elseif section == 'activities' %}
                 {% include 'host_dashboard/HostActivities.html.twig' %}
-            {% elseif section =='notification' %}
+            {% elseif section == 'notification' %}
                 {% include 'host_dashboard/notification.html.twig' %}
-            {% elseif section =='reservations' %}
+            {% elseif section == 'reservations' %}
                 {% include 'host_dashboard/Reservation.html.twig' %}
-                {%else %}
-                <h1>Vous n'avez pas encore aucun annonces publiés</h1>
+            {% else %}
+                <h1>Vous n'avez pas encore d'annonces publiées</h1>
             {% endif %}
         </div>
     </div>
 
-            {% endblock %}
-
-
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+            console.log("Sidebar toggled:", sidebar.classList.contains("open"));
+        }
+    </script>
+{% endblock %}

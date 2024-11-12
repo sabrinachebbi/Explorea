@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                {{ form_label(registrationForm.password.first, 'Password<span class="required-symbol">*</span>', { 'label_html': true }) }}
+                {{ form_label(registrationForm.password.first, 'Mot de passe<span class="required-symbol">*</span>', { 'label_html': true }) }}
                 <div class="password-container">
                     {{ form_widget(registrationForm.password.first, {'attr': {'class': 'form-control', 'id': 'password'}}) }}
                     <span id="FirstPassword" class="eye-icon" onclick="showPassword('registration_form_password_first')">👁️</span>

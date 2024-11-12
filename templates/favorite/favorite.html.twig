@@ -27,11 +27,9 @@
     {% if activities|length > 0 %}
         <div class="container_activity">
             {% for activity in activities %}
-                <div class="card">
                     {% include '_partials/cardActivity.html.twig' %}
                 </div>
             {% endfor %}
-        </div>
     {% else %}
         <p>Vous n'avez pas encore ajouté d'activités à vos favoris.</p>
     {% endif %}

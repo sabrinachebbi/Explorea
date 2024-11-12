@@ -38,22 +38,11 @@
                         </a>
                     </div>
                 {% endif %}
-                {% if app.user %}
-                    <li><a href="{{ path('app_logout') }}" class="logout-link"><img src="{{ asset('images/logout (4).png') }}" alt="Déconnexion" class="logout-icon"></a></li>
-                {% endif %}
             </ul>
-
             <div class="auth-buttons">
                 {% if app.user %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <span class="user-mode">Mode Admin</span>
-                    {% elseif is_granted('ROLE_HOST') %}
-                        <span class="user-mode">Mode Hôte</span>
-                    {% elseif is_granted('ROLE_TRAVELER') %}
-                        <span class="user-mode1">Mode Voyageur</span>
-                    {% endif %}
-                {% endif %}
-                {% if not app.user %}
+                    <span class="user-firstname">{{ app.user.userProfile.firstName }}</span>
+                {% else %}
                     <a href="{{ path('app_login') }}" class="btn">Connexion</a>
                     <a href="{{ path('app_register') }}" class="btn">Inscription</a>
                 {% endif %}
@@ -62,23 +51,16 @@
     </div>
 </header>
 
-<script>
-    const menuBurger = document.getElementById('menuBurger');
-    const navbar = document.getElementById('navbar');
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const menuBurger = document.getElementById("menuBurger");
+            const navbar = document.getElementById("navbar");
 
-    // Toggle navbar visibility on mobile when clicking the burger icon
-    menuBurger.addEventListener('click', () => {
-        navbar.classList.toggle('active');
-        menuBurger.classList.toggle('active');
-    });
-
-    // Close navbar when a link is clicked (for better mobile UX)
-    document.querySelectorAll('.navbar ul li a').forEach(link => {
-        link.addEventListener('click', () => {
-            if (navbar.classList.contains('active')) {
-                navbar.classList.remove('active');
-                menuBurger.classList.remove('active');
-            }
+            menuBurger.addEventListener("click", function() {
+                navbar.classList.toggle("active");
+                console.log("Classes de navbar:", navbar.classList);
+            });
         });
-    });
-</script>
+    </script>
+{% endblock %}

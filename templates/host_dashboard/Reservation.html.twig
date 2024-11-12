@@ -34,7 +34,7 @@
             <tbody>
             {% for reservation in reservations %}
                 <tr>
-                    <td>
+                    <td data-label="Hébergement/Activité">
                         {% if reservation.accommodation %}
                             {{ reservation.accommodation.title }}
                         {% else %}
@@ -44,25 +44,22 @@
                             {% endif %}
                         {% endif %}
                     </td>
-                    <td>{{ reservation.departureDate|date('d/m/Y') }}</td>
-                    <td>{{ reservation.voyagerNb }}</td>
-                    <td>{{ reservation.status.status.value }}</td>
-                    <td>{{ reservation.total }} €</td>
-                    <td>
+                    <td data-label="Date de départ">{{ reservation.departureDate|date('d/m/Y') }}</td>
+                    <td data-label="Nb voyageurs">{{ reservation.voyagerNb }}</td>
+                    <td data-label="Statut">{{ reservation.status.status.value }}</td>
+                    <td data-label="Total">{{ reservation.total }} €</td>
+                    <td data-label="Actions">
                         {% if reservation.status.status.value == 'Confirmé' %}
                             <a href="{{ path('review_accommodation', { 'id': reservation.accommodation.id }) }}">
                                 <img src="{{ asset('images/revoir.png') }}" alt="Laisser un avis" class="review-icon">
                             </a>
                         {% endif %}
-
                         {% if reservation.status.status.value == 'En attente' %}
                             <a href="{{ path('reservation_update', { 'id': reservation.id }) }}">
                                 <img src="{{ asset('images/update.png') }}" alt="Mettre à jour la réservation" class="review-icon">
                             </a>
                         {% endif %}
                     </td>
-
-
                 </tr>
             {% endfor %}
             </tbody>

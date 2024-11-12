@@ -111,6 +111,7 @@
     background-size: 50% auto;
     background-repeat: no-repeat;
     background-position: right;
+    position: relative;
 }
 .title1{
     font-size: 40px;
@@ -686,8 +687,8 @@ figure{
         #article1 button {
             font-size: 11px;
             width: 72px;
-            bottom: 77px;
-            left: 8px;
+            bottom: 17px;
+            left: 12px;
         }
 
     /* Section des cartes (Partie 4) */
@@ -698,7 +699,7 @@ figure{
     }
     /* Cartes */
     .card {
-        width: 83%;
+        width: 78%;
         margin: 10px 0;
         height: auto;
     }

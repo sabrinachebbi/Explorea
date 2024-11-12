@@ -81,7 +81,7 @@
 }
 
 .favorite-icon.filled {
-    background-color: #ffab00; /* Couleur de l'icône quand c'est ajouté aux favoris */
+    background-color: f5f5f52b; /* Couleur de l'icône quand c'est ajouté aux favoris */
 }
 
 .favorite-icon.empty {

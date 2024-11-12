@@ -1,32 +1,33 @@
 /* Styles pour la table des hébergements */
 .table {
-    width: 40%;
+    width: 50%;
     border-collapse: collapse;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    margin-left: 170px;
+    margin: 0 auto;
     font-family: "Poppins", sans-serif;
-
-}
-.table1 {
-    bottom: 316px;
-    font-family: "Poppins", sans-serif;
+    position: relative;
+    top: 129px;
+    right: 262px;
 }
 h1 {
     font-family: "Poppins", sans-serif;
     color: #2b5f94;
     font-size: 29px;
     font-weight: bold;
-   position: absolute;
-    top: 258px;
-    left: 480px;
+    position: relative;
+    top: 76px;
+    left: 120px;
 }
-.btn_crud{
+
+.btn_crud {
     display: flex;
+    justify-content: center;
+    gap: 5px;
 }
 
 .table th,
 .table td {
-    padding: 15px;
+    padding: 9px;
     text-align: left;
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
@@ -35,6 +36,7 @@ h1 {
 .table th {
     background-color: #2b5f94;
     color: white;
+    font-weight: bold;
 }
 
 .table td {
@@ -47,10 +49,11 @@ h1 {
     padding: 8px 15px;
     border-radius: 4px;
     font-size: 14px;
-    margin-right: 5px;
     color: white;
     display: flex;
-    /*display: inline-block;*/
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
 }
 
 .btn-show {
@@ -67,14 +70,66 @@ h1 {
     cursor: pointer;
 }
 
-.btn-show:hover {
-    background-color: #139178;
+/* Responsive styles */
+
+/* Tablette (max-width: 1024px) */
+@media (max-width: 1024px) and (min-width: 768px) {
+    .table {
+        width: 100%;
+        left: 0;
+    }
+
+    h1 {
+        font-size: 24px;
+        top: 80px;
+        left: 0;
+    }
+    .btn_crud {
+      flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .btn-delete{
+        width: 74px;
+    }
+
 }
 
-.btn-edit:hover {
-    background-color: #1a4672;
+/* Mobile (max-width: 768px) */
+@media (max-width: 768px) {
+    .table {
+        font-size: 12px;
+        left: 0;
+        top: 11px;
+        width: 100%;
+    }
+    .table1{
+        width: 101px;
+    }
+
+    h1 {
+        font-size: 20px;
+        left:5px;
+        top: 0px;
+    }
+    .btn-show, .btn-edit {
+        width: 62px;
+        font-size: 12px;
+    }
+    .btn-delete{
+        font-size: 12px;
+        width: 74px;
+    }
+
+    .btn_crud ,.btn-action{
+        flex-direction: column;
+        align-items: center;
+        padding: 3px 5px ;
+    }
+    .table tr:nth-child(2),
+    .table tr:nth-child(3) {
+        display: none;
+    }
 }
 
-.btn-delete:hover {
-    background-color: #c0392b;
-}
+
