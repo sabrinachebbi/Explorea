@@ -28,7 +28,7 @@ header {
 
 .navbar ul {
    display: flex;
-   gap: 41px;
+   gap: 70px;
    padding: 0;
    margin-bottom: 8px;
 }
@@ -75,40 +75,33 @@ header {
 }
 
  .logout-icon1 {
-   width: 27px;
-   height: 27px;
+   width: 39px;
+   height: 39px;
 }
 
 .notification {
    position: absolute;
-   top: 37px;
- right: 140px;
+   top: 36px;
+ right: 93px;
 }
 
 .badge {
    position: absolute;
-   top: -3px;
-   right: 0;
-   padding: 2px 6px;
+   top: 0;
+   right: -3px;
+   padding: 3px 7px;
    border-radius: 50%;
    background-color: red;
    color: white;
    font-size: 11px;
    font-weight: bold;
 }
-.user-firstname {
-   color: #333; /* Couleur discrète */
-   font-size: 16px;
-   font-weight: bold;
-   font-family: "Poppins", sans-serif;
-   margin-right: 20px;
-}
 
 /* Si vous voulez placer le prénom à droite */
-.auth-buttons .user-firstname {
+.auth-buttons {
    position: absolute;
    right: 6px;
-   top: 12px;
+   top: 34px;
 }
 
 /* Style pour le menu burger */
@@ -177,9 +170,6 @@ header {
    .user-mode1 {
       text-align: center;
    }
-   .user-firstname {
-      display: none;
-   }
    .notification {
       position: relative;
       top: 0;
@@ -242,9 +232,6 @@ header {
       right: -3px;
       padding: 2px 6px;
       font-size: 10px;
-   }
-  .user-firstname {
-    display: none;
    }
    .notification {
       position: relative;

@@ -2,50 +2,48 @@
     <link rel="stylesheet" href="{{ asset('styles/HostNotification.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 {% endblock %}
-{% block importmap %}
-    {{ importmap('pagination') }}
-{% endblock %}
+
 {% block body %}
+    <h1>Mes notifications</h1>
+
     {% for message in app.flashes('success') %}
-        <div class="alert alert-success flash-message">
-            <span>{{ message }}</span>
-            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-        </div>
+        <div class="alert alert-success flash-message">{{ message }}</div>
     {% endfor %}
     {% for message in app.flashes('warning') %}
-        <div class="alert alert-warning flash-message">
-            <span>{{ message }}</span>
-            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
-        </div>
+        <div class="alert alert-warning flash-message">{{ message }}</div>
     {% endfor %}
-
-    <h1>Mes notifications</h1>
 
     {% if notifications|length > 0 %}
         <table class="table_notif">
             <thead>
             <tr>
-                <th>Notifications</th>
+                <th>Message</th>
                 <th>Date de réservation</th>
-                <th>Hébergement</th>
+                <th>Type</th>
+                <th>Détail</th>
                 <th>Voyageur</th>
                 <th>Date de départ</th>
-                <th>Nombre de voyageurs</th>
-                <th>Total</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for notification in notifications %}
                 <tr class="{{ notification.isRead ? 'read' : 'unread' }}">
-                    <td>{{ notification.message}}</td>
+                    <td>{{ notification.message }}</td>
                     <td>{{ notification.reservation.dateCreation|date('d/m/Y H:i') }}</td>
-                    <td>{{ notification.reservation.accommodation.title }}</td>
+                    <td>{{ notification.reservation.accommodation ? 'Hébergement' : 'Activité' }}</td>
+                    <td>
+                        {% if notification.reservation.accommodation %}
+                            {{ notification.reservation.accommodation.title }}
+                        {% else %}
+                            {% for activity in notification.reservation.activities %}
+                                {{ activity.title }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
                     <td>{{ notification.reservation.traveler.userProfile.firstName }} {{ notification.reservation.traveler.userProfile.lastName }}</td>
                     <td>{{ notification.reservation.departureDate|date('d/m/Y') }}</td>
-                    <td>{{ notification.reservation.voyagerNb }}</td>
-                    <td>{{ notification.reservation.total }} €</td>
-                    <td class="btn_reserv">
+                    <td>
                         <a href="{{ path('host_confirm', {'id': notification.reservation.id}) }}" class="btn btn-success">Approuver</a>
                         <a href="{{ path('host_cancel', {'id': notification.reservation.id}) }}" class="btn btn-danger">Annuler</a>
                     </td>
@@ -53,12 +51,7 @@
             {% endfor %}
             </tbody>
         </table>
-{#        <div class="pagination">#}
-{#            {{ knp_pagination_render(pagination) }}#}
-{#        </div>#}
     {% else %}
         <p>Aucune notification de réservation.</p>
     {% endif %}
-
 {% endblock %}
-

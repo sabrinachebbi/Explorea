@@ -4,10 +4,19 @@
 {% block title %}Détails de l'Hébergement{% endblock %}
 {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
+            <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 
 {% endblock %}
 
 {% block body %}
+{% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning', 'error': 'alert-danger' } %}
+    {% for message in app.flashes(type) %}
+        <div class="alert {{ messages }} flash-message">
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    {% endfor %}
+{% endfor %}
    <a href="{{ path('app_accommodation_showAll') }}" class="back-to-accommodation">
         <img src="{{ asset('images/en-arriere.png') }}" alt="Retour aux hébergements" class="back-icon">
     </a>

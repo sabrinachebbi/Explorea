@@ -3,13 +3,13 @@
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 {% endblock %}
 {% block body %}
-    {% for message in app.flashes('success')  %}
+    {% for message in app.flashes('success') %}
         <div class="alert alert-success flash-message">
             <span>{{ message }}</span>
             <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
-            {% endfor %}
-    {% for message in app.flashes('warning')  %}
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
         <div class="alert alert-warning flash-message">
             <span>{{ message }}</span>
             <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -17,7 +17,6 @@
     {% endfor %}
 
     <h1>Mes Réservations</h1>
-
 
     {% if reservations|length > 0 %}
         <table class="table">
@@ -37,11 +36,13 @@
                     <td data-label="Hébergement/Activité">
                         {% if reservation.accommodation %}
                             {{ reservation.accommodation.title }}
-                        {% else %}
+                        {% elseif reservation.activities|length > 0 %}
                             {{ reservation.activities|first.title }}
                             {% if reservation.activities|length > 1 %}
                                 + {{ reservation.activities|length - 1 }} autres activités
                             {% endif %}
+                        {% else %}
+                            <em>Aucune activité liée</em>
                         {% endif %}
                     </td>
                     <td data-label="Date de départ">{{ reservation.departureDate|date('d/m/Y') }}</td>
@@ -50,9 +51,15 @@
                     <td data-label="Total">{{ reservation.total }} €</td>
                     <td data-label="Actions">
                         {% if reservation.status.status.value == 'Confirmé' %}
-                            <a href="{{ path('review_accommodation', { 'id': reservation.accommodation.id }) }}">
-                                <img src="{{ asset('images/revoir.png') }}" alt="Laisser un avis" class="review-icon">
-                            </a>
+                            {% if reservation.accommodation %}
+                                <a href="{{ path('review_accommodation', { 'id': reservation.accommodation.id }) }}">
+                                    <img src="{{ asset('images/revoir.png') }}" alt="Laisser un avis" class="review-icon">
+                                </a>
+                            {% elseif reservation.activities|first %}
+                                <a href="{{ path('review_activity', { 'id': reservation.activities|first.id }) }}">
+                                    <img src="{{ asset('images/revoir.png') }}" alt="Laisser un avis" class="review-icon">
+                                </a>
+                            {% endif %}
                         {% endif %}
                         {% if reservation.status.status.value == 'En attente' %}
                             <a href="{{ path('reservation_update', { 'id': reservation.id }) }}">

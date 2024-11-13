@@ -4,9 +4,18 @@
 {% block title %}Détails de l'Activité{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 {% endblock %}
 
 {% block body %}
+    {% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning', 'error': 'alert-danger' } %}
+        {% for message in app.flashes(type) %}
+            <div class="alert {{ messages }} flash-message">
+                <span>{{ message }}</span>
+                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        {% endfor %}
+    {% endfor %}
     <a href="{{ path('app_activity_showAll') }}" class="back-to-accommodation1">
         <img src="{{ asset('images/en-arriere.png') }}" alt="" class="back-icon1">
     </a>
@@ -33,9 +42,15 @@
             <p><strong>Pays :</strong> {{ activity.city.country.name }}</p>
 
         </div>
+        <!-- Formulaire de réservation -->
+        <div class="reservation-form">
+            {% include 'reservation/ReservationActivity.html.twig' %}
+        </div>
+        <!-- avis-->
 
-        <a href="{{ path('reservation_activity', {'id': activity.id }) }}">Réserver cette activité</a>
 
     </div>
-
+    <div class="reviews-section">
+        {% include 'review/ListReviewActivity.html.twig' %}
+    </div>
 {% endblock %}

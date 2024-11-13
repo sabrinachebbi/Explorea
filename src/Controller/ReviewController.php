@@ -81,13 +81,21 @@ class ReviewController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
-        $traveler = $this->getUser();
+        $voyageur = $this->getUser();
 
-        // Rechercher une réservation pour cette activité et ce voyageur
-        $reservation = $reservationRepository->findOneBy([
-            'activity' => $activity,
-            'traveler' => $traveler,
+        // Trouver les réservations pour cette activité et ce voyageur
+        $reservations = $reservationRepository->findBy([
+            'traveler' => $voyageur,
         ]);
+
+        // Vérifiez si le voyageur a une réservation contenant l'activité
+        $reservation = null;
+        foreach ($reservations as $res) {
+            if ($res->getActivities()->contains($activity)) {
+                $reservation = $res;
+                break;
+            }
+        }
 
         if (!$reservation) {
             $this->addFlash('error', 'Vous devez réserver cette activité avant de laisser un avis.');
@@ -95,45 +103,40 @@ class ReviewController extends AbstractController
         }
 
         // Vérifier si un avis existe déjà pour cette réservation
-        $existingReview = $reviewRepository->findOneBy(['reservation' => $reservation]);
+        $avisExistant = $reviewRepository->findOneBy(['reservation' => $reservation]);
 
-        if ($existingReview) {
+        if ($avisExistant) {
             $this->addFlash('warning', 'Vous avez déjà laissé un avis pour cette activité.');
             return $this->redirectToRoute('traveler_reservations');
         }
 
         // Créer un nouvel avis lié à la réservation
-        $review = new Review();
-        $review->setReservation($reservation);
-        $review->setDateReview(new \DateTimeImmutable());
+        $avis = new Review();
+        $avis->setReservation($reservation);
+        $avis->setDateReview(new \DateTimeImmutable());
 
-        $form = $this->createForm(ReviewFormType::class, $review);
+        $form = $this->createForm(ReviewFormType::class, $avis);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($review);
+            $entityManager->persist($avis);
             $entityManager->flush();
-
             $this->addFlash('success', 'Votre avis a été ajouté avec succès.');
             return $this->redirectToRoute('app_activity_showDetails', ['id' => $activity->getId()]);
         }
 
-        return $this->render('review/ListReviewActivity.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('review/ReviewFormAccom.html.twig', [
+            'form' => $form->createView(), // Utilisez createView() ici
             'activity' => $activity,
         ]);
     }
+
+
 
     #[Route('/update/{id}', name: 'update')]
     #[IsGranted('ROLE_SUPER_ADMIN')]
     public function updateReview(Review $review, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
-
-        if ($review->getTraveler()->getId() !== $user->getId()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à modifier cet avis.');
-        }
-
         $form = $this->createForm(ReviewFormType::class, $review);
         $form->handleRequest($request);
 
@@ -152,12 +155,6 @@ class ReviewController extends AbstractController
     #[IsGranted('ROLE_SUPER_ADMIN')]
     public function deleteReview(Review $review, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
-
-        // Vérification si l'utilisateur est bien l'auteur de l'avis
-        if ($review->getTraveler()->getId() !== $user->getId()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à supprimer cet avis.');
-        }
 
         if ($this->isCsrfTokenValid('delete-review' . $review->getId(), $request->request->get('_token'))) {
             $entityManager->remove($review);

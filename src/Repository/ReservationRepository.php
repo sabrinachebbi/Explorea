@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Activity;
 use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,29 +16,26 @@ class ReservationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Reservation::class);
     }
+    public function findReservationsByActivity(Activity $activity): array
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.activities', 'a')
+            ->where('a = :activity')
+            ->setParameter('activity', $activity)
+            ->getQuery()
+            ->getResult();
+    }
+    // src/Repository/ReservationRepository.php
+    public function findReservationByTravelerAndActivity($voyageur, $activity)
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.activities', 'a')
+            ->where('r.traveler = :voyageur')
+            ->andWhere('a = :activity')
+            ->setParameter('voyageur', $voyageur)
+            ->setParameter('activity', $activity)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-    //    /**
-    //     * @return Reservation[] Returns an array of Reservation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Reservation
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }

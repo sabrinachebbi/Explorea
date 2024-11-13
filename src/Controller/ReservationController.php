@@ -10,6 +10,7 @@ use App\Entity\ReservationStatus;
 use App\Enum\statusResv;
 use App\Form\ReservationAccommodationFormType;
 use App\Form\ReservationActivityFormType;
+use App\Form\ReservationAccommodationType;
 use App\Form\ReservationActivityType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,7 +58,7 @@ class ReservationController extends AbstractController
         }
 
         return $this->render('reservation/reservationAccommodation.html.twig', [
-            'reservationForm' => $form->createView(),
+            'reservationForm' => $form,
             'accommodation' => $accommodation,
             'total' => $form->isSubmitted() ? $reservation->calculateTotal() : 0,
         ]);
@@ -65,59 +66,54 @@ class ReservationController extends AbstractController
 
     #[Route('/activity/{id}', name: 'activity')]
     #[IsGranted('ROLE_TRAVELER')]
-    public function ActivityReservation(Request $request, EntityManagerInterface $entityManager, $id): Response
+    public function ActivityReservation(Request $request, EntityManagerInterface $entityManager, Activity $activity): Response
     {
-        // Récupérer l'activité par son ID
-        $activity = $entityManager->getRepository(Activity::class)->find($id);
+        // Récupérer la ville de l'activité
+        $city = $activity->getCity();
+        if (!$city) {
+            throw $this->createNotFoundException('La ville associée à cette activité n\'existe pas.');
+        }
 
+        // Créer une nouvelle réservation et ajouter l'activité
         $reservation = new Reservation();
-        $reservation->addActivity($activity); // Ajouter l'activité à la réservation
+        $reservation->addActivity($activity);
+        $reservation->setTraveler($this->getUser());
 
+        // Créer le formulaire pour la réservation d'activité avec l'option 'city'
         $form = $this->createForm(ReservationActivityFormType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Définir le statut de la réservation et les dates
             $status = $entityManager->getRepository(ReservationStatus::class)->findOneBy(['status' => statusResv::PENDING]);
-
-            if ($status) {
-                $reservation->setStatus($status);
-            }
-
-            // Calcul du total
-            $total = $reservation->calculateTotal();
-            $reservation->setTotal($total);
-
-            // Enregistrement de la réservation
+            $reservation->setStatus($status);
             $reservation->setDateCreation(new \DateTimeImmutable());
             $reservation->setDateModification(new \DateTimeImmutable());
-            $reservation->setTraveler($this->getUser());
+            $reservation->setTotal($reservation->calculateTotal());
 
+            // Sauvegarder la réservation et créer une notification pour l'hôte
             $entityManager->persist($reservation);
             $entityManager->flush();
+            $this->createNotificationForHost($activity->getHost(), $reservation, $entityManager);
 
-            /// Créer une notification pour l'hôte associé
-            $host = $activity->getHost();
-            $this->createNotificationForHost($host, $reservation, $entityManager);
-
-            return $this->redirectToRoute('reservation_details', ['id' => $reservation->getId()]);
+            // Rediriger vers la page de récapitulatif de l'activité
+            return $this->redirectToRoute('reservation_details_activity', ['id' => $reservation->getId()]);
         }
 
+        // Rendre la vue avec le formulaire et les détails de l'activité
         return $this->render('reservation/ReservationActivity.html.twig', [
             'reservationForm' => $form->createView(),
+            'activity' => $activity,
             'total' => $form->isSubmitted() ? $reservation->calculateTotal() : 0,
         ]);
     }
+
+
     #[Route('/show/{id}', name: 'details')]
     #[IsGranted('ROLE_TRAVELER')]
     public function recap(Reservation $reservation, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Vérifier si l'utilisateur connecté est bien le propriétaire de la réservation
-        $user = $this->getUser();
-        if ($reservation->getTraveler() !== $user) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à voir cette réservation.');
-        }
-
-        $form = $this->createForm(ReservationActivityType::class, $reservation);
+        $form = $this->createForm(ReservationAccommodationType::class, $reservation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -129,6 +125,26 @@ class ReservationController extends AbstractController
         return $this->render('reservation/reservation_summary.html.twig', [
             'reservation' => $reservation,
             'form' => $form
+        ]);
+    }
+    #[Route('/show/activity/{id}', name: 'details_activity')]
+    #[IsGranted('ROLE_TRAVELER')]
+    public function recapActivity(Reservation $reservation, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Formulaire simple pour la confirmation de la réservation d'activité
+        $form = $this->createForm(ReservationActivityType::class, $reservation, [
+            'city' => $reservation->getActivities()->first()->getCity(), // ou une autre façon d'obtenir la ville
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+            return $this->redirectToRoute('reservation_confirm', ['id' => $reservation->getId()]);
+        }
+
+        return $this->render('reservation/reservation_summary.html.twig', [
+            'reservation' => $reservation,
+            'form' => $form,
         ]);
     }
 

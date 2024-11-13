@@ -4,11 +4,16 @@ namespace App\Controller;
 
 
 use App\Entity\Activity;
+use App\Entity\Reservation;
 use App\Form\ActivityFilterType;
 use App\Form\ActivityFormType;
+use App\Form\ReservationAccommodationFormType;
+use App\Form\ReservationActivityFormType;
+use App\Form\ReviewFormType;
 use App\Repository\ActivityRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\NotificationRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +37,7 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         $page = $request->query->getInt('page', 1);
-        $limit = 6;
+        $limit = 8;
 
         // Si le formulaire est soumis et valide, appliquer le filtrage
         if ($form->isSubmitted() && $form->isValid()) {
@@ -122,10 +127,21 @@ class ActivityController extends AbstractController
     }
     //fonction pour afficher les details d' une seul annonce d'activity
     #[Route('/show/{id}', name: 'showDetails')]
-    public function show( Activity $activity): Response {
+    public function show(Activity $activity, ReviewRepository $reviewRepository): Response {
+        // Formulaire de réservation
+        $reservationForm = $this->createForm(ReservationActivityFormType::class, null, [
+            'action' => $this->generateUrl('reservation_activity', ['id' => $activity->getId()]),
+            'method' => 'POST'
+        ]);
 
-        return $this->render('activity/ShowActivity.html.twig',[
+
+        // Récupérer les avis pour cette activité
+        $reviews = $reviewRepository->findByActivity($activity);
+
+        return $this->render('activity/ShowActivity.html.twig', [
             'activity' => $activity,
+            'reservationForm' => $reservationForm->createView(),
+            'reviews' => $reviews,
         ]);
     }
 

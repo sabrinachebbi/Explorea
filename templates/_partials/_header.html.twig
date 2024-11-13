@@ -40,9 +40,7 @@
                 {% endif %}
             </ul>
             <div class="auth-buttons">
-                {% if app.user %}
-                    <span class="user-firstname">{{ app.user.userProfile.firstName }}</span>
-                {% else %}
+                {% if not  app.user %}
                     <a href="{{ path('app_login') }}" class="btn">Connexion</a>
                     <a href="{{ path('app_register') }}" class="btn">Inscription</a>
                 {% endif %}

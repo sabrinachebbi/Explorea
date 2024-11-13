@@ -18,8 +18,8 @@ h1{
     font-size: 29px;
     font-weight: bold;
     position: relative;
-    bottom: 123px;
-    right: 380px;
+    top: 102px;
+     left: 72px;
 }
 
 table th, table td {

@@ -32,7 +32,7 @@ class AccommodationController extends AbstractController
         $form->handleRequest($request);
 
         $page = $request->query->getInt('page', 1);
-        $limit = 6;
+        $limit =8;
 
         // Si le formulaire est soumis et valide, appliquer le filtrage
         if ($form->isSubmitted() && $form->isValid()) {
@@ -136,7 +136,7 @@ class AccommodationController extends AbstractController
 
         return $this->render('accommodation/showAccommodation.html.twig',[
             'accommodation' => $accommodation,
-            'reservationForm' => $form->createView(),  // Passer le formulaire au template
+            'reservationForm' => $form,  // Passer le formulaire au template
             'reviews' => $reviews,  // Passez les avis au template
         ]);
     }

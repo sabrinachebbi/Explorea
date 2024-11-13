@@ -148,11 +148,23 @@ class HostDashboardController extends AbstractController
 
     private function envoyerEmailAuVoyageur(Reservation $reservation, string $sujet): void
     {
-        // Récupération des informations pour le contenu de l'email
+        // Récupération des informations du voyageur
         $firstName = $reservation->getTraveler()->getUserProfile()->getFirstName(); // Prénom du voyageur
-        $title = $reservation->getAccommodation()->getTitle(); // Nom de l'hébergement
-        $city = $reservation->getAccommodation()->getCity()->getName(); // Ville de l'hébergement
         $status = strtolower($reservation->getStatus()->getStatus()->value); // Statut (confirmée ou annulée)
+
+        // Vérifier si la réservation concerne un hébergement ou une activité
+        if ($reservation->getAccommodation()) {
+            // Si c'est une réservation d'hébergement
+            $title = $reservation->getAccommodation()->getTitle(); // Nom de l'hébergement
+            $city = $reservation->getAccommodation()->getCity()->getName(); // Ville de l'hébergement
+        } elseif ($reservation->getActivities()->count() > 0) {
+            // Si c'est une réservation d'activité
+            $activity = $reservation->getActivities()->first(); // Prendre la première activité
+            $title = $activity->getTitle(); // Nom de l'activité
+            $city = $activity->getCity()->getName(); // Ville de l'activité
+        } else {
+            throw new \LogicException('La réservation n\'est associée ni à un hébergement ni à une activité.');
+        }
 
         // Construction du contenu de l'email
         $contenu = "Bonjour " . $firstName . ",\n\n";
@@ -176,9 +188,24 @@ class HostDashboardController extends AbstractController
     {
         $user = $this->getUser();
 
-        // Vérifier si l'utilisateur connecté est bien l'hôte de l'hébergement
-        if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
+        // Vérifier si l'utilisateur est bien l'hôte de l'hébergement ou de l'activité
+        if ($reservation->getAccommodation()) {
+            if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
+            }
+        } elseif ($reservation->getActivities()->count() > 0) {
+            $isHost = false;
+            foreach ($reservation->getActivities() as $activity) {
+                if ($activity->getHost()->getId() === $user->getId()) {
+                    $isHost = true;
+                    break;
+                }
+            }
+            if (!$isHost) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
+            }
+        } else {
+            throw $this->createNotFoundException('Cette réservation n\'est associée ni à un hébergement ni à une activité.');
         }
 
         // Confirmer la réservation
@@ -188,41 +215,47 @@ class HostDashboardController extends AbstractController
             $reservation->setDateModification(new \DateTimeImmutable());
             $entityManager->flush();
 
-
-            $hostNotification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $this->getUser()]);
+            $hostNotification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $user]);
             if ($hostNotification) {
                 $hostNotification->setRead(true);  // Marquer comme lue
                 $entityManager->flush();
             }
 
-            // Message flash de succès
             $this->addFlash('success', 'Réservation approuvée avec succès.');
-
-            // Récupérer le nombre de notifications non lues
             $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
+
         // Envoi de l'email de confirmation au voyageur
-        $this->envoyerEmailAuVoyageur(
-            $reservation,
-            'Réservation Confirmée'
-        );
+        $this->envoyerEmailAuVoyageur($reservation, 'Réservation Confirmée');
 
-        $this->addFlash('success', 'Réservation confirmée.');
-
-        // Redirection avec unreadNotifications
         return $this->redirectToRoute('host_notification', [
-            'unreadNotifications' => $unreadNotifications
+            'unreadNotifications' => $unreadNotifications ?? 0
         ]);
     }
 
     #[Route('notification/cancel/{id}', name: 'cancel')]
-    public function cancelReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager,NotificationRepository $notificationRepository): Response
+    public function cancelReservationByHost(Reservation $reservation, EntityManagerInterface $entityManager, NotificationRepository $notificationRepository): Response
     {
-        $user = $this->getUser();  // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
 
-        // Vérifier si l'utilisateur connecté est bien l'hôte de l'hébergement
-        if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
-            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette réservation.');
+        // Vérifier si l'utilisateur est bien l'hôte de l'hébergement ou de l'activité
+        if ($reservation->getAccommodation()) {
+            if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette réservation.');
+            }
+        } elseif ($reservation->getActivities()->count() > 0) {
+            $isHost = false;
+            foreach ($reservation->getActivities() as $activity) {
+                if ($activity->getHost()->getId() === $user->getId()) {
+                    $isHost = true;
+                    break;
+                }
+            }
+            if (!$isHost) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette réservation.');
+            }
+        } else {
+            throw $this->createNotFoundException('Cette réservation n\'est associée ni à un hébergement ni à une activité.');
         }
 
         // Annuler la réservation
@@ -232,26 +265,24 @@ class HostDashboardController extends AbstractController
             $reservation->setDateModification(new \DateTimeImmutable());
             $entityManager->flush();
 
-            $notification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $this->getUser()]);
+            $notification = $notificationRepository->findOneBy(['reservation' => $reservation, 'user' => $user]);
             if ($notification) {
                 $notification->setRead(true);
+                $entityManager->flush();
             }
-            $entityManager->flush();
-            // Message flash de succès
+
             $this->addFlash('warning', 'Réservation annulée avec succès.');
-            // Récupérer le nombre de notifications non lues
             $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
         }
-        // Envoi de l'email de confirmation au voyageur
-        $this->envoyerEmailAuVoyageur(
-            $reservation,
-            'Réservation Annulée'
-        );
+
+        // Envoi de l'email d'annulation au voyageur
+        $this->envoyerEmailAuVoyageur($reservation, 'Réservation Annulée');
 
         return $this->redirectToRoute('host_notification', [
-            'unreadNotifications' => $unreadNotifications
+            'unreadNotifications' => $unreadNotifications ?? 0
         ]);
     }
+
 }
 
 

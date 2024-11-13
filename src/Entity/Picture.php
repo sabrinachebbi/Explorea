@@ -122,8 +122,5 @@ class Picture
             $this->updateAt = new \DateTimeImmutable();
         }
     }
-    public function __sleep()
-    {
-        return ['id', 'name', 'updateAt','accommodation','activity'];
-    }
+
 }
