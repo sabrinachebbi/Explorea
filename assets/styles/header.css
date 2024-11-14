@@ -88,7 +88,7 @@ header {
 .badge {
    position: absolute;
    top: 0;
-   right: -3px;
+   right: 0;
    padding: 3px 7px;
    border-radius: 50%;
    background-color: red;
@@ -100,7 +100,7 @@ header {
 /* Si vous voulez placer le prénom à droite */
 .auth-buttons {
    position: absolute;
-   right: 6px;
+   right: 37px;
    top: 34px;
 }
 

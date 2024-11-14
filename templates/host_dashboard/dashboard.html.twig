@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block importmap %}
     {{ importmap('dashboard') }}
+    {{ importmap('pagination') }}
 {% endblock %}
+
+
 {% block title %}Dashboard Hôte{% endblock %}
 
 {% block body %}
@@ -45,6 +48,7 @@
                 <h1>Vous n'avez pas encore d'annonces publiées</h1>
             {% endif %}
         </div>
+
     </div>
 
     <script>

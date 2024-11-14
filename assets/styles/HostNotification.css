@@ -4,8 +4,8 @@ table {
     border-collapse: collapse;
     font-family: "Poppins", sans-serif;
     margin-left: 100px;
-   position: absolute;
-    top: 364px;
+   position: relative;
+    top: 84px;
 }
 .table_notif{
     width: 74%;
@@ -60,6 +60,7 @@ table th {
     height: 30px;
     margin-left: 20px;
 }
+
 /* Responsive styles */
 
 /* Tablette (max-width: 1024px) */

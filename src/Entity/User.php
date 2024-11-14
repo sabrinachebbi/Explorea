@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 
+use App\Enum\UserStatus;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -82,6 +83,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: activity::class)]
     private Collection $favoriteActivities;
 
+    #[ORM\Column(type: 'string', enumType: UserStatus::class, options: ['default' => UserStatus::ACTIVE])]
+    private UserStatus $statusUser = UserStatus::ACTIVE;
 
 
     public function __construct()
@@ -358,5 +361,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getStatusUser(): ?UserStatus
+    {
+        return $this->statusUser;
+    }
+
+    public function setStatusUser(UserStatus $statusUser): static
+    {
+        $this->statusUser = $statusUser;
+
+        return $this;
+    }
+
 
 }

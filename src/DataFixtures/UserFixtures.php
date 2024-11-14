@@ -3,13 +3,14 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
+use App\Enum\UserStatus;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    private $passwordHasher;
+    private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
     {
@@ -18,7 +19,6 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-
         for ($i = 1; $i <= 5; $i++) {
             $user = new User();
             $user->setEmail('host'.$i.'@gmail.com');
@@ -27,6 +27,7 @@ class UserFixtures extends Fixture
                 $user,
                 'password123'
             ));
+            $user->setStatusUser(UserStatus::ACTIVE); // Définit le statut par défaut
 
             $this->addReference('user_host_'.$i, $user);
             $manager->persist($user);
@@ -40,10 +41,12 @@ class UserFixtures extends Fixture
                 $user,
                 'password123'
             ));
+            $user->setStatusUser(UserStatus::ACTIVE); // Définit le statut par défaut
 
             $this->addReference('user_traveler_'.$i, $user);
             $manager->persist($user);
         }
+
         // Création d'un administrateur
         $adminUser = new User();
         $adminUser->setEmail('sabrina.chebbi@gmail.com');
@@ -52,6 +55,7 @@ class UserFixtures extends Fixture
             $adminUser,
             'password'
         ));
+        $adminUser->setStatusUser(UserStatus::ACTIVE); // Définit le statut par défaut
 
         $this->addReference('admin_user', $adminUser);
         $manager->persist($adminUser);

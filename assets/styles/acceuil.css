@@ -177,7 +177,6 @@
     #article1 button {
         font-size: 12px;
         width: 103px;
-        bottom: 366px;
         left: 49px;
     }
 }
@@ -699,7 +698,7 @@ figure{
     }
     /* Cartes */
     .card {
-        width: 78%;
+        width: 65%;
         margin: 10px 0;
         height: auto;
     }

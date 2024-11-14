@@ -20,18 +20,18 @@
         <img src="{{ asset('images/en-arriere.png') }}" alt="" class="back-icon1">
     </a>
     <div class="details1">
-        <h1>{{ activity.title }}</h1>
+        <h1 class>{{ activity.title }}</h1>
 
 
         <div class="activity-image">
             {% set imagePath = 'uploads/activities/' ~ activity.picture.name %}
-            <img class="image" src="{{ asset(imagePath) }}" alt="Image de l'activité">
+            <img class="image1" src="{{ asset(imagePath) }}" alt="Image de l'activité">
         </div>
 
 
         <!-- Détails de activities -->
-
-        <div class="details-section">
+        <div class="show">
+        <div class="details-section1">
             <p><strong>Hôte :</strong> {{ activity.host.userProfile.firstName}} </p>
             <p><strong>Prix :</strong> {{ activity.price }} €</p>
             <p><strong>Durations :</strong> {{ activity.duration }}</p>
@@ -42,15 +42,18 @@
             <p><strong>Pays :</strong> {{ activity.city.country.name }}</p>
 
         </div>
+
         <!-- Formulaire de réservation -->
-        <div class="reservation-form">
+        <div class="reservation-form1">
             {% include 'reservation/ReservationActivity.html.twig' %}
+        </div>
         </div>
         <!-- avis-->
 
 
-    </div>
+
     <div class="reviews-section">
         {% include 'review/ListReviewActivity.html.twig' %}
+    </div>
     </div>
 {% endblock %}

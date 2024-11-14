@@ -13,9 +13,6 @@ h1{
     margin: 40px 0;
     font-size: 29px;
     font-weight: bold;
-    position: absolute;
-    bottom: 343px;
-    left: 31px;
 }
 /* Review list container */
 .review-list {

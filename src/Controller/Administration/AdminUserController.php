@@ -4,6 +4,7 @@ namespace App\Controller\Administration;
 
 use App\Entity\User;
 use App\Entity\UserProfile;
+use App\Enum\UserStatus;
 use App\Form\administration\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,7 +25,7 @@ class AdminUserController extends AbstractController
         $pagination = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
-        5
+            5
         );
         return $this->render('admin_dashboard/Dashboard.html.twig', [
             'pagination' => $pagination,
@@ -33,7 +34,7 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $user = new User();
         $userProfile = new UserProfile();
@@ -88,19 +89,18 @@ class AdminUserController extends AbstractController
         ]);
     }
 
-    #[Route('/remove/{id}', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    #[Route('/archive/{id}', name: 'remove', methods: ['POST'])]
+    public function archiveUser(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($user);
+        if ($this->isCsrfTokenValid('archive' . $user->getId(), $request->request->get('_token'))) {
+            $user->setStatusUser(UserStatus::ARCHIVED);
             $entityManager->flush();
-            // Message flash pour la suppression d'un utilisateur
-            $this->addFlash('success', 'L\'utilisateur a été supprimé avec succès.');
+
+            $this->addFlash('success', 'L\'utilisateur a été archivé avec succès.');
         } else {
-            // Message flash en cas d'échec de la suppression (par exemple, si le token CSRF est invalide)
-            $this->addFlash('error', 'La suppression de l\'utilisateur a échoué.');
+            $this->addFlash('error', 'L\'archivage de l\'utilisateur a échoué.');
         }
 
-        return $this->redirectToRoute('app_admin_user_list', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_user_list');
     }
 }

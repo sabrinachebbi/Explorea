@@ -67,6 +67,7 @@ class AccommodationFormType extends AbstractType
                 'entry_type' => PictureTypeAccommodation::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
                 'label' => 'Images',
                 'entry_options' => [
                     'attr' => ['class' => 'picture-class'],

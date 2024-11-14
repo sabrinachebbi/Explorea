@@ -2,7 +2,7 @@
 .container_activity {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 3 activity cards per row */
-    gap: 55px;
+    gap: 20px;
     margin: 70px;
 }
 
@@ -19,6 +19,7 @@
     justify-content: space-between;
     margin: 26px;
     font-family: "Poppins", sans-serif;
+    width: 300px;
 }
 
 .card:hover {
@@ -28,7 +29,7 @@
 /* Image for each activity */
 .activity-image {
     width: 100%;
-    height: 200px;
+    height: 210px;
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -129,22 +130,17 @@
 @media (max-width: 1024px) {
     .container_activity {
         grid-template-columns: repeat(3, 1fr); /* 2 cards per row for medium screens */
-        gap: 15px;
-       margin-top: 80px;
+        gap: 50px;
+        margin-top: 80px;
     }
 
     .card {
         padding: 15px;
-        width: 80%;
+        width: 100%;
     }
 
     .activity-image {
         height: 180px;
-    }
-    .favorite-icon {
-        width: 20px;
-        height: 20px;
-
     }
 }
 
@@ -156,17 +152,8 @@
         margin-top: 86px;
     }
 
-    .card {
-        width: 85%;
-    }
-
     .activity-image {
-        height: 150px;
-    }
-    .favorite-icon {
-        width: 20px;
-        height: 20px;
-
+        height: 200px;
     }
 
 }

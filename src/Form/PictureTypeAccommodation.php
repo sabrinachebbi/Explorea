@@ -18,6 +18,7 @@ class PictureTypeAccommodation extends AbstractType
             ->add('accommodationImageFile', VichImageType::class, [
                 'label' => false,
                 'required' => false,
+                'mapped' => false,
                 'constraints' => [
                     new Assert\File([
                         'maxSize' => '2000k',

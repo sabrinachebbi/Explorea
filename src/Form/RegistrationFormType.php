@@ -10,12 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\Regex;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -31,66 +33,76 @@ class RegistrationFormType extends AbstractType
                 'multiple' => false,
                 'mapped' => false,
             ])
-            ->add('email',EmailType::class, [
+            ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer votre adresse e-mail',
                     ]),
-            ],
-                'required' => true, // Obligatoire côté client
+                ],
+                'required' => true,
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
             ])
-          ->add('password', RepeatedType::class, [
-              'type' => PasswordType::class,
-              'invalid_message' => 'The password fields must match.',
-              'options' => ['attr' => ['class' => 'password-field']],
-              'required' => true,
-              'first_options'  => ['label' => 'Mot de passe'],
-              'second_options' => ['label' => 'Confirmer le mot de passe'],
-              'constraints' => [
-                  new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
-                  new Length([
-                      'min' => 5,
-                      'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.'
-          ]),
-            ],
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les champs du mot de passe doivent correspondre.',
+                'options' => ['attr' => ['class' => 'password-field']],
+                'required' => true,
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
+                'constraints' => [
+                    new NotBlank(['message' => 'Veuillez entrer un mot de passe']),
+                    new Length([
+                        'min' => 8,
+                        'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[0-9]/',
+                        'message' => 'Le mot de passe doit contenir au moins un chiffre',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[A-Z]/',
+                        'message' => 'Le mot de passe doit contenir au moins une majuscule',
+                    ]),
+                    new Regex([
+                        'pattern' => '/[!@#\$%\^\&*\)\(+=._-]/',
+                        'message' => 'Le mot de passe doit contenir au moins un caractère spécial.',
+                    ]),
+                ],
             ])
-
             ->add('lastName', TextType::class, [
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez entrer votre nom']),
                     new Length([
-                        'min' => 5,
+                        'min' => 3,
                         'minMessage' => 'Le nom doit contenir au moins {{ limit }} caractères.',
                         'max' => 20,
-                        'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères.'
+                        'maxMessage' => 'Le nom ne peut pas dépasser {{ limit }} caractères.',
                     ]),
                 ],
                 'label' => 'Nom',
                 'required' => false,
-                'mapped'=> false,
+                'mapped' => false,
             ])
             ->add('firstName', TextType::class, [
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez entrer votre prénom']),
                     new Length([
-                        'min' => 5,
+                        'min' => 3,
                         'minMessage' => 'Le prénom doit contenir au moins {{ limit }} caractères.',
-
                         'max' => 20,
-                        'maxMessage' => 'Le prénom ne peut pas dépasser {{ limit }} caractères.'
+                        'maxMessage' => 'Le prénom ne peut pas dépasser {{ limit }} caractères.',
                     ]),
                 ],
                 'label' => 'Prénom',
                 'required' => true,
-                'mapped'=>false,
+                'mapped' => false,
             ])
             ->add('gender', ChoiceType::class, [
                 'choices' => [
@@ -99,12 +111,10 @@ class RegistrationFormType extends AbstractType
                     'Autre' => GenderEnum::Other,
                 ],
                 'label' => false,
-                'expanded' => true, //  boutons radio
+                'expanded' => true,
                 'multiple' => false,
                 'mapped' => false,
-
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -112,5 +122,6 @@ class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+
     }
 }

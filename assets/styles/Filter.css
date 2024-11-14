@@ -16,7 +16,7 @@
     font-size: 16px;
     position: absolute;
     top: 136px;
-    right:110px;
+    right:117px;
     display: flex;
     align-items: center;
     border: 1px solid #d7dbdf;
@@ -28,7 +28,7 @@
     font-size: 16px;
     position: absolute;
     top: 136px;
-    right:116px;
+    right:135px;
     display: flex;
     align-items: center;
     border: 1px solid #d7dbdf;
@@ -155,6 +155,16 @@
     .filter-content {
         max-width: 45%;
     }
+    .filter-toggle {
+        font-size: 16px;
+        top: 133px;
+        right:55px;
+    }
+    .filter-toggle1 {
+        font-size: 16px;
+        top: 135px;
+        right:25px;
+    }
 }
 @media (max-width: 768px) {
 .filter-content {
@@ -169,6 +179,12 @@
     }
     .filter-toggle {
         font-size: 13px;
-
+        top: 140px;
+        right:102px;
+    }
+    .filter-toggle1 {
+        font-size: 13px;
+        top: 152px;
+        right:22px;
     }
 }

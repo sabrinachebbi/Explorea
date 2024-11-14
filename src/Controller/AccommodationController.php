@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use DateTimeImmutable;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 #[Route('/accommodation', name: 'app_accommodation_')]
@@ -75,6 +76,7 @@ class AccommodationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $accommodation->setHost($this->getUser());
             $accommodation->setCreateDate(new DateTimeImmutable());
             $accommodation ->setUpdateDate(new DateTimeImmutable());
@@ -104,10 +106,10 @@ class AccommodationController extends AbstractController
         Accommodation $accommodation,
         Request $request,
         EntityManagerInterface $entityManager)
-      : Response
+    : Response
     {   $user = $this->getUser();
         if (!$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')){
-              return $this->redirectToRoute('app_accommodation_showAll');
+            return $this->redirectToRoute('app_accommodation_showAll');
         }
         $form = $this->createForm(AccommodationFormType::class, $accommodation);
         $form->handleRequest($request);

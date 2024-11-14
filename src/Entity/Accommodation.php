@@ -7,6 +7,7 @@ use App\Repository\AccommodationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
+
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -242,7 +243,8 @@ class Accommodation
     public function addPicture(Picture $picture): static
     {
         if (!$this->pictures->contains($picture)) {
-            $this->pictures->add($picture);
+            $this->pictures[] = $picture;
+//            $this->pictures->add($picture);
             $picture->setAccommodation($this);
         }
         return $this;
@@ -257,4 +259,6 @@ class Accommodation
         }
         return $this;
     }
+
+
 }

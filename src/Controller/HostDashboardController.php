@@ -98,42 +98,63 @@ class HostDashboardController extends AbstractController
             'unreadNotifications' => $unreadNotifications
         ]);
     }
-    #[Route('/reservations', name: 'reservations')]
-    public function showReservations(EntityManagerInterface $entityManager,NotificationRepository $notificationRepository): Response
-    {
 
+    #[Route('/reservations', name: 'reservations')]
+    public function showReservations(EntityManagerInterface $entityManager, PaginatorInterface $paginator, NotificationRepository $notificationRepository, Request $request): Response
+    {
         $user = $this->getUser();
         $userProfile = $user->getUserProfile();
-        $user = $this->getUser();
+        $page = $request->query->getInt('page', 1);
+        $limit = 6;
+
         $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
+        // Créez la requête Doctrine pour obtenir les réservations de l'utilisateur
+        $query = $entityManager->getRepository(Reservation::class)->createQueryBuilder('r')
+            ->where('r.traveler = :user')
+            ->setParameter('user', $user)
+            ->getQuery();
 
-        $reservations = $entityManager->getRepository(Reservation::class)->findBy([
-            'traveler' => $user,
-        ]);
+        // Utilisez le paginator pour paginer les résultats
+        $reservations = $paginator->paginate(
+            $query,
+            $page,
+            $limit
+        );
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'section' => 'reservations',
             'reservations' => $reservations,
             'userProfile' => $userProfile,
-            'unreadNotifications' => $unreadNotifications
-
+            'unreadNotifications' => $unreadNotifications,
         ]);
     }
 
 
+
     #[Route('/notification', name: 'notification')]
     public function showNotifications(
-        NotificationRepository $notificationRepository
-    ): Response {
+        NotificationRepository $notificationRepository,Request $request, PaginatorInterface $paginator,
+           ): Response {
+        $page = $request->query->getInt('page', 1);
+        $limit = 6;
         $user = $this->getUser();
         $userProfile = $user->getUserProfile();
 
 
-        $notifications = $notificationRepository->findBy([
-            'user' => $user,
-            'isRead' => false
-        ], ['createdAt' => 'DESC']);
+        $query = $notificationRepository->createQueryBuilder('n')
+            ->where('n.user = :user')
+            ->andWhere('n.isRead = false')
+            ->setParameter('user', $user)
+            ->orderBy('n.createdAt', 'DESC')
+            ->getQuery();
+
+        // Utilisez le paginator pour paginer les résultats
+        $notifications = $paginator->paginate(
+            $query,
+            $page,
+            $limit
+        );
 
         // Compter les notifications non lues
         $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);

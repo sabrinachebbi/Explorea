@@ -43,7 +43,7 @@
                     </td>
                     <td>{{ notification.reservation.traveler.userProfile.firstName }} {{ notification.reservation.traveler.userProfile.lastName }}</td>
                     <td>{{ notification.reservation.departureDate|date('d/m/Y') }}</td>
-                    <td>
+                    <td class="btn_reserv">
                         <a href="{{ path('host_confirm', {'id': notification.reservation.id}) }}" class="btn btn-success">Approuver</a>
                         <a href="{{ path('host_cancel', {'id': notification.reservation.id}) }}" class="btn btn-danger">Annuler</a>
                     </td>
@@ -54,4 +54,7 @@
     {% else %}
         <p>Aucune notification de réservation.</p>
     {% endif %}
+    <div class="pagination-container">
+        {{ knp_pagination_render(notifications) }}
+    </div>
 {% endblock %}
