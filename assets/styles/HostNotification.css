@@ -18,8 +18,8 @@ h1{
     font-size: 29px;
     font-weight: bold;
     position: relative;
-    top: 102px;
-     left: 72px;
+    top: 73px;
+     left: 99px;
 }
 
 table th, table td {
@@ -32,6 +32,10 @@ table th {
     background-color: #2b5f94;
     font-weight: bold;
     color: white;
+}
+p{
+    text-align: left;
+   margin: 138px 0;
 }
 
 .btn {

@@ -72,13 +72,13 @@ class ActivityRepository extends ServiceEntityRepository
 
         // Filtrer par prix minimum
         if ($priceMin) {
-            $qb->andWhere('ac.priceNight >= :priceMin')
+            $qb->andWhere('ac.price >= :priceMin')
                 ->setParameter('priceMin', $priceMin);
         }
 
         // Filtrer par prix maximum
         if ($priceMax) {
-            $qb->andWhere('ac.priceNight <= :priceMax')
+            $qb->andWhere('ac.price <= :priceMax')
                 ->setParameter('priceMax', $priceMax);
         }
 

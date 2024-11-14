@@ -1,9 +1,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/HostNotification.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
-{% endblock %}
-{% block importmap %}
-    {{ importmap('pagination') }}
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
 {% endblock %}
 {% block body %}
     {% for message in app.flashes('success') %}

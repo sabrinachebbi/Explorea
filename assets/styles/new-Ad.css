@@ -77,4 +77,36 @@ h2 {
     margin: 5px;
 
 }
+/* Media query pour les écrans de 768px ou moins */
+@media (max-width: 768px) {
+    .form-container, .form-container1 {
+        width: 90%;
+        padding: 20px;
+    }
+
+    /* Centrer le bouton et ajuster sa taille sur mobile */
+    .btn {
+        margin: 20px auto;
+        display: block;
+        padding: 10px 15px;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    /* Ajuster les champs de formulaire */
+    .form-control, .form-control1 {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Reduire la taille du titre */
+    h2 {
+        font-size: 24px;
+    }
+
+    /* Image */
+    .picture-class img {
+        width: 100%;
+    }
+}
 

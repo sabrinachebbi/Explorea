@@ -2,9 +2,7 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notification-message.css') }}">
-{% endblock %}
-{% block importmap %}
-    {{ importmap('pagination') }}
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
 {% endblock %}
 {% block body %}
     <!-- Message flash  -->
@@ -25,7 +23,7 @@
     <p>Nombre total des Utilisateur: <strong>{{ pagination.getTotalItemCount }}</strong></p>
     <a href="{{ path('app_admin_user_new') }}" class="btn-create">Créer un nouveau utilisateur </a>
 
-    <table class="reservation-table">
+    <table class="reservation-table ">
         <thead>
         <tr>
             <th>Id</th>
@@ -42,8 +40,7 @@
                 <td>{{ user.email }}</td>
                 <td class="actions">
                     <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn-show">Voir</a>
-                    <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn-edit">Modifier</a>
-                    <form action="{{ path('app_admin_user_delete', {'id': user.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                    <form action="{{ path('app_admin_user_remove', {'id': user.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                         <button type="submit" class="btn-delete">Supprimer</button>
                     </form>

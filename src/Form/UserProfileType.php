@@ -67,6 +67,7 @@ class UserProfileType extends AbstractType
                 'choices' => [
                     'Homme' => GenderEnum::Male,
                     'Femme' => GenderEnum::Female,
+                    'Autre' => GenderEnum::Other,
                 ],
                 'expanded' => true, // Pour afficher les options en boutons radio
                 'multiple' => false,

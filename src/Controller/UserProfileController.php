@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\UserProfile;
 use App\Enum\UserStatus;
+use App\Form\administration\UserType;
 use App\Form\UserProfileType;
 use App\Repository\NotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,31 +33,33 @@ class UserProfileController extends AbstractController
     #[Route('/edit/{id}', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
-        UserProfile $userProfile,
+        User $user,
         EntityManagerInterface $entityManager,
         NotificationRepository $notificationRepository
     ): Response {
-        $form = $this->createForm(UserProfileType::class, $userProfile);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mettre à jour l'utilisateur dans la base de données
             $entityManager->flush();
 
-            $this->addFlash('success', 'Profil mis à jour avec succès');
+            // Message flash pour la modification du compte utilisateur
+            $this->addFlash('success', 'Votre compte a été modifié avec succès.');
 
-            return $this->redirectToRoute('userProfile_show', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('host_dashboard', [], Response::HTTP_SEE_OTHER);
         }
 
-        // Récupérer le nombre de notifications non lues
-        $user = $this->getUser(); // Récupérer l'utilisateur connecté
+        // Récupérer le nombre de notifications non lues pour l'utilisateur connecté
         $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
 
-        return $this->render('user_profile/edit.html.twig', [
-            'userProfile' => $userProfile,
+        return $this->render('administration/admin_user/edit.html.twig', [
+            'user' => $user,
             'form' => $form,
-            'unreadNotifications' => $unreadNotifications
+            'unreadNotifications' => $unreadNotifications,
         ]);
     }
+
 
     #[Route('/delete/{id}', name: 'delete', methods: ['POST'])]
     public function deleteAccount(Request $request, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
