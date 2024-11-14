@@ -60,6 +60,11 @@ class Reservation
     #[ORM\OneToMany(targetEntity: Notification::class, mappedBy: 'reservation')]
     private Collection $notifications;
 
+    #[ORM\OneToOne(inversedBy: 'reservation', cascade: ['persist', 'remove'])]
+    private ?Review $reviews = null;
+
+
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -250,5 +255,18 @@ class Reservation
 
         return $this;
     }
+
+    public function getReviews(): ?Review
+    {
+        return $this->reviews;
+    }
+
+    public function setReviews(?Review $reviews): static
+    {
+        $this->reviews = $reviews;
+
+        return $this;
+    }
+
 
 }

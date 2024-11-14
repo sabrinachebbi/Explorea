@@ -23,12 +23,8 @@ class Review
     #[ORM\Column]
     private ?\DateTimeImmutable $dateReView = null;
 
-
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
+    #[ORM\OneToOne(mappedBy: 'reviews', cascade: ['persist', 'remove'])]
     private ?Reservation $reservation = null;
-
 
 
     public function getId(): ?int
@@ -72,7 +68,6 @@ class Review
         return $this;
     }
 
-
     public function getReservation(): ?Reservation
     {
         return $this->reservation;
@@ -80,9 +75,20 @@ class Review
 
     public function setReservation(?Reservation $reservation): static
     {
+        // unset the owning side of the relation if necessary
+        if ($reservation === null && $this->reservation !== null) {
+            $this->reservation->setReviews(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($reservation !== null && $reservation->getReviews() !== $this) {
+            $reservation->setReviews($this);
+        }
+
         $this->reservation = $reservation;
 
         return $this;
     }
+
 
 }

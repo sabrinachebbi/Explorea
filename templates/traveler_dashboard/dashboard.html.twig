@@ -7,8 +7,12 @@
 
 {% block body %}
     <div class="dashboard-container">
+        <!-- Sidebar with a toggle button for mobile -->
+        <button class="menu-button" onclick="toggleSidebar()">
+            Espace Voyageur
+        </button>
 
-        <nav class="sidebar">
+        <nav class="sidebar" id="sidebar">
             <div class="avatar-container">
                 {% if userProfile.gender.value == 'Femme' %}
                     <img src="{{ asset('images/woman.png') }}" alt="Avatar Femme" class="avatar">
@@ -35,11 +39,17 @@
             {% elseif section =='reservations' %}
                 {% include 'host_dashboard/Reservation.html.twig' %}
                 {% elseif section =='avis' %}
-                    {% include 'review/ListReviews.html.twig' %}
+                    {% include 'review/ListReviewActivity.html.twig' %}
             {% endif %}
         </div>
     </div>
-
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("open");
+            console.log("Sidebar toggled:", sidebar.classList.contains("open"));
+        }
+    </script>
 {% endblock %}
 
 

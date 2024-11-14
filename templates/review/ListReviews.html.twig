@@ -14,8 +14,11 @@
                 {% for review in reviews %}
                     <li class="review-list-item">
                         <strong class="review-title">
-                            {{ review.accommodation ? review.accommodation.title : '' }}
-                            {{ review.activity ? review.activity.title : '' }}
+                            {% if review.reservation.accommodation %}
+                                Hébergement : {{ review.reservation.accommodation.title }}
+                            {% elseif review.reservation.activity %}
+                                Activité : {{ review.reservation.activity.title }}
+                            {% endif %}
                         </strong>
                         <p class="review-content">{{ review.comment }}</p>
                         <small class="review-details">Note : {{ review.note }}/5</small>
