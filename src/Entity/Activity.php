@@ -39,9 +39,8 @@ class Activity
     #[ORM\Column]
     private ?\DateTimeImmutable $createDate = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "datetime_immutable", nullable: true)]
     private ?\DateTimeImmutable $updateDate = null;
-
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "L'adresse est obligatoire.")]
     #[Assert\Length(

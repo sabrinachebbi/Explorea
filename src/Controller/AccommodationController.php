@@ -79,7 +79,6 @@ class AccommodationController extends AbstractController
 
             $accommodation->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $accommodation->setCreateDate(new DateTimeImmutable());
-            $accommodation ->setUpdateDate(new DateTimeImmutable());
             // Gérer les images
             foreach ($accommodation->getPictures() as $picture) {
                 $picture->setAccommodation($accommodation);

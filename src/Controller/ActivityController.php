@@ -82,7 +82,6 @@ class ActivityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $activities->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $activities->setCreateDate(new DateTimeImmutable());
-            $activities ->setUpdateDate(new DatetimeImmutable());
             $activities->setDuration($request->request->get('duration'));
             if ($activities->getPicture()) {
                 $activities->getPicture()->setActivity($activities);

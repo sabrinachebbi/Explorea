@@ -36,9 +36,9 @@ class PublishController extends AbstractController
 
             $accommodation->setCreateDate(new \DateTimeImmutable());
             $accommodation->setUpdateDate(new \DateTimeImmutable());
-
             foreach ($accommodation->getPictures() as $picture) {
                 $picture->setAccommodation($accommodation);
+                $picture->setUpdateAt(new \DateTimeImmutable());
                 $entityManager->persist($picture);
             }
 
@@ -56,7 +56,6 @@ class PublishController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $activity->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $activity->setCreateDate(new \DateTimeImmutable());
-            $activity->setUpdateDate(new \DateTimeImmutable());
             $picture = $activity->getPicture();
             if ($picture) {
                 $picture->setActivity($activity);

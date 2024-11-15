@@ -64,7 +64,7 @@ class Accommodation
     private ?propertyType $propertyType = null;
 
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?User $host = null;
 
     #[ORM\ManyToOne(inversedBy: 'accommodations')]
@@ -81,6 +81,7 @@ class Accommodation
     {
         $this->reservations = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+
     }
 
     // Getters et Setters
