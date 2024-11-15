@@ -15,7 +15,7 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?int $note = null;
+    private int $note = 0;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $comment = null;
@@ -32,18 +32,17 @@ class Review
         return $this->id;
     }
 
-    public function getNote(): ?string
+    public function getNote(): ?int
     {
         return $this->note;
     }
 
-    public function setNote(string $note): static
+    public function setNote(int $note): static
     {
         $this->note = $note;
 
         return $this;
     }
-
     public function getComment(): ?string
     {
         return $this->comment;

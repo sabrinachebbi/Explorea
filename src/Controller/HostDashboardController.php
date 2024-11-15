@@ -33,7 +33,7 @@ class HostDashboardController extends AbstractController
     public function index(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
-        $userProfile = $host->getUserProfile();
+        $userProfile = $host instanceof \App\Entity\User ? $host->getUserProfile() : null;
 
         // Récupérer les notifications non lues pour l'hôte
         $unreadNotifications = $notificationRepository->findBy([
@@ -54,7 +54,8 @@ class HostDashboardController extends AbstractController
     {
         $host = $this->getUser();
         $accommodations = $accommodationRepository->findBy(['host' => $host]);
-        $userProfile = $host->getUserProfile();
+        $userProfile = $host instanceof \App\Entity\User ? $host->getUserProfile() : null;
+
         $user = $this->getUser();
         $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
@@ -70,11 +71,12 @@ class HostDashboardController extends AbstractController
     #[Route('/activities', name: 'activities')]
     public function showActivities(ActivityRepository $activitiesRepository,NotificationRepository $notificationRepository): Response
     {
-        $host = $this->getUser();
-        $activities = $activitiesRepository->findBy(['host' => $host]);
-        $userProfile = $host->getUserProfile();
         $user = $this->getUser();
-        $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
+
+        // Vérification que l'utilisateur est bien de type User
+        $activities = $user instanceof \App\Entity\User ? $activitiesRepository->findBy(['host' => $user]) : [];
+        $userProfile = $user instanceof \App\Entity\User ? $user->getUserProfile() : null;
+        $unreadNotifications = $user instanceof \App\Entity\User ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
         return $this->render('host_dashboard/dashboard.html.twig', [
             'userProfile' => $userProfile,
@@ -88,7 +90,8 @@ class HostDashboardController extends AbstractController
     public function showProfile(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
-        $userProfile = $host->getUserProfile();
+        $userProfile = $host instanceof \App\Entity\User ? $host->getUserProfile() : null;
+
         $user = $this->getUser();
         $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 
@@ -103,7 +106,8 @@ class HostDashboardController extends AbstractController
     public function showReservations(EntityManagerInterface $entityManager, PaginatorInterface $paginator, NotificationRepository $notificationRepository, Request $request): Response
     {
         $user = $this->getUser();
-        $userProfile = $user->getUserProfile();
+        $userProfile = $user instanceof \App\Entity\User ? $user->getUserProfile() : null;
+
         $page = $request->query->getInt('page', 1);
         $limit = 6;
 
@@ -139,8 +143,7 @@ class HostDashboardController extends AbstractController
         $page = $request->query->getInt('page', 1);
         $limit = 6;
         $user = $this->getUser();
-        $userProfile = $user->getUserProfile();
-
+        $userProfile = $user instanceof \App\Entity\User ? $user->getUserProfile() : null;
 
         $query = $notificationRepository->createQueryBuilder('n')
             ->where('n.user = :user')
@@ -211,13 +214,17 @@ class HostDashboardController extends AbstractController
 
         // Vérifier si l'utilisateur est bien l'hôte de l'hébergement ou de l'activité
         if ($reservation->getAccommodation()) {
-            if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
+            if (  $reservation->getAccommodation()->getHost()->getId() !== ($user instanceof \App\Entity\User ? $user->getId() : null)) {
                 throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
             }
         } elseif ($reservation->getActivities()->count() > 0) {
             $isHost = false;
             foreach ($reservation->getActivities() as $activity) {
-                if ($activity->getHost()->getId() === $user->getId()) {
+                if (
+                    $activity->getHost() &&
+                    $user instanceof \App\Entity\User &&
+                    $activity->getHost()->getId() === $user->getId()
+                ) {
                     $isHost = true;
                     break;
                 }
@@ -259,15 +266,23 @@ class HostDashboardController extends AbstractController
     {
         $user = $this->getUser();
 
-        // Vérifier si l'utilisateur est bien l'hôte de l'hébergement ou de l'activité
+// Vérifier si l'utilisateur est bien l'hôte de l'hébergement ou de l'activité
+        if (!$user) {
+            throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
+        }
+
+// Vérifier si l'utilisateur est l'hôte de l'hébergement associé à la réservation
         if ($reservation->getAccommodation()) {
-            if ($reservation->getAccommodation()->getHost()->getId() !== $user->getId()) {
-                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à annuler cette réservation.');
+            $host = $reservation->getAccommodation()->getHost();
+            if ($host && $host->getId() !== $user->getId()) {
+                throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à approuver cette réservation.');
             }
         } elseif ($reservation->getActivities()->count() > 0) {
+            // Vérifier si l'utilisateur est l'hôte d'une des activités associées à la réservation
             $isHost = false;
             foreach ($reservation->getActivities() as $activity) {
-                if ($activity->getHost()->getId() === $user->getId()) {
+                $activityHost = $activity->getHost();
+                if ($activityHost && $activityHost->getId() === $user->getId()) {
                     $isHost = true;
                     break;
                 }
@@ -278,7 +293,6 @@ class HostDashboardController extends AbstractController
         } else {
             throw $this->createNotFoundException('Cette réservation n\'est associée ni à un hébergement ni à une activité.');
         }
-
         // Annuler la réservation
         $status = $entityManager->getRepository(ReservationStatus::class)->findOneBy(['status' => statusResv::CANCELLED]);
         if ($status) {

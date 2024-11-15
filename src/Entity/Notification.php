@@ -17,7 +17,7 @@ class Notification
     private ?string $message = null;
 
     #[ORM\Column]
-    private ?bool $isRead = false;
+    private bool $isRead = false;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;

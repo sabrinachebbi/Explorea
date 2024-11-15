@@ -32,7 +32,8 @@ class PublishController extends AbstractController
         // Traitement du formulaire pour Accommodation
         $form1->handleRequest($request);
         if ($form1->isSubmitted() && $form1->isValid()) {
-            $accommodation->setHost($this->getUser());
+            $accommodation->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
+
             $accommodation->setCreateDate(new \DateTimeImmutable());
             $accommodation->setUpdateDate(new \DateTimeImmutable());
 
@@ -53,10 +54,11 @@ class PublishController extends AbstractController
         // Traitement du formulaire pour Activity
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $activity->setHost($this->getUser());
+            $activity->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $activity->setCreateDate(new \DateTimeImmutable());
             $activity->setUpdateDate(new \DateTimeImmutable());
-            foreach ($activity->getPicture() as $picture) {
+            $picture = $activity->getPicture();
+            if ($picture) {
                 $picture->setActivity($activity);
                 $entityManager->persist($picture);
             }

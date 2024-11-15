@@ -20,7 +20,8 @@ class TravelerDashboardController extends AbstractController
     public function index(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
-        $userProfile = $host->getUserProfile();
+        $userProfile = ($host instanceof \App\Entity\User) ? $host->getUserProfile() : null;
+
         // Récupérer les notifications non lues pour l'hôte
         $unreadNotifications = $notificationRepository->findBy([
             'user' => $host,
@@ -39,7 +40,8 @@ class TravelerDashboardController extends AbstractController
     public function showProfile(NotificationRepository $notificationRepository): Response
     {
         $host = $this->getUser();
-        $userProfile = $host->getUserProfile();
+        $userProfile = ($host instanceof \App\Entity\User) ? $host->getUserProfile() : null;
+
         // Récupérer les notifications non lues pour l'hôte
         $unreadNotifications = $notificationRepository->findBy([
             'user' => $host,
@@ -57,7 +59,7 @@ class TravelerDashboardController extends AbstractController
     {
 
         $user = $this->getUser();
-        $userProfile = $user->getUserProfile();
+        $userProfile = ($user instanceof \App\Entity\User) ? $user->getUserProfile() : null;
         $page = $request->query->getInt('page', 1);
         $limit = 6;
         $unreadNotifications = $notificationRepository->findBy([
@@ -88,10 +90,10 @@ class TravelerDashboardController extends AbstractController
     public function reviews(Request $request, PaginatorInterface $paginator): Response
     {
         $user = $this->getUser();
-        $userProfile = $user->getUserProfile();
+        $userProfile = ($user instanceof \App\Entity\User) ? $user->getUserProfile() : null;
 
         // Récupérer toutes les réservations de l'utilisateur
-        $reservations = $user->getReservations();
+        $reservations = $user instanceof \App\Entity\User ? $user->getReservations() : null;
 
         // Extraire les avis de chaque réservation
         $reviews = [];

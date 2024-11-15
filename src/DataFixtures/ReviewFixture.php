@@ -35,7 +35,7 @@ class ReviewFixture extends Fixture implements DependentFixtureInterface
         // Générer des avis pour les réservations associées à des hébergements
         for ($i = 1; $i <= 10; $i++) {
             $review = new Review();
-            $review->setNote($faker->numberBetween(1, 5));
+            $review->setNote($faker->numberBetween(1, 5)); // Convertir l'entier en chaîne
             $review->setComment($accommodationComments[array_rand($accommodationComments)]);
             $review->setDateReView(new \DateTimeImmutable());
 
@@ -49,9 +49,10 @@ class ReviewFixture extends Fixture implements DependentFixtureInterface
         // Générer des avis pour les réservations associées à des activités
         for ($i = 1; $i <= 10; $i++) {
             $review = new Review();
-            $review->setNote($faker->numberBetween(1, 5));
+            $review->setNote($faker->numberBetween(1, 5)); // Convertir l'entier en chaîne
             $review->setComment($activityComments[array_rand($activityComments)]);
             $review->setDateReView(new \DateTimeImmutable());
+
 
             /** @var Reservation $reservation */
             $reservation = $this->getReference('reservation_activity_' . $i); // Référence pour les réservations d'activités

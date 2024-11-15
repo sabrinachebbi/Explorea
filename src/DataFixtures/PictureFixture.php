@@ -79,28 +79,25 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 20; $i++) {
             $accommodation = $this->getReference('accommodation_' . $i);
 
-            if ($accommodation) {
-                for ($j = 0; $j < 3; $j++) {
-                    $picture = new Picture();
-                    $picture->setName($accommodationImageURLs[array_rand($accommodationImageURLs)]); // Sélectionner une image existante
-                    $picture->setAccommodation($accommodation);
-                    $picture->setUpdateAt(new \DateTimeImmutable()); //  Date de mise à jour
-                    $manager->persist($picture);
-                }
+            for ($j = 0; $j < 3; $j++) {
+                $picture = new Picture();
+                $picture->setName($accommodationImageURLs[array_rand($accommodationImageURLs)]); // Sélectionner une image existante
+                $picture->setAccommodation($accommodation);
+                $picture->setUpdateAt(new \DateTimeImmutable()); // Date de mise à jour
+                $manager->persist($picture);
             }
         }
+
 
         // Création des images pour les activités
         for ($i = 0; $i < 15; $i++) {
             $activity = $this->getReference('activity_' . $i);
 
-            if ($activity) {
-                $picture = new Picture();
-                $picture->setName($activityImageURLs[array_rand($activityImageURLs)]);
-                $picture->setActivity($activity);
-                $picture->setUpdateAt(new \DateTimeImmutable());
-                $manager->persist($picture);
-            }
+            $picture = new Picture();
+            $picture->setName($activityImageURLs[array_rand($activityImageURLs)]);
+            $picture->setActivity($activity);
+            $picture->setUpdateAt(new \DateTimeImmutable());
+            $manager->persist($picture);
         }
 
         $manager->flush();

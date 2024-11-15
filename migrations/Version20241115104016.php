@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20241113154233 extends AbstractMigration
+final class Version20241115104016 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -27,12 +27,12 @@ final class Version20241113154233 extends AbstractMigration
         $this->addSql('CREATE TABLE country (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE notification (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, reservation_id INT NOT NULL, message VARCHAR(150) NOT NULL, is_read TINYINT(1) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_BF5476CAA76ED395 (user_id), INDEX IDX_BF5476CAB83297E7 (reservation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE picture (id INT AUTO_INCREMENT NOT NULL, accommodation_id INT DEFAULT NULL, update_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', name VARCHAR(200) NOT NULL, INDEX IDX_16DB4F898F3692CD (accommodation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE reservation (id INT AUTO_INCREMENT NOT NULL, status_id INT NOT NULL, traveler_id INT NOT NULL, accommodation_id INT DEFAULT NULL, departure_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', return_date DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', date_creation DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', date_modification DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', total DOUBLE PRECISION NOT NULL, voyager_nb INT NOT NULL, INDEX IDX_42C849556BF700BD (status_id), INDEX IDX_42C8495559BBE8A3 (traveler_id), INDEX IDX_42C849558F3692CD (accommodation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE reservation (id INT AUTO_INCREMENT NOT NULL, status_id INT NOT NULL, traveler_id INT NOT NULL, accommodation_id INT DEFAULT NULL, reviews_id INT DEFAULT NULL, departure_date DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', return_date DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', date_creation DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', date_modification DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', total DOUBLE PRECISION NOT NULL, voyager_nb INT NOT NULL, INDEX IDX_42C849556BF700BD (status_id), INDEX IDX_42C8495559BBE8A3 (traveler_id), INDEX IDX_42C849558F3692CD (accommodation_id), UNIQUE INDEX UNIQ_42C849558092D97F (reviews_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE reservation_activity (reservation_id INT NOT NULL, activity_id INT NOT NULL, INDEX IDX_31C1EB4EB83297E7 (reservation_id), INDEX IDX_31C1EB4E81C06096 (activity_id), PRIMARY KEY(reservation_id, activity_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE reservation_status (id INT AUTO_INCREMENT NOT NULL, status VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE reset_password_request (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, selector VARCHAR(20) NOT NULL, hashed_token VARCHAR(100) NOT NULL, requested_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', expires_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_7CE748AA76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL, reservation_id INT NOT NULL, note INT NOT NULL, comment LONGTEXT NOT NULL, date_re_view DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_794381C6B83297E7 (reservation_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, verification_token VARCHAR(255) DEFAULT NULL, status_user VARCHAR(255) NOT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE review (id INT AUTO_INCREMENT NOT NULL, note INT NOT NULL, comment LONGTEXT NOT NULL, date_re_view DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, verification_token VARCHAR(255) DEFAULT NULL, status_user VARCHAR(255) DEFAULT \'ACTIVE\' NOT NULL, UNIQUE INDEX UNIQ_IDENTIFIER_EMAIL (email), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_accommodation (user_id INT NOT NULL, accommodation_id INT NOT NULL, INDEX IDX_C3B6F942A76ED395 (user_id), INDEX IDX_C3B6F9428F3692CD (accommodation_id), PRIMARY KEY(user_id, accommodation_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_activity (user_id INT NOT NULL, activity_id INT NOT NULL, INDEX IDX_4CF9ED5AA76ED395 (user_id), INDEX IDX_4CF9ED5A81C06096 (activity_id), PRIMARY KEY(user_id, activity_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_profile (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, date_birth DATE DEFAULT NULL, phone VARCHAR(20) DEFAULT NULL, country VARCHAR(100) DEFAULT NULL, city VARCHAR(50) DEFAULT NULL, address VARCHAR(100) DEFAULT NULL, gender VARCHAR(255) NOT NULL, first_name VARCHAR(150) NOT NULL, last_name VARCHAR(200) NOT NULL, UNIQUE INDEX UNIQ_D95AB405A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -50,10 +50,10 @@ final class Version20241113154233 extends AbstractMigration
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C849556BF700BD FOREIGN KEY (status_id) REFERENCES reservation_status (id)');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C8495559BBE8A3 FOREIGN KEY (traveler_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C849558F3692CD FOREIGN KEY (accommodation_id) REFERENCES accommodation (id)');
+        $this->addSql('ALTER TABLE reservation ADD CONSTRAINT FK_42C849558092D97F FOREIGN KEY (reviews_id) REFERENCES review (id)');
         $this->addSql('ALTER TABLE reservation_activity ADD CONSTRAINT FK_31C1EB4EB83297E7 FOREIGN KEY (reservation_id) REFERENCES reservation (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE reservation_activity ADD CONSTRAINT FK_31C1EB4E81C06096 FOREIGN KEY (activity_id) REFERENCES activity (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE reset_password_request ADD CONSTRAINT FK_7CE748AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id)');
-        $this->addSql('ALTER TABLE review ADD CONSTRAINT FK_794381C6B83297E7 FOREIGN KEY (reservation_id) REFERENCES reservation (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_accommodation ADD CONSTRAINT FK_C3B6F942A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_accommodation ADD CONSTRAINT FK_C3B6F9428F3692CD FOREIGN KEY (accommodation_id) REFERENCES accommodation (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_activity ADD CONSTRAINT FK_4CF9ED5AA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE');
@@ -77,10 +77,10 @@ final class Version20241113154233 extends AbstractMigration
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C849556BF700BD');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C8495559BBE8A3');
         $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C849558F3692CD');
+        $this->addSql('ALTER TABLE reservation DROP FOREIGN KEY FK_42C849558092D97F');
         $this->addSql('ALTER TABLE reservation_activity DROP FOREIGN KEY FK_31C1EB4EB83297E7');
         $this->addSql('ALTER TABLE reservation_activity DROP FOREIGN KEY FK_31C1EB4E81C06096');
         $this->addSql('ALTER TABLE reset_password_request DROP FOREIGN KEY FK_7CE748AA76ED395');
-        $this->addSql('ALTER TABLE review DROP FOREIGN KEY FK_794381C6B83297E7');
         $this->addSql('ALTER TABLE user_accommodation DROP FOREIGN KEY FK_C3B6F942A76ED395');
         $this->addSql('ALTER TABLE user_accommodation DROP FOREIGN KEY FK_C3B6F9428F3692CD');
         $this->addSql('ALTER TABLE user_activity DROP FOREIGN KEY FK_4CF9ED5AA76ED395');

@@ -25,12 +25,13 @@
 }
 
 .avatar {
-    margin-top: 54px;
+    margin-top: 35px;
     height: 110px;
 }
 
 .sidebar ul {
     list-style-type: none;
+    height: 1.8;
 }
 
 .sidebar ul li {

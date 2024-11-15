@@ -39,11 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
-//    private ?string $resetToken;
 
-    /**
-     * @var Collection<int, Accommodation>
-     */
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $verificationToken = null;
 
@@ -72,13 +68,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $notifications;
 
     /**
-     * @var Collection<int, accommodation>
+     * @var Collection<int, Accommodation>
      */
     #[ORM\ManyToMany(targetEntity: accommodation::class)]
     private Collection $favoriteAccommodation;
 
     /**
-     * @var Collection<int, activity>
+     * @var Collection<int, Activity>
      */
     #[ORM\ManyToMany(targetEntity: activity::class)]
     private Collection $favoriteActivities;
@@ -315,7 +311,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, accommodation>
+     * @return Collection<int, Accommodation>
      */
     public function getFavoriteAccommodation(): Collection
     {
@@ -339,7 +335,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, activity>
+     * @return Collection<int, Activity>
      */
     public function getFavoriteActivities(): Collection
     {

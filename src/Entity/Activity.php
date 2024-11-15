@@ -72,7 +72,7 @@ class Activity
         min: 1, max: 7,
         notInRangeMessage: "La durée doit être comprise entre {{ min }} et {{ max }} jours."
     )]
-    private ?int $duration = 1;
+    private int $duration = 1;
 
     #[ORM\OneToOne(inversedBy: 'activity', cascade: ['persist', 'remove'])]
     private ?Picture $picture = null;

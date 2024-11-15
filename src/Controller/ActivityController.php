@@ -80,7 +80,7 @@ class ActivityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $activities->setHost($this->getUser());
+            $activities->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $activities->setCreateDate(new DateTimeImmutable());
             $activities ->setUpdateDate(new DatetimeImmutable());
             $activities->setDuration($request->request->get('duration'));
@@ -108,7 +108,7 @@ class ActivityController extends AbstractController
         EntityManagerInterface $entityManager)
     : Response
     {   $user = $this->getUser();
-        if (!$user->getActivities()->contains($activities) && !$this->isGranted('ROLE_ADMIN')){
+        if ($user instanceof \App\Entity\User && !$user->getActivities()->contains($activities) && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_activity_showAll');
         }
         $form = $this->createForm(ActivityFormType::class, $activities);

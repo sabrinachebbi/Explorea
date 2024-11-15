@@ -20,12 +20,14 @@ class FavoriteController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user->getFavoriteAccommodation()->contains($accommodation)) {
-            $user->removeFavoriteAccommodation($accommodation); // Retirer des favoris
-            $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');
-        } else {
-            $user->addFavoriteAccommodation($accommodation); // Ajouter aux favoris
-            $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');
+        if ($user instanceof \App\Entity\User) {
+            if ($user->getFavoriteAccommodation()->contains($accommodation)) {
+                $user->removeFavoriteAccommodation($accommodation); // Retirer des favoris
+                $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');
+            } else {
+                $user->addFavoriteAccommodation($accommodation); // Ajouter aux favoris
+                $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');
+            }
         }
 
         $entityManager->flush();
@@ -39,12 +41,14 @@ class FavoriteController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($user->getFavoriteActivities()->contains($activity)) {
-            $user->removeFavoriteActivity($activity);
-            $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');
-        } else {
-            $user->addFavoriteActivity($activity);
-            $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');
+        if ($user instanceof \App\Entity\User) {
+            if ($user->getFavoriteActivities()->contains($activity)) {
+                $user->removeFavoriteActivity($activity);
+                $this->addFlash('warning', 'Vous avez retiré cette annonce de vos favoris.');
+            } else {
+                $user->addFavoriteActivity($activity);
+                $this->addFlash('success', 'Vous avez ajouté cette annonce à vos favoris.');
+            }
         }
 
         $entityManager->flush();
@@ -59,8 +63,9 @@ class FavoriteController extends AbstractController
         $user = $this->getUser();
 
         // Récupérer les hébergements et les activités favoris de l'utilisateur
-        $favoriteAccommodations = $user->getFavoriteAccommodation();
-        $favoriteActivities = $user->getFavoriteActivities();
+        $favoriteAccommodations = $user instanceof \App\Entity\User ? $user->getFavoriteAccommodation() : null;
+        $favoriteActivities = $user instanceof \App\Entity\User ? $user->getFavoriteActivities() : null;
+
         $user = $this->getUser();
         $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 

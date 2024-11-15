@@ -69,7 +69,7 @@ class AccommodationFixture extends Fixture implements DependentFixtureInterface
             $accommodation = new Accommodation();
             $accommodation->setTitle($titles[$i])
                 ->setDescription($faker->text(200))
-                ->setAddress($faker->unique()->address())
+                ->setAddress(('Non spécifiée'))
                 ->setPriceNight($faker->randomFloat(2, 50, 300))
                 ->setNbGuests($faker->numberBetween(1, 10))
                 ->setNbRooms($faker->numberBetween(1, 5))

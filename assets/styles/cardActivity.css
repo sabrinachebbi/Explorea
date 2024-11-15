@@ -1,7 +1,7 @@
 /* Container for the activities */
 .container_activity {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 3 activity cards per row */
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin: 70px;
 }
@@ -17,9 +17,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 26px;
+    margin: 20px;
     font-family: "Poppins", sans-serif;
-    width: 300px;
+    width: 100%;
+    max-width: 280px; /* Limite la largeur maximale */
 }
 
 .card:hover {
@@ -64,15 +65,15 @@
 /* Address and position styling */
 .position {
     display: flex;
-    align-items: center;
     justify-content: center;
     margin-bottom: 10px;
+    align-items: baseline;
 }
 
 .locate {
     width: 16px;
     height: 16px;
-    margin-right: 5px;
+    margin-right: 13px;
 }
 
 .title-first {
@@ -101,9 +102,8 @@
 
 /* Category name */
 .card div {
-    font-size: 13px;
+    font-size: 14px;
     color: #555;
-    margin-bottom: 10px;
 }
 
 /* CRUD buttons (show, edit, delete) */

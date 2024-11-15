@@ -22,8 +22,7 @@ class UserProfileController extends AbstractController
     public function show(): Response
     {
         $user = $this->getUser();
-        $userProfile = $user->getUserProfile();
-
+        $userProfile = ($user instanceof \App\Entity\User) ? $user->getUserProfile() : null;
         return $this->render('host_dashboard/dashboard.html.twig', [
             'userProfile' => $userProfile,
             'section' => 'profile',
@@ -53,7 +52,7 @@ class UserProfileController extends AbstractController
         // Récupérer le nombre de notifications non lues pour l'utilisateur connecté
         $unreadNotifications = $notificationRepository->count(['user' => $user, 'isRead' => false]);
 
-        return $this->render('administration/admin_user/edit.html.twig', [
+        return $this->render('user_profile/edit.html.twig', [
             'user' => $user,
             'form' => $form,
             'unreadNotifications' => $unreadNotifications,
@@ -67,7 +66,7 @@ class UserProfileController extends AbstractController
         $user = $this->getUser();
 
         if ($user) {
-            $user->setStatusUser(UserStatus::ARCHIVED);
+            ($user instanceof \App\Entity\User) && $user->setStatusUser(UserStatus::ARCHIVED);
             $entityManager->flush();
 
             // Invalider la session et déconnecter l'utilisateur

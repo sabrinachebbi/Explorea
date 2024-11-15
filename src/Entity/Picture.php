@@ -6,12 +6,12 @@ use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-use Serializable;
+
 
 
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 #[Vich\Uploadable]
-class Picture implements Serializable
+class Picture
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -126,18 +126,18 @@ class Picture implements Serializable
         return $this;
     }
 
-    public function serialize()
+    public function __serialize(): array
     {
-        return serialize([
-            $this->id
-        ]);
+        return [
+            'id' => $this->id,
+        ];
     }
 
-    public function unserialize(string $data)
+    // Méthode de désérialisation
+    public function __unserialize(array $data): void
     {
-        list(
-            $this->id
-            ) = unserialize($data);
+        $this->id = $data['id'];
+
     }
 
 }

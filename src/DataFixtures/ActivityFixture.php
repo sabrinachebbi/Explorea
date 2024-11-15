@@ -77,7 +77,7 @@ class ActivityFixture extends Fixture implements DependentFixtureInterface
                 ->setPrice($faker->randomFloat(2, 20, 300))
                 ->setCreateDate(new \DateTimeImmutable())
                 ->setUpdateDate(new \DateTimeImmutable())
-                ->setAddress($faker->address())
+                ->setAddress(('Non spécifiée'))
                 ->setCategory($categories[$faker->numberBetween(0, count($categories) - 1)])
                 ->setHost($hosts[$faker->numberBetween(0, count($hosts) - 1)])
                 ->setCity($cities[$i])

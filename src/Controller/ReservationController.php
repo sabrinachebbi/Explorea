@@ -46,8 +46,7 @@ class ReservationController extends AbstractController
 
             $reservation->setDateCreation(new \DateTimeImmutable());
             $reservation->setDateModification(new \DateTimeImmutable());
-            $reservation->setTraveler($this->getUser());
-
+            $reservation->setTraveler($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $entityManager->persist($reservation);
             $entityManager->flush();
 
@@ -77,7 +76,8 @@ class ReservationController extends AbstractController
         // Créer une nouvelle réservation et ajouter l'activité
         $reservation = new Reservation();
         $reservation->addActivity($activity);
-        $reservation->setTraveler($this->getUser());
+        $reservation->setTraveler($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
+
 
         // Créer le formulaire pour la réservation d'activité avec l'option 'city'
         $form = $this->createForm(ReservationActivityFormType::class, $reservation);

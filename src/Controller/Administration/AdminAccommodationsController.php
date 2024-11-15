@@ -41,9 +41,9 @@ class AdminAccommodationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $host = $this->getUser(); // ou récupérer un hôte spécifique
-            $accommodation->setHost($host);
+            $accommodation->setHost($host instanceof \App\Entity\User ? $host : null);
             $accommodation->setCreateDate(new DateTimeImmutable());
-            $accommodation ->setUpdateDate(new DateTimeImmutable());
+            $accommodation->setUpdateDate(new DateTimeImmutable());
             foreach ($accommodation->getPictures() as $picture) {
                 $picture->setAccommodation($accommodation);
                 $entityManager->persist($picture);

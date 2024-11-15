@@ -77,7 +77,7 @@ class AccommodationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $accommodation->setHost($this->getUser());
+            $accommodation->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $accommodation->setCreateDate(new DateTimeImmutable());
             $accommodation ->setUpdateDate(new DateTimeImmutable());
             // Gérer les images
@@ -108,7 +108,7 @@ class AccommodationController extends AbstractController
         EntityManagerInterface $entityManager)
     : Response
     {   $user = $this->getUser();
-        if (!$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')){
+        if ($user instanceof \App\Entity\User && !$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_accommodation_showAll');
         }
         $form = $this->createForm(AccommodationFormType::class, $accommodation);
@@ -148,7 +148,7 @@ class AccommodationController extends AbstractController
     #[IsGranted('ROLE_TRAVELER')]
     public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
         $user = $this->getUser();
-        if (!$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')){
+        if ($user instanceof \App\Entity\User && !$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_accommodation_showAll');
         }
         $token = $request->request->get('_token');

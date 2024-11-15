@@ -56,7 +56,7 @@ class Accommodation
     #[ORM\Column]
     private ?\DateTimeImmutable $createDate = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: "datetime_immutable", nullable: false)]
     private ?\DateTimeImmutable $updateDate = null;
 
     #[ORM\Column(enumType: propertyType::class)]
