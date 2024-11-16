@@ -9,9 +9,7 @@
     {% block stylesheets %}
     {% endblock %}
 
-    {% block importmap %}
-        {{ importmap('app') }}
-    {% endblock %}
+        {% block importmap %}{{ importmap(['app','header','footer']) }}{% endblock %}
 </head>
 
 <body>
@@ -28,7 +26,8 @@
 {% endblock %}
 
 {% block javascripts %}
-        <script src="{{ asset('js/notification.js') }}"></script>
+    <script src="{{ asset('js/notification.js') }}"></script>
+
 {% endblock %}
 
 </body>

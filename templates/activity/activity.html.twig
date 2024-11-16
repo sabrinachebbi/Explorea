@@ -1,17 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Activités{% endblock %}
-
-{% block importmap %}
-    {{ importmap('activity') }}
-    {{ importmap('pagination') }}
-{% endblock %}
-
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/cardActivity.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
 {% endblock %}
-
 {% block body %}
     {# Affichage des messages flash #}
     {% for message in app.flashes('success') %}

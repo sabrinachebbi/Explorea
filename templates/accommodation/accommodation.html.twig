@@ -1,17 +1,13 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Accommodations{% endblock %}
-
-{% block importmap %}
-    {{ importmap('accomodation') }}
-    {{ importmap('pagination') }}
-{% endblock %}
-
 {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/cardAccomodation.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
 {% endblock %}
-
 {% block body %}
     {# Flash messages #}
     {% for message in app.flashes('success') %}

@@ -59,32 +59,26 @@
                     {{ form_errors(registrationForm.lastName) }}
                 </div>
             </div>
-            <div class="form-group3">
-                {{ form_label(registrationForm.gender) }}
-                <div class="choice-container">
-                {{ form_widget(registrationForm.gender, {'attr': {'class': 'form-control'}}) }}
-                </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.gender, 'Genre <span class="required-symbol">*</span>', { 'label_html': true }) }}
+                {{ form_widget(registrationForm.gender) }}
                 <div class="error">
                     {{ form_errors(registrationForm.gender) }}
                 </div>
             </div>
 
-            <div class="form-group1">
-                {{ form_label(registrationForm.role) }}
-                <div class="choice-container">
-                    {{ form_widget(registrationForm.role, {'attr': {'class': 'form-control'}}) }}
-                </div>
+            <div class="form-group">
+                {{ form_label(registrationForm.role,'Vous êtes <span class="required-symbol">*</span>', { 'label_html': true }) }}
+                    {{ form_widget(registrationForm.role) }}
                 <div class="error">
                     {{ form_errors(registrationForm.role) }}
                 </div>
             </div>
 
 
-            <div class="form-group2">
+            <div class="agree-terms-row">
                 {{ form_label(registrationForm.agreeTerms) }}
-                <div class="choice">
                 {{ form_widget(registrationForm.agreeTerms) }}
-                </div>
                 <div class="error">
                     {{ form_errors(registrationForm.agreeTerms) }}
                 </div>

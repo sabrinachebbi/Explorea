@@ -12,22 +12,21 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     max-width: 910px;
-    height: 848px;
+    height: 825px;
 }
 
 .authentif-form {
-    padding: 20px;
-    margin-left: 60px;
+    padding: 15px;
     position: relative;
     flex: 1;
+    margin-left: 60px;
 }
 
 h2 {
     font-size: 30px;
     text-align: center;
     font-family: "Poetsen One", sans-serif;
-    margin-top: 10px;
-    margin-right:61px;
+    margin-right:100px;
     margin-bottom: 31px;
 }
 
@@ -37,42 +36,12 @@ h2 {
     margin-top: 15px;
     flex-direction: column;
 }
-.form-group3{
-    display: flex;
-    flex-direction: column;
-    top: 7px;
-    position: relative;
-}
-.form-group1 label {
-    padding: 6px;
-}
-.form-group1{
-    display: flex;
-    flex-direction: column;
-    bottom:10px;
-    position: relative;
-}
-.form-group3 label {
-    padding: 6px;
-}
-.choice-container input[type="radio"] {
-    position: absolute;
-    left: 89px;
-    margin-top: 10px;
-}
-.form-group2{
-    display: flex;
-    top: 5px;
-    position: relative;
-    left: 3px;
-}
-
 label {
     display: block;
     margin-bottom: 9px;
 }
 input{
-    width:215px;
+    width:255px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -95,8 +64,8 @@ input:focus {
     cursor: pointer;
     font-size: 16px;
     position: absolute;
-    bottom: 16px;
-    left: 60px;
+    bottom: 17px;
+    left: 107px;
 }
 
 .btn:hover {
@@ -106,7 +75,7 @@ input:focus {
 .error {
     color: red;
     margin-top: 5px;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .illustration {
@@ -133,15 +102,36 @@ input:focus {
 
 .eye-icon {
     position: absolute;
-    right: 135px;
-    top: 27%;
+    right: 102px;
+    top: 21%;
     cursor: pointer;
 }
 .required-symbol {
     position: absolute;
     color: red;
 }
+.gender-choice {
+    display: flex;
+    margin-top: 10px;
+    align-items: baseline;
+    margin-left: -9px;
+    gap: 11px;
+}
 
+/* Style pour chaque bouton radio */
+.gender-choice input[type="radio"] {
+    width: 20px;
+    margin-top: 10px;
+}
+.agree-terms-checkbox {
+    width: 20px;
+}
+/* Style pour le conteneur global */
+.agree-terms-row {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
 
 /* Responsive */
 @media only screen and (max-width: 768px) {
@@ -153,9 +143,7 @@ input:focus {
         left: 83px;
     }
     .eye-icon {
-
-        right: 80px;
-        top: 21%;
+        right: 43px;
 
     }
 }

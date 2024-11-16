@@ -115,12 +115,13 @@ class AccommodationController extends AbstractController
             // Mise à jour de la date de modification
             $accommodation->setUpdateDate(new DateTimeImmutable());
 
-            // Gestion des images associées (si elles existent)
+//             Gestion des images associées (si elles existent)
             foreach ($accommodation->getPictures() as $picture) {
                 if ($picture->getAccommodationImageFile() === null) {
                     // Conserver le nom de fichier existant
                     $originalFileName = $picture->getName(); // Récupérer le nom actuel
                     $picture->setName($originalFileName);
+//                }
                 }
             }
 

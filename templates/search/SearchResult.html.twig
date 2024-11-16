@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block importmap %}
-    {{ importmap('activity') }}
-    {{ importmap('accomodation') }}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/cardAccomodation.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/cardActivity.css') }}">
+
 {% endblock %}
 
 {% block body %}
@@ -24,12 +25,10 @@
         {% if activities|length > 0 %}
             <div class="container_activity">
                 {% for activity in activities %}
-                    <div class="card">
                         <script src="{{ asset('js/carousel.js') }}"></script>
                         {% include '_partials/cardActivity.html.twig'  %}
                     </div>
                 {% endfor %}
-            </div>
         {% else %}
             <p>Aucune activité disponible pour cette destination.</p>
         {% endif %}

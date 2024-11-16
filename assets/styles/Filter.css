@@ -157,8 +157,8 @@
     }
     .filter-toggle {
         font-size: 16px;
-        top: 133px;
-        right:55px;
+        top: 116px;
+        right:29px;
     }
     .filter-toggle1 {
         font-size: 16px;
@@ -179,12 +179,27 @@
     }
     .filter-toggle {
         font-size: 13px;
-        top: 140px;
-        right:102px;
+        top: 117px;
+        right:93px;
     }
     .filter-toggle1 {
         font-size: 13px;
         top: 152px;
         right:22px;
     }
+
+}
+@media screen and (min-width: 1025px) {
+    .filter-toggle {
+        font-size: 16px;
+        top: 126px;
+        right: 120px;
+    }
+
+    .filter-toggle1 {
+        font-size: 16px;
+        top: 128px;
+        right: 155px;
+    }
+
 }

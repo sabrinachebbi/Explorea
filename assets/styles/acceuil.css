@@ -150,7 +150,7 @@
     padding: 7px;
     cursor: pointer;
    position: absolute;
-    left: 604px;
+    left: 46px;
     bottom: 10px;
 }
 #article1 button:hover {
@@ -455,7 +455,7 @@ figure{
         border-radius: 5px;
         color: white;
         background-color: #19659d;
-        margin-left: 515px;
+        margin-left: 49px;
         padding: 7px;
         cursor: pointer;
     }

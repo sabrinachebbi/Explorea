@@ -1,9 +1,8 @@
 {% extends 'base.html.twig' %}
-{% block importmap %}
-    {{ importmap('dashboard') }}
-    {{ importmap('pagination') }}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
 {% endblock %}
-
 
 {% block title %}Dashboard Hôte{% endblock %}
 

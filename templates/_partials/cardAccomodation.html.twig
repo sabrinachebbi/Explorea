@@ -1,4 +1,4 @@
-<div class="card" data-accommodation-id="{{ accommodation.id }}">
+<div class="card"  data-accommodation-id="{{ accommodation.id }}">
     <div class="image-gallery">
         <div class="carousel" id="carousel-{{ accommodation.id }}">
             {% for picture in accommodation.pictures %}
@@ -17,8 +17,9 @@
                 {% endif %}
             </a>
         </div>
-        <button  class="carousel-prev" onclick="plusSlides({{ accommodation.id }}, -1)">&#10094;</button>
-        <button  class="carousel-next" onclick="plusSlides({{ accommodation.id }}, 1)">&#10095;</button>
+        <button class="carousel-prev" onclick="plusSlides('carousel-{{ accommodation.id }}', -1)">&#10094;</button>
+        <button class="carousel-next" onclick="plusSlides('carousel-{{ accommodation.id }}', 1)">&#10095;</button>
+
     </div>
     <h4>{{ accommodation.title }}</h4>
     <div class="position">
@@ -39,7 +40,8 @@
     <button class="price">{{ accommodation.priceNight }}€ / nuit</button>
 
     <div class="btn-crud">
-        <a href="{{ path('app_accommodation_showDetails', {'id': accommodation.id}) }}"><img src="{{ asset('images/info.png') }}" alt="" class="btn-show"></a>
+        <a href="{{ path('app_accommodation_showDetails', {'id': accommodation.id}) }}"><img src="{{ asset('images/info.png') }}" class="btn-show" alt="Voir les détails">
+        </a>
         {% if is_granted('ROLE_HOST') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
             <form action="{{ path('app_accommodation_remove', {'id': accommodation.id}) }}" method="post" class="form-delete">

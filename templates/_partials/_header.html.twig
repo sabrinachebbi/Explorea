@@ -1,17 +1,16 @@
-{% block importmap %}{{ importmap('header') }}{% endblock %}
+
 <header>
     <div class="logo">
-        <a href="{{ path('home') }}"><img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa" ></a>
+        <a href="{{ path('home') }}"><img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa"></a>
     </div>
     <div class="container">
 
         <!-- Menu burger visible sur mobile -->
-        <div class="menu-burger" id="menuBurger">
+        <button id="menuBurger" class="menu-burger" aria-label="Menu">
             <span></span>
             <span></span>
             <span></span>
-        </div>
-
+        </button>
         <nav class="navbar" id="navbar">
             <ul class="nav-links">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -27,7 +26,7 @@
                     <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
                 {% endif %}
 
-                    <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
+                <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
                 {% if is_granted('ROLE_HOST') %}
                     <div class="notification">
                         <a href="{{ path('host_notification') }}">
@@ -40,7 +39,7 @@
                 {% endif %}
             </ul>
             <div class="auth-buttons">
-                {% if not  app.user %}
+                {% if not app.user %}
                     <a href="{{ path('app_login') }}" class="btn">Connexion</a>
                     <a href="{{ path('app_register') }}" class="btn">Inscription</a>
                 {% endif %}
@@ -50,15 +49,6 @@
 </header>
 
 {% block javascripts %}
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuBurger = document.getElementById("menuBurger");
-            const navbar = document.getElementById("navbar");
-
-            menuBurger.addEventListener("click", function() {
-                navbar.classList.toggle("active");
-                console.log("Classes de navbar:", navbar.classList);
-            });
-        });
-    </script>
+    <script src="{{ asset('js/MenuBurger.js') }}"></script>
 {% endblock %}
+

@@ -118,27 +118,12 @@ label {
     }
 
     .eye-icon {
-        right: 154px;
-        top: 271px;
+        right: 75px;
+    }
+    .options input[type="checkbox"] {
+        right: 8px;
     }
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-    .eye-icon {
-        right: 102px;
-        top: 271px;
-    }
-
-    h2 {
-        font-size: 22px;
-        margin-right: 29px;
-    }
-
-    .btn {
-        font-size: 15px;
-        left: 110px;
-        bottom: 20px;
-    }
-}
 
 

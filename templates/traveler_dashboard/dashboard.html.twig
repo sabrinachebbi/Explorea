@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
-{% block importmap %}
-    {{ importmap('dashboard') }}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/dashboard.css') }}">
 {% endblock %}
-
 {% block title %}Dashboard Traveler{% endblock %}
 
 {% block body %}

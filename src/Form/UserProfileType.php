@@ -71,6 +71,10 @@ class UserProfileType extends AbstractType
                 ],
                 'expanded' => true, // Pour afficher les options en boutons radio
                 'multiple' => false,
+                'attr' => [
+                    'class' => 'gender-choice',
+                ],
+
             ]);
     }
 

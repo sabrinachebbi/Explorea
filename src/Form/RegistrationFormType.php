@@ -28,10 +28,13 @@ class RegistrationFormType extends AbstractType
                     'Voyageur' => 'ROLE_TRAVELER',
                     'Hôte' => 'ROLE_HOST',
                 ],
-                'label' => ' ',
+                'label' => 'Vous êtes ',
                 'expanded' => true,
                 'multiple' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'gender-choice',
+                ],
             ])
             ->add('email', EmailType::class, [
                 'constraints' => [
@@ -47,6 +50,13 @@ class RegistrationFormType extends AbstractType
                     new IsTrue([
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
+                ],
+                'label' => 'J’accepte les conditions générales', // Ajout d'un label clair
+                'attr' => [
+                    'class' => 'agree-terms-checkbox', // Classe CSS pour la case à cocher
+                ],
+                'row_attr' => [
+                    'class' => 'agree-terms-row', // Classe CSS pour le conteneur global
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -110,10 +120,13 @@ class RegistrationFormType extends AbstractType
                     'Femme' => GenderEnum::Female,
                     'Autre' => GenderEnum::Other,
                 ],
-                'label' => false,
+                'label' => 'Genre',
                 'expanded' => true,
                 'multiple' => false,
                 'mapped' => false,
+                'attr' => [
+                    'class' => 'gender-choice',
+                ],
             ]);
     }
 
