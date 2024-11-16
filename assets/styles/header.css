@@ -102,9 +102,10 @@ header {
    display: none;
    flex-direction: column;
    justify-content: space-between;
-   width: 30px;
+   width: 37px;
    height: 20px;
    cursor: pointer;
+   border: none;
 }
 
 .menu-burger span {
@@ -183,8 +184,7 @@ header {
    }
 
    .menu-burger {
-      display: flex;
-      position: absolute;
+      background-color: white;
       top: 43px;
       right: 10px;
    }

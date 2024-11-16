@@ -28,7 +28,7 @@
     font-weight: bold;
 }
 
-.btn-primary {
+.-primary {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
@@ -37,6 +37,6 @@
     cursor: pointer;
 }
 
-.btn-primary:hover {
+.-primary:hover {
     background-color: #0056b3;
 }

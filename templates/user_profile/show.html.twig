@@ -8,7 +8,7 @@
     {% for message in app.flashes('success') %}
         <div class="alert alert-success flash-message">
             <span>{{ message }}</span>
-            <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+            <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
         </div>
     {% endfor %}
 
@@ -58,13 +58,13 @@
 
         <!-- Section des boutons d'action alignés correctement -->
         <div class="buttons">
-            <a href="{{ path('userProfile_edit', {'id': userProfile.id}) }}" class="btn-edit">
+            <a href="{{ path('userProfile_edit', {'id': userProfile.id}) }}" class="-edit">
                 <img src="{{ asset('images/edit.jpg') }}" alt="Éditer">
             </a>
 
             <form action="{{ path('userProfile_delete', {'id': userProfile.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre profil ?');" style="display:inline;">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ userProfile.id) }}">
-                <button type="submit" class="btn-delete">
+                <button type="submit" class="-delete">
                     <img src="{{ asset('images/delete.jpg') }}" alt="Supprimer">
                 </button>
             </form>

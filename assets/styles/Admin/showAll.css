@@ -40,7 +40,7 @@ p{
     align-items: flex-start;
 }
 
-.btn-edit, .btn-delete, .btn-show, .btn-create {
+.-edit, .-delete, .-show, .-create {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
@@ -50,16 +50,16 @@ p{
     font-family: "Poppins", sans-serif;
 }
 
-.btn-edit,.btn-create {
+.-edit,.-create {
     background-color: #34495e;
 }
 
-.btn-delete {
+.-delete {
 
     background-color: #f44336;
 }
 
-.btn-show{
+.-show{
     background-color: #1BBC9B;
 
 }
@@ -68,7 +68,7 @@ p{
         padding:11px;
         font-size: 13px;
     }
-    .btn-edit, .btn-delete, .btn-show, .btn-create {
+    .-edit, .-delete, .-show, .-create {
         font-size: 13px;
         width: 87px;
     }
@@ -117,18 +117,18 @@ p{
         flex-direction: column;
         font-size: 10px;
     }
-    .btn-edit, .btn-delete, .btn-show, .btn-create {
+    .-edit, .-delete, .-show, .-create {
         font-size: 13px;
         width: 70px;
     }
-     .btn-delete{
+     .-delete{
         width:90px;
     }
     h1 {
         margin-bottom: 20px;
         font-size: 20px;
     }
-    .btn-create{
+    .-create{
      margin-bottom: 10px;
     }
 }
@@ -154,7 +154,7 @@ p{
     }
 
     /* Réduire la taille des boutons d'action */
-    .btn-edit, .btn-delete, .btn-show, .btn-create {
+    .-edit, .-delete, .-show, .-create {
         width: 70px;
         padding: 5px;
     }
@@ -164,7 +164,7 @@ p{
         gap: 5px;
         align-items: center;
     }
-    .btn-create{
+    .-create{
         margin-left: 25px;
     }
 }

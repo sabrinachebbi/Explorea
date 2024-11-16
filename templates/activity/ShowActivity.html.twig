@@ -12,7 +12,7 @@
         {% for message in app.flashes(type) %}
             <div class="alert {{ messages }} flash-message">
                 <span>{{ message }}</span>
-                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
             </div>
         {% endfor %}
     {% endfor %}
@@ -20,7 +20,7 @@
         <img src="{{ asset('images/en-arriere.png') }}" alt="" class="back-icon1">
     </a>
     <div class="details1">
-        <h1 class>{{ activity.title }}</h1>
+        <h1 class="title-activity">{{ activity.title }}</h1>
 
 
         <div class="activity-image">

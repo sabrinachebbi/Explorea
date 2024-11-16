@@ -16,7 +16,6 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
         $accommodationImageURLs = [
             'logement13.jpeg',
             'logement19.jpeg',
-            'logement3.jpeg',
             'logement11.jpeg',
             'logement8.webp',
             'logement21.webp',

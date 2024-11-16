@@ -1,4 +1,4 @@
-/* Container for the activities */
+/** Container for the activities *!*/
 .container_activity {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

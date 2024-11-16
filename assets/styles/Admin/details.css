@@ -27,7 +27,7 @@
     color: #333;
 }
 
-.reservation-summary .btn-back {
+.reservation-summary .-back {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 25px;
@@ -40,6 +40,6 @@
     transition: background-color 0.3s ease;
 }
 
-.reservation-summary .btn-back:hover {
+.reservation-summary .-back:hover {
     background-color: #17a085;
 }

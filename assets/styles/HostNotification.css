@@ -36,7 +36,7 @@ p{
    margin: 138px 0;
 }
 
-.btn {
+. {
     padding: 8px 12px;
     font-size: 14px;
     color: #fff;
@@ -45,16 +45,16 @@ p{
     margin-right: 5px;
     cursor: pointer;
 }
-.btn_reserv{
+._reserv{
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
 }
-.btn-success{
+.-success{
     background-color: #1BBC9B;
 }
-.btn-danger{
+.-danger{
     background-color: #e74c3c;
 }
 .review-icon {
@@ -78,7 +78,7 @@ p{
         margin-top: 20px;
     }
 
-    .btn {
+    . {
         font-size: 13px;
         padding: 6px 10px;
     }

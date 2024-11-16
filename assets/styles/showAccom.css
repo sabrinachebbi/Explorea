@@ -19,7 +19,7 @@ h1 {
     left: 121px;
 }
 
-.btn_crud {
+._crud {
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -44,7 +44,7 @@ h1 {
     color: #333;
 }
 
-.btn-action {
+.-action {
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 4px;
@@ -56,15 +56,15 @@ h1 {
     gap: 12px;
 }
 
-.btn-show {
+.-show {
     background-color: #1BBC9B;
 }
 
-.btn-edit {
+.-edit {
     background-color: #2b5f94;
 }
 
-.btn-delete {
+.-delete {
     background-color: #e74c3c;
     border: none;
     cursor: pointer;
@@ -84,12 +84,12 @@ h1 {
         top: 80px;
         left: 0;
     }
-    .btn_crud {
+    ._crud {
       flex-wrap: wrap;
         justify-content: flex-start;
     }
 
-    .btn-delete{
+    .-delete{
         width: 74px;
     }
 
@@ -112,16 +112,16 @@ h1 {
         left:5px;
         top: 0px;
     }
-    .btn-show, .btn-edit {
+    .-show, .-edit {
         width: 62px;
         font-size: 12px;
     }
-    .btn-delete{
+    .-delete{
         font-size: 12px;
         width: 74px;
     }
 
-    .btn_crud ,.btn-action{
+    ._crud ,.-action{
         flex-direction: column;
         align-items: center;
         padding: 3px 5px ;

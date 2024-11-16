@@ -20,7 +20,7 @@
         <div class="form-group">
             {{ form_widget(form) }}
         </div>
-        <button class="btn">{{ button_label|default('Enregistrer') }}</button>
+        <button class="">{{ button_label|default('Enregistrer') }}</button>
         {{ form_end(form) }}
 
         {% if app.user == user %}
