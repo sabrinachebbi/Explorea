@@ -26,14 +26,14 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class AccommodationController extends AbstractController
 {
     #[Route('/', name: 'showAll')]
-    public function index(Request $request, AccommodationRepository $accommodationRepository, PaginatorInterface $paginator,NotificationRepository $notificationRepository): Response
+    public function index(Request $request, AccommodationRepository $accommodationRepository, PaginatorInterface $paginator, NotificationRepository $notificationRepository): Response
     {
         // Créer le formulaire de filtrage
         $form = $this->createForm(AccommodationFilterType::class);
         $form->handleRequest($request);
 
         $page = $request->query->getInt('page', 1);
-        $limit =8;
+        $limit = 8;
 
         // Si le formulaire est soumis et valide, appliquer le filtrage
         if ($form->isSubmitted() && $form->isValid()) {
@@ -68,25 +68,18 @@ class AccommodationController extends AbstractController
     //fonction pour ajouter une accommodation
     #[Route('/new', name: 'new')]
     #[IsGranted('ROLE_HOST')]
-
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $accommodation = new Accommodation();
-        $form= $this->createForm(AccommodationFormType::class,$accommodation);
+        $form = $this->createForm(AccommodationFormType::class, $accommodation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             $accommodation->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $accommodation->setCreateDate(new DateTimeImmutable());
-            // Gérer les images
-            foreach ($accommodation->getPictures() as $picture) {
-                $picture->setAccommodation($accommodation);
-                $entityManager->persist($picture);
-            }
 
             $entityManager->persist($accommodation);
-
 
 
             $entityManager->persist($accommodation);
@@ -100,33 +93,57 @@ class AccommodationController extends AbstractController
 
     #[Route('/update/{id}', name: 'update')]
     #[IsGranted('ROLE_HOST')]
-
     public function update(
-        Accommodation $accommodation,
-        Request $request,
-        EntityManagerInterface $entityManager)
-    : Response
-    {   $user = $this->getUser();
-        if ($user instanceof \App\Entity\User && !$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')) {
+        Accommodation          $accommodation,
+        Request                $request,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $user = $this->getUser();
+
+        // Vérification de l'autorisation : l'utilisateur doit être propriétaire ou admin
+        if ($user instanceof \App\Entity\User
+            && !$user->getAccommodations()->contains($accommodation)
+            && !$this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_accommodation_showAll');
         }
+
+        // Création et gestion du formulaire
         $form = $this->createForm(AccommodationFormType::class, $accommodation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mise à jour de la date de modification
             $accommodation->setUpdateDate(new DateTimeImmutable());
+
+            // Gestion des images associées (si elles existent)
+            foreach ($accommodation->getPictures() as $picture) {
+                if ($picture->getAccommodationImageFile() === null) {
+                    // Conserver le nom de fichier existant
+                    $originalFileName = $picture->getName(); // Récupérer le nom actuel
+                    $picture->setName($originalFileName);
+                }
+            }
+
+            // Persist et flush
             $entityManager->persist($accommodation);
             $entityManager->flush();
+            $this->addFlash('success', 'Votre annonce a été mise à jour avec succès.');
+
             return $this->redirectToRoute('app_accommodation_showAll');
         }
+
+        // Affichage du formulaire dans le template
         return $this->render('accommodation/updateAccommodation.html.twig', [
-            'AccommodationForm' => $form,
+            'AccommodationForm' => $form->createView(),
             'accommodation' => $accommodation,
         ]);
     }
+
+
     //fonction pour afficher les details d' une seul annonce
     #[Route('/show/{id}', name: 'showDetails')]
-    public function show( Accommodation $accommodation, ReviewRepository $reviewRepository): Response {
+    public function show(Accommodation $accommodation, ReviewRepository $reviewRepository): Response
+    {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationAccommodationFormType::class, $reservation, [
             'action' => $this->generateUrl('reservation_accommodation', ['id' => $accommodation->getId()]),
@@ -135,7 +152,7 @@ class AccommodationController extends AbstractController
         // Récupérer les avis associés aux réservations de l'hébergement
         $reviews = $reviewRepository->findByAccommodation($accommodation);
 
-        return $this->render('accommodation/showAccommodation.html.twig',[
+        return $this->render('accommodation/showAccommodation.html.twig', [
             'accommodation' => $accommodation,
             'reservationForm' => $form,  // Passer le formulaire au template
             'reviews' => $reviews,  // Passez les avis au template
@@ -144,26 +161,25 @@ class AccommodationController extends AbstractController
 
     //fonction pour supprimer une annonce
     #[Route('/remove/{id}', name: 'remove', methods: ['POST'])]
-    #[IsGranted('ROLE_TRAVELER')]
-    public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response {
-        $user = $this->getUser();
-        if ($user instanceof \App\Entity\User && !$user->getAccommodations()->contains($accommodation) && !$this->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('app_accommodation_showAll');
-        }
+    public function remove(Request $request, Accommodation $accommodation, EntityManagerInterface $entityManager): Response
+    {
         $token = $request->request->get('_token');
 
-        if($this->isCsrfTokenValid('delete-acommodation' . $accommodation->getId(), $token)){
-
-            //supprimer les images associées aussi
-            foreach ($accommodation->getPictures() as $picture) {
-                $entityManager->remove($picture);
-            }
-            $entityManager->remove($accommodation);
-            $entityManager->flush();
+        // Vérification du CSRF Token
+        if (!$this->isCsrfTokenValid('delete-accommodation' . $accommodation->getId(), $token)) {
+            $this->addFlash('error', 'Token CSRF invalide.');
             return $this->redirectToRoute('app_accommodation_showAll');
         }
+
+        // Suppression de l'entité
+        $entityManager->remove($accommodation);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Hébergement supprimé avec succès.');
 
         return $this->redirectToRoute('app_accommodation_showAll');
     }
+
+
 }
 

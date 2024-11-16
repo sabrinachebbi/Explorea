@@ -117,7 +117,8 @@ class ActivityController extends AbstractController
             $activities->setUpdateDate(new DateTimeImmutable());
             $entityManager->persist($activities);
             $entityManager->flush();
-            return $this->redirectToRoute('app_activity_showDetails', ['id' => $activities->getId()]);
+            $this->addFlash('success', 'Votre annonce a été mise à jour avec succès.');
+            return $this->redirectToRoute('app_activity_showAll', ['id' => $activities->getId()]);
         }
         return $this->render('activity/updateActivities.html.twig', [
             'ActivityForm' => $form,
@@ -154,7 +155,7 @@ class ActivityController extends AbstractController
         // Suppression de l'activité
         $entityManager->remove($activity);
         $entityManager->flush();
-
+        $this->addFlash('success', 'Activity supprimé avec succès.');
         // Redirection après suppression
         return $this->redirectToRoute('app_activity_showAll');
     }

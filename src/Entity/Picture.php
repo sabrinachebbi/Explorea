@@ -20,7 +20,7 @@ class Picture
 
 
 
-    #[Vich\UploadableField(mapping: 'accommodations', fileNameProperty: 'name')]
+    #[Vich\UploadableField(mapping: 'accommodation', fileNameProperty: 'name')]
     private ?File $accommodationImageFile = null;
 
     #[Vich\UploadableField(mapping: 'activities', fileNameProperty: 'name')]
@@ -35,7 +35,7 @@ class Picture
     #[ORM\OneToOne(mappedBy: 'picture', cascade: ['persist', 'remove'])]
     private ?Activity $activity = null;
 
-    #[ORM\Column(length: 200)]
+    #[ORM\Column(type: 'string', nullable: false)]
     private ?string $name = null;
 
     // Getters and Setters
@@ -119,13 +119,12 @@ class Picture
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
-        return $this;
+        return $this; // Permet le chaînage des appels
     }
-
     public function __serialize(): array
     {
         return [

@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PictureTypeAccommodation extends AbstractType
@@ -18,7 +19,6 @@ class PictureTypeAccommodation extends AbstractType
             ->add('accommodationImageFile', VichImageType::class, [
                 'label' => false,
                 'required' => false,
-                'mapped' => false,
                 'constraints' => [
                     new Assert\File([
                         'maxSize' => '2000k',

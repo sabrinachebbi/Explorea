@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: AccommodationRepository::class)]
-#[Vich\Uploadable]
+#[Vich\Uploadable()]
 class Accommodation
 {
     #[ORM\Id]
@@ -74,7 +74,7 @@ class Accommodation
     #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Reservation::class)]
     private Collection $reservations;
 
-    #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Picture::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(mappedBy: 'accommodation', targetEntity: Picture::class,orphanRemoval:true,cascade: ['persist','remove'])]
     private Collection $pictures;
 
     public function __construct()
@@ -244,8 +244,7 @@ class Accommodation
     public function addPicture(Picture $picture): static
     {
         if (!$this->pictures->contains($picture)) {
-            $this->pictures[] = $picture;
-//            $this->pictures->add($picture);
+            $this->pictures->add($picture);
             $picture->setAccommodation($this);
         }
         return $this;

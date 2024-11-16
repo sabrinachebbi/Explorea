@@ -1,13 +1,12 @@
-
 <div class="card" data-accommodation-id="{{ accommodation.id }}">
-<div class="image-gallery">
-    <div class="carousel" id="carousel-{{ accommodation.id }}">
-    {% for picture in accommodation.pictures %}
-        <div class="carousel-item" style="display: {% if loop.first %}block{% else %}none{% endif %};">
-            <img src="{{ vich_uploader_asset(picture, 'accommodationImageFile') }}" alt="Image de l'hébergement">
+    <div class="image-gallery">
+        <div class="carousel" id="carousel-{{ accommodation.id }}">
+            {% for picture in accommodation.pictures %}
+                <div class="carousel-item" style="display: {% if loop.first %}block{% else %}none{% endif %};">
+                    <img src="{{ vich_uploader_asset(picture, 'accommodationImageFile') }}" alt="Image de l'hébergement">
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
-</div>
         <!-- Bouton favori -->
         <div class="favorite-button">
             <a href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">
@@ -44,7 +43,7 @@
         {% if is_granted('ROLE_HOST') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
             <form action="{{ path('app_accommodation_remove', {'id': accommodation.id}) }}" method="post" class="form-delete">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete-acommodation' ~ accommodation.id) }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-accommodation' ~ accommodation.id) }}">
                 <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">
                     <img src="{{ asset('images/delete.png') }}" alt="" class="btn-delete">
                 </button>
@@ -54,7 +53,6 @@
     </div>
 
 </div>
-
 
 
 
