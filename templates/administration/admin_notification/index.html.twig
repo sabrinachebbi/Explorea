@@ -7,47 +7,48 @@
     {{ importmap('pagination') }}
 {% endblock %}
 {% block body %}
-<div class="reservation-container">
-    <h1>Liste des Notifications</h1>
-    <p>Nombre total des notifications : <strong>{{ pagination.getTotalItemCount }}</strong></p>
+    {#  afficher les notification #}
+    <div class="reservation-container">
+        <h1>Liste des Notifications</h1>
+        <p>Nombre total des notifications : <strong>{{ pagination.getTotalItemCount }}</strong></p>
 
-    <a href="{{ path('app_admin_notification_new') }}" class="btn-create">Envoyer une nouvelle notification</a>
-
-    <table class="reservation-table">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Message</th>
-            <th>Utilisateur</th>
-            <th>Statut</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for notification in pagination %}
+        <table class="reservation-table">
+            <thead>
             <tr>
-                <td>{{ notification.id }}</td>
-                <td>{{ notification.message }}</td>
-                <td>{{ notification.user.email }}</td>
-                <td>
-                    {% if notification.isRead %}
-                        <span class="badge bg-success">Lu</span>
-                    {% else %}
-                        <span class="badge bg-warning">Non lu</span>
-                    {% endif %}
-                </td>
-                <td>
-                    <form action="{{ path('app_admin_notification_delete', {'id': notification.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette notification ?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ notification.id) }}">
-                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                    </form>
-                </td>
+                <th>ID</th>
+                <th>Message</th>
+                <th>Utilisateur</th>
+                <th>Statut</th>
+                <th>Actions</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="pagination">
-        {{ knp_pagination_render(pagination) }}
+            </thead>
+            <tbody>
+            {% for notification in pagination %}
+                <tr>
+                    <td>{{ notification.id }}</td>
+                    <td>{{ notification.message }}</td>
+                    <td>{{ notification.user.email }}</td>
+                    <td>
+                        {% if notification.isRead %}
+                            <span class="badge bg-success">Lu</span>
+                        {% else %}
+                            <span class="badge bg-warning">Non lu</span>
+                        {% endif %}
+                    </td>
+                    {#  supprimer une notification de reservation#}
+                    <td>
+                        <form action="{{ path('app_admin_notification_delete', {'id': notification.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette notification ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ notification.id) }}">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {#  pagination#}
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
-</div>
 {% endblock %}

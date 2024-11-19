@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Activités{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/cardActivity.css') }}">
@@ -21,27 +20,27 @@
             <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
         </div>
     {% endfor %}
-    {# Bouton pour ouvrir la modale de filtre #}
+    {# Bouton pour ouvrir la formulaire de filtre #}
     <div class="filter-toggle1" onclick="toggleFilterModal()">
         <img src="{{ asset('images/filter.webp') }}" alt="Filtrer" class="filter-icon">
         <span>Filtrage</span>
     </div>
 
-    {# Inclusion de la modale de filtrage #}
+    {# Inclusion de la formulaire de filtrage #}
     {% include '_partials/_Filter_Activity.html.twig' %}
 
-        {# Conteneur pour les cartes d'annonces #}
-        <div class="container_activity">
-            {% if activities is not empty %}
-                {% for activity in activities %}
-                        {% include '_partials/cardActivity.html.twig' %}
-                {% endfor %}
-            {% else %}
-                <p>Aucun résultat trouvé.</p>
-            {% endif %}
-        </div>
+    {# Conteneur pour les cartes d'annonces #}
+    <div class="container_activity">
+        {% if activities is not empty %}
+            {% for activity in activities %}
+                {% include '_partials/cardActivity.html.twig' %}
+            {% endfor %}
+        {% else %}
+            <p>Aucun résultat trouvé.</p>
+        {% endif %}
+    </div>
 
-        {# Pagination #}
+    {# Pagination #}
     <div class="pagination-container">
         {{ knp_pagination_render(activities) }}
     </div>

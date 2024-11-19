@@ -12,45 +12,46 @@
             {% for message in messages %}
                 <div class="flash-message flash-{{ label }}">
                     <span>{{ message }}</span>
-                    <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
+                    <button class="close-" onclick="this.parentElement.style.display='none';" aria-label="fermer la fenetre">&times;</button>
                 </div>
             {% endfor %}
         {% endfor %}
     </div>
-<div class="reservation-container">
-    <h1>Gestion des Utilisateurs</h1>
+    <div class="reservation-container">
+        <h1>Gestion des Utilisateurs</h1>
 
-    <p>Nombre total des Utilisateur: <strong>{{ pagination.getTotalItemCount }}</strong></p>
-    <a href="{{ path('app_admin_user_new') }}" class="-create">Créer un nouveau utilisateur </a>
+        <p>Nombre total des Utilisateur: <strong>{{ pagination.getTotalItemCount }}</strong></p>
+        <a href="{{ path('app_admin_user_new') }}" class="-create">Créer un nouveau utilisateur </a>
 
-    <table class="reservation-table ">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Prénom</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for user in pagination %}
+        <table class="reservation-table ">
+            <thead>
             <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.userProfile.firstName|default('Nom non défini') }}</td>
-                <td>{{ user.email }}</td>
-                <td class="actions">
-                    <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="-show">Voir</a>
-                    <form action="{{ path('app_admin_user_remove', {'id': user.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
-                        <button type="submit" class="-delete">Supprimer</button>
-                    </form>
-                </td>
+                <th>Id</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Actions</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="pagination">
-        {{ knp_pagination_render(pagination) }}
+            </thead>
+            <tbody>
+            {% for user in pagination %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.userProfile.firstName|default('Nom non défini') }}</td>
+                    <td>{{ user.email }}</td>
+                    {# actions pour afficher ou supprimer un utilisateur#}
+                    <td class="actions">
+                        <a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="-show">Voir</a>
+                        <form action="{{ path('app_admin_user_remove', {'id': user.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button type="submit" class="-delete">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
     </div>
-</div>
 {% endblock %}

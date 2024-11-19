@@ -1,14 +1,14 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/notification-message.css') }}">
 {% endblock %}
-
-
 <div class="flash-messages">
+    <!-- Parcours des messages flash stockés dans app.flashes -->
     {% for label, messages in app.flashes %}
         {% for message in messages %}
             <div class="flash-message flash-{{ label }}">
                 <span>{{ message }}</span>
-                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
+                <!-- Bouton pour fermer le message -->
+                <button class="close-btn" onclick="this.parentElement.style.display='none';" aria-label="Fermer le message">&times;</button>
             </div>
         {% endfor %}
     {% endfor %}

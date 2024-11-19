@@ -2,13 +2,13 @@
 {% extends 'admin_base.html.twig' %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/dashboard.css') }}">
-
 {% endblock %}
 
 {% block body %}
     <div class="dashboard-container">
         <nav class="sidebar" id="sidebar">
-            <button class="menu-button" onclick="toggleSidebar()">☰</button>
+            {# Barre latérale de navigation pour accéder aux différentes sections du tableau de bord #}
+            <button class="menu-button" onclick="toggleSidebar()" aria-label="">☰</button>
             <ul>
                 <li><a href="{{ path('admin_reservation_index') }}">Réservations</a></li>
                 <li><a href="{{ path('app_admin_accommodation_list') }}">Hébergements</a></li>
@@ -38,7 +38,7 @@
                 {% include 'administration/admin_category/index.html.twig' %}
             {% else %}
                 <h1>Tableau de bord Administrateur</h1>
-
+{# carte statiques #}
                 <div class="dashboard-summary">
                     <div class="stat">
                         <h2>Utilisateurs</h2>
@@ -61,8 +61,9 @@
                     </div>
                 </div>
             {% endif %}
-        </div> <!-- fermeture main-content -->
+        </div>
     </div>
+    {# Script JavaScript pour gérer l'affichage de la barre latérale (toggle) #}
     <script>
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('open');

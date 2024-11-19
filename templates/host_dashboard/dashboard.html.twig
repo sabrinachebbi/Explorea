@@ -8,19 +8,20 @@
 
 {% block body %}
     <div class="dashboard-container">
-        <!-- Sidebar with a toggle button for mobile -->
-        <button class="menu-button" onclick="toggleSidebar()">
+        {#barre latéral ca affiche en version mobile#}
+        <button class="menu-button" onclick="toggleSidebar()" aria-label="fermer">
             Espace Hôte
         </button>
         <nav class="sidebar" id="sidebar">
             <div class="avatar-container">
+                {# Affichage de l'avatar selon le genre de l'utilisateur #}
                 {% if userProfile.gender.value == 'Femme' %}
                     <img src="{{ asset('images/woman.png') }}" alt="Avatar Femme" class="avatar">
                 {% else %}
                     <img src="{{ asset('images/man.png') }}" alt="Avatar Homme" class="avatar">
                 {% endif %}
             </div>
-
+            {# Liste des liens de navigation pour l'hôte #}
             <ul>
                 <li><a href="{{ path('host_profile') }}">Profil</a></li>
                 <li><a href="{{ path('host_accommodations') }}">Mes Hébergements</a></li>
@@ -31,7 +32,7 @@
             </ul>
         </nav>
 
-        <!-- Main content area -->
+        {# Contenu principal de la page, basé sur la section demandée #}
         <div class="main-content">
             {% if section == 'profile' %}
                 {% include 'user_profile/show.html.twig' %}
@@ -49,7 +50,7 @@
         </div>
 
     </div>
-
+    {#    script js pour l overture et fermeture de la barre latéral#}
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById("sidebar");

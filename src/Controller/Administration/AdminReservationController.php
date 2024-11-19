@@ -33,34 +33,6 @@ class AdminReservationController extends AbstractController
         ]);
     }
 
-
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $reservation = new Reservation();
-        $form = $this->createForm(AdminReservationType::class, $reservation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $reservation->setDateCreation(new \DateTimeImmutable());
-            $reservation->setDateModification(new \DateTimeImmutable());
-            $total = $reservation->calculateTotal();
-            $reservation->setTotal($total);
-
-            $entityManager->persist($reservation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('admin_reservation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('administration/admin_reservation/new.html.twig', [
-            'reservation' => $reservation,
-            'form' => $form,
-        ]);
-    }
-
-
     #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Reservation $reservation): Response
     {

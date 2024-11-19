@@ -3,9 +3,10 @@
 {% endblock %}
 
 {% block body %}
+{#    formulaire d'ajout de nouvel utilisateur#}
     <div class="form-container">
         <h2>
-            {% if user is defined %}
+            {% if user is defined and user.id is not empty %}
                 {% if app.user == user %}
                     Modifier mon profil
                 {% else %}

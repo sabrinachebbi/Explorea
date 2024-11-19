@@ -1,4 +1,3 @@
-{% extends 'base.html.twig' %}
 
 {% block title %}Créér une nouvelle Accomodation{% endblock %}
 {% block stylesheets %}
@@ -8,19 +7,20 @@
 {% block footer %}{% endblock %}
 {% block body %}
     <div class="form-container">
+    {#formulaire d'ajout d'une annonce d'hebergement#}
     {{ form_start(AccommodationForm) }}
-        <h2>
-                Mettez Votre Logement <br>en Location
-        </h2>
+    <h2>
+        Mettez Votre Logement <br>en Location
+    </h2>
 
 
-            <div class="form-group">
-                {{ form_label(AccommodationForm.title ) }}
-                {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
-                <div class="error">
-                    {{ form_errors(AccommodationForm.title) }}
-                </div>
-            </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.title ) }}
+        {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.title) }}
+        </div>
+    </div>
     <div class="form-group">
         {{ form_label(AccommodationForm.city) }}
         {{ form_widget(AccommodationForm.city, {'attr': {'class': 'form-control'}}) }}
@@ -29,49 +29,50 @@
         </div>
     </div>
 
-            <div class="form-group">
-                {{ form_label(AccommodationForm.address) }}
-                {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
-               <div class="error">
-                {{ form_errors(AccommodationForm.address) }}
-               </div>
-            </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.address) }}
+        {{ form_widget(AccommodationForm.address, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.address) }}
+        </div>
+    </div>
 
-            <div class="form-group">
-                {{ form_label(AccommodationForm.description) }}
-                {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
-              <div class="error">
-                {{ form_errors(AccommodationForm.description) }}
-              </div>
-            </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.description) }}
+        {{ form_widget(AccommodationForm.description, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.description) }}
+        </div>
+    </div>
 
-            <div class="form-group">
-                {{ form_label(AccommodationForm.priceNight) }}
-                {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
-              <div class="error">
-                {{ form_errors(AccommodationForm.priceNight) }}
-               </div>
-            </div>
-            <div class="form-group">
-                {{ form_label(AccommodationForm.NbGuests) }}
-                {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
-               <div class="error">
-                {{ form_errors(AccommodationForm.NbGuests) }}
-               </div>
-            </div>
-            <div class="form-group">
-                {{ form_label(AccommodationForm.NbRooms) }}
-                {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
-                <div class="error">
-                {{ form_errors(AccommodationForm.NbRooms) }}
-                </div>
-            </div>
-            <div class="form-group">
-                {{ form_label(AccommodationForm.propertyType) }}
-                {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
-                <div class="error">
-                {{ form_errors(AccommodationForm.propertyType) }}
-               </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.priceNight) }}
+        {{ form_widget(AccommodationForm.priceNight, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.priceNight) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.NbGuests) }}
+        {{ form_widget(AccommodationForm.NbGuests, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.NbGuests) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(AccommodationForm.NbRooms) }}
+        {{ form_widget(AccommodationForm.NbRooms, {'attr': {'class': 'form-control'}}) }}
+        <div class="error">
+            {{ form_errors(AccommodationForm.NbRooms) }}
+        </div>
+    </div>
+    <div class="form-group">
+    {{ form_label(AccommodationForm.propertyType) }}
+    {{ form_widget(AccommodationForm.propertyType, {'attr': {'class': 'form-control'}}) }}
+    <div class="error">
+        {{ form_errors(AccommodationForm.propertyType) }}
+    </div>
+    {# Section pour la gestion des images (ajouter plusieurs images (collectionType)) #}
     <div class="form-group">
         {{ form_label(AccommodationForm.pictures, 'Images <span style="color: red;">*</span>', { 'label_html': true }) }}
         <ul class="AccommodationPictures"
@@ -84,15 +85,16 @@
                 {{ form_widget(picture, {'attr': {'class': 'form-control'}}) }}
             </li>
         {% endfor %}
-        <button type="button" class="add_pictures" data-collection-holder-class="AccommodationPictures">Ajouter des images</button>
+        <button type="button" class="add_pictures" data-collection-holder-class="AccommodationPictures" aria-label="Ajouter des images pour l'hébergement">Ajouter des images</button>
     </div>
 
-            <div class="bt">
-            <button type="submit" class="btn">
-                    Ajouter
-            </button>
-            <div>
-            {{ form_end(AccommodationForm) }}
-                <script src="{{ asset('js/addPictures.js') }}"></script>
-        </div>
+    <div class="bt">
+    <button type="submit" class="btn" aria-label="ajouter une annonce d'hebergement">
+        Ajouter
+    </button>
+    <div>
+        {{ form_end(AccommodationForm) }}
+        {# script pour gérer l ajout d'images#}
+        <script src="{{ asset('js/addPictures.js') }}"></script>
+    </div>
 {% endblock %}

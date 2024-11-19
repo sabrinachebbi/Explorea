@@ -8,21 +8,24 @@
 {% endblock %}
 
 {% block body %}
+{#  messag flash #}
     {% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning', 'error': 'alert-danger' } %}
         {% for message in app.flashes(type) %}
             <div class="alert {{ messages }} flash-message">
                 <span>{{ message }}</span>
-                <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
+                <button class="close-" onclick="this.parentElement.style.display='none';" aria-label="fermer la fenetre ">&times;</button>
             </div>
         {% endfor %}
     {% endfor %}
+{#   une icone pour revenir en arriére #}
     <a href="{{ path('app_activity_showAll') }}" class="back-to-accommodation1">
-        <img src="{{ asset('images/en-arriere.png') }}" alt="" class="back-icon1">
+        <img src="{{ asset('images/en-arriere.png') }}" alt="retour aux activites" class="back-icon1">
     </a>
+{# titre d'annonce#}
     <div class="details1">
         <h1 class="title-activity">{{ activity.title }}</h1>
 
-
+        {# Liste des images #}
         <div class="activity-image">
             {% set imagePath = 'uploads/activities/' ~ activity.picture.name %}
             <img class="image1" src="{{ asset(imagePath) }}" alt="Image de l'activité">

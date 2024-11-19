@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('styles/publish.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
 {% endblock %}
+{#contient les deux formulaire pour publier une annonce #}
 {% block body %}
     <div class="container_publish">
         <h2>Publiez une annonce</h2>
@@ -16,7 +17,7 @@
             <button id="activity-btn" class="btn">Ajouter une Activité</button>
         </div>
 
-        <!-- Formulaire d'hébergement (affiché par défaut) -->
+        {# Formulaire d'hébergement, affiché par défaut #}
         <div id="accommodation-form" class="form-container">
             {{ form_start(AccommodationForm) }}
             <h2>
@@ -26,7 +27,6 @@
                     Proposez Votre Hébergement <br> aux Voyageurs
                 {%  endif %}
             </h2>
-
             <div class="form-group">
                 {{ form_label(AccommodationForm.title, 'Titre <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(AccommodationForm.title, {'attr': {'class': 'form-control'}}) }}
@@ -107,12 +107,11 @@
 
             {{ form_end(AccommodationForm) }}
         </div>
-        <!-- Formulaire d'activité (caché par défaut) -->
+        {# Formulaire d'activité, caché par défaut #}
         <div id="activity-form" class="form-container" style="display: none;">
             <h2>Proposez une Expérience Unique <br> aux Voyageurs</h2>
 
             {{ form_start(ActivityForm) }}
-
             <div class="form-group">
                 {{ form_label(ActivityForm.title, 'Titre <span style="color: red;">*</span>', { 'label_html': true }) }}
                 {{ form_widget(ActivityForm.title, {'attr': {'class': 'form-control'}}) }}
@@ -185,7 +184,7 @@
         </div>
     </div>
     {{ form_end(ActivityForm) }}
-
+    {# inclusion des fichier scripts pour géerer l'affichage des formulaires  et l'ajout d'images dynamiques#}
     <script src="{{ asset('js/showForms.js') }}"></script>
     <script src="{{ asset('js/addPictures.js') }}"></script>
 

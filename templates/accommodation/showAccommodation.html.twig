@@ -3,58 +3,55 @@
 {% block footer %}{% endblock %}
 {% block title %}Détails de l'Hébergement{% endblock %}
 {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
-            <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
 {% endblock %}
 
 {% block body %}
-{% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning', 'error': 'alert-danger' } %}
-    {% for message in app.flashes(type) %}
-        <div class="alert {{ messages }} flash-message">
-            <span>{{ message }}</span>
-            <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
-        </div>
+    {#afficher les message flash #}
+    {% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning', 'error': 'alert-danger' } %}
+        {% for message in app.flashes(type) %}
+            <div class="alert {{ messages }} flash-message">
+                <span>{{ message }}</span>
+                <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
-   <a href="{{ path('app_accommodation_showAll') }}" class="back-to-accommodation">
+    {# une icone qui permet de retourner a la liste des hébergements #}
+    <a href="{{ path('app_accommodation_showAll') }}" class="back-to-accommodation">
         <img src="{{ asset('images/en-arriere.png') }}" alt="Retour aux hébergements" class="back-icon">
     </a>
-        <div class="details">
-                <h1>{{ accommodation.title }}</h1>
+    {# Titre d'annponce#}
+    <div class="details">
+    <h1>{{ accommodation.title }}</h1>
+    {# Liste des images #}
+    <div class="image-gallery">
+        {% for picture in accommodation.pictures %}
+            <img class="image" src="{{ asset('uploads/accommodations/' ~ picture.name) }}" alt="les images qui correspond a cette hébergement">
+        {% endfor %}
+    </div>
 
-                <!-- Liste des images  -->
-                <div class="image-gallery">
-      {% for picture in accommodation.pictures %}
-          <img class="image" src="{{ asset('uploads/accommodations/' ~ picture.name) }}" alt="Image de l'hébergement">
-       {% endfor %}
-</div>
-
-                <!-- Détails de logement -->
-                <div class="show">
-                     <div class="details-section">
-                       <p><strong>Hôte :</strong> {{ accommodation.host.userProfile.firstName }} </p>
-                        <p><strong>Prix par nuit :</strong> {{ accommodation.priceNight }} €</p>
-                        <p><strong>Nombre d'invités :</strong> {{ accommodation.NbGuests }}</p>
-                        <p><strong>Nombre de chambres :</strong> {{ accommodation.NbRooms }}</p>
-                        <p><strong>Description :</strong> {{ accommodation.description }}</p>
-                         <p><strong>Type de propriété:</strong> {{ accommodation.propertyType.value }}</p>
-                        <p><strong>Ville :</strong> {{ accommodation.city.name }}</p>
-                        <p><strong>Pays :</strong> {{ accommodation.city.country.name }}</p>
-                       </div>
-                        <!-- Formulaire de réservation -->
-                            <div class="reservation-form">
-                                {% include 'reservation/reservationAccommodation.html.twig' %}
-                             </div>
-                                 </div>
-
-
-                            <!-- avis-->
-                              <div class="reviews-section">
-                                 {% include 'review/ListReviewAccom.html.twig' %}
-                              </div>
+    <!-- Détails d'hébergement -->
+    <div class="show">
+        <div class="details-section">
+            <p><strong>Hôte :</strong> {{ accommodation.host.userProfile.firstName }} </p>
+            <p><strong>Prix par nuit :</strong> {{ accommodation.priceNight }} €</p>
+            <p><strong>Nombre d'invités :</strong> {{ accommodation.NbGuests }}</p>
+            <p><strong>Nombre de chambres :</strong> {{ accommodation.NbRooms }}</p>
+            <p><strong>Description :</strong> {{ accommodation.description }}</p>
+            <p><strong>Type de propriété:</strong> {{ accommodation.propertyType.value }}</p>
+            <p><strong>Ville :</strong> {{ accommodation.city.name }}</p>
+            <p><strong>Pays :</strong> {{ accommodation.city.country.name }}</p>
+        </div>
+        {#Formulaire de réservation #}
+        <div class="reservation-form">
+            {% include 'reservation/reservationAccommodation.html.twig' %}
+        </div>
+    </div>
 
 
-{% endblock %}
-{% block javascripts %}
+    {# avis#}
+    <div class="reviews-section">
+        {% include 'review/ListReviewAccom.html.twig' %}
+    </div>
 {% endblock %}

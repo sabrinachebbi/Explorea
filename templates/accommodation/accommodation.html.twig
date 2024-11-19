@@ -1,6 +1,4 @@
 {% extends 'base.html.twig' %}
-
-
 {% block title %}Accommodations{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/cardAccomodation.css') }}">
@@ -9,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('styles/Filter.css') }}">
 {% endblock %}
 {% block body %}
-    {# Flash messages #}
+    {# Flash messages pour informer l utilisateur  #}
     {% for message in app.flashes('success') %}
         <div class="alert alert-success flash-message">
             <span>{{ message }}</span>
@@ -23,7 +21,7 @@
         </div>
     {% endfor %}
 
-    {# Bouton pour ouvrir la modale de filtre #}
+    {# Bouton pour ouvrir la formulaire de filtrage spécifique  #}
     <div class="filter-toggle" onclick="toggleFilterModal()">
         <img src="{{ asset('images/filter.webp') }}" alt="Filtrer" class="filter-icon">
         <span>Filtrage</span>
@@ -32,25 +30,27 @@
     {# Inclusion de la modale de filtrage #}
     {% include '_partials/_Filter_Accommodation.html.twig' %}
 
-    {# Conteneur pour les cartes d'annonces #}
+    {# Conteneur pour les cartes d'annonces et la pagination #}
     <div class="accommodation-container">
-            <div class="card-container">
-                {% if accommodations is not empty %}
-                    {% for accommodation in accommodations %}
-                        {% include '_partials/cardAccomodation.html.twig' %}
-                    {% endfor %}
-                {% else %}
-                    <p>Aucun résultat trouvé.</p>
-                {% endif %}
-            </div>
-            <div class="pagination-container">
-                {{ knp_pagination_render(accommodations) }}
-            </div>
+        <div class="card-container">
+            {# Vérifie s'il y a des annonces disponibles #}
+            {% if accommodations is not empty %}
+                {% for accommodation in accommodations %}
+                    {% include '_partials/cardAccomodation.html.twig' %}
+                {% endfor %}
+            {% else %}
+                <p>Aucun résultat trouvé.</p>
+            {% endif %}
         </div>
+        {# conteneur pour la pagination#}
+        <div class="pagination-container">
+            {{ knp_pagination_render(accommodations) }}
+        </div>
+    </div>
 
 {% endblock %}
-
+{#inclusions des fichier js pour la caroussel et le filtrage #}
 {% block javascripts %}
-<script src="{{ asset('js/Filter.js') }}"></script>
+    <script src="{{ asset('js/Filter.js') }}"></script>
     <script src="{{ asset('js/carousel.js') }}"></script>
 {% endblock %}

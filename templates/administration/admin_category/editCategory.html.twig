@@ -1,18 +1,16 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
 {% endblock %}
-
-
-
 {% block body %}
 <div class="container">
+    {# titre principal de la page#}
     <h1>Modifier la catégorie {{ category.name }}</h1>
-
+    {#formulaire pour modifier une catégorie#}
     {{ form_start(form) }}
     {{ form_row(form.name) }}
     <button class=" -primary">Modifier</button>
     {{ form_end(form) }}
-
-    <a href="{{ path('app_admin_category_list') }}" class=" -secondary">Retour à la liste</a>
-{% endblock %}
+    {#lien pour revenir a la listes des categories#}
+    <a href="{{ path('app_admin_category_list') }}" class=" -secondary" aria-label="retourner a la liste des catégories">Retour à la liste</a>
+    {% endblock %}
 </div>

@@ -2,6 +2,7 @@
     <link rel="stylesheet" href="{{ asset('styles/Admin/showAll.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
 {% endblock %}
+{#afficha de la liste des reservation avec des bouttons d'action pour affichier , modifier ou supprimer#}
 <div class="reservation-container">
     <h1>Liste des Réservations</h1>
     <p>Nombre total de réservations : <strong>{{ pagination.getTotalItemCount }}</strong></p>
@@ -40,8 +41,8 @@
 </div>
 
 
-    <!-- Pagination -->
-    <div class="pagination">
-        {{ knp_pagination_render(pagination) }}
-    </div>
+<!-- Pagination -->
+<div class="pagination">
+    {{ knp_pagination_render(pagination) }}
+</div>
 

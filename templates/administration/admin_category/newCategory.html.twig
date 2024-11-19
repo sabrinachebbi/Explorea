@@ -1,9 +1,8 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
 {% endblock %}
-
-
 {% block body %}
+{#formulaire pour ajouter nouvelle catégorie#}
 <div class="container">
     <h1>Ajouter une nouvelle catégorie</h1>
 
@@ -11,5 +10,5 @@
     {{ form_row(form.name) }}
     <button class="btn btn-success">Ajouter</button>
     {{ form_end(form) }}
-{% endblock %}
+    {% endblock %}
 </div>

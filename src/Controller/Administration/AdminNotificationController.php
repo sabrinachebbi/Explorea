@@ -30,25 +30,6 @@ class AdminNotificationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $notification = new Notification();
-        $form = $this->createForm(NotificationType::class, $notification);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($notification);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_admin_notification_list', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('administration/admin_notification/newNotif.html.twig', [
-            'notification' => $notification,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/delete/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Notification $notification, EntityManagerInterface $entityManager): Response

@@ -1,18 +1,22 @@
 
 <header>
+    {# logo + lien qui redirige vers la page d'acceuil#}
     <div class="logo">
-        <a href="{{ path('home') }}"><img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa"></a>
+        <a href="{{ path('home') }}" aria-label="Retour à la page d'accueil"><img src="{{ asset('images/Exploréa (1).png') }}" alt="Logo Exploréa"></a>
     </div>
     <div class="container">
 
-        <!-- Menu burger visible sur mobile -->
-        <button id="menuBurger" class="menu-burger" aria-label="Menu">
+        <!-- Menu burger visible uniquement sur mobile et tablette  -->
+        <button id="menuBurger" class="menu-burger" aria-label="Ouvrir le menu de navigation">
             <span></span>
             <span></span>
             <span></span>
         </button>
+        {# barre de navigation#}
         <nav class="navbar" id="navbar">
+            {#  Liste des liens de navigation#}
             <ul class="nav-links">
+                {#Liens vers le tableau de bord en fonction du role utilisateur #}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('admin_dashboard') }}">Tableau de Bord Admin</a></li>
                 {% elseif is_granted('ROLE_HOST') %}
@@ -20,17 +24,21 @@
                 {% elseif is_granted('ROLE_TRAVELER') %}
                     <li><a href="{{ path('traveler_dashboard') }}">Mon Espace</a></li>
                 {% endif %}
+                {#  Liens vers mes page qui affiche les annonces des hébergement et des activities #}
                 <li><a href="{{ path('app_accommodation_showAll') }}">Logements</a></li>
                 <li><a href="{{ path('app_activity_showAll') }}">Expériences</a></li>
+                {#  Lien vers les favoris, visible uniquement si l'utilisateur est connecté#}
                 {% if app.user %}
                     <li><a href="{{ path('toggle-favorite_List') }}">Favoris</a></li>
                 {% endif %}
-
+                {#                 lien pour publier une annonce soit un hebergement ou un activity #}
                 <li><a href="{{ path('app_publish') }}">Publier une annonce</a></li>
+                {#  Section des notification visible uniquement sur l interface hote #}
                 {% if is_granted('ROLE_HOST') %}
                     <div class="notification">
-                        <a href="{{ path('host_notification') }}">
+                        <a href="{{ path('host_notification') }}"  aria-label="Voir vos notifications">
                             <img src="{{ asset('images/notification.png') }}" alt="Notifications" class="logout-icon1">
+                            {# badge pour afficher le nombre de notifications non lues #}
                             {% if unreadNotifications is defined and unreadNotifications > 0 %}
                                 <span class="badge">{{ unreadNotifications }}</span>
                             {% endif %}
@@ -38,6 +46,7 @@
                     </div>
                 {% endif %}
             </ul>
+            {# Boutton qui redirige vers la page d'inscription et de connexion #}
             <div class="auth-buttons">
                 {% if not app.user %}
                     <a href="{{ path('app_login') }}" class="btn">Connexion</a>
@@ -47,7 +56,7 @@
         </nav>
     </div>
 </header>
-
+{#script Js pour le menu burger#}
 {% block javascripts %}
     <script src="{{ asset('js/MenuBurger.js') }}"></script>
 {% endblock %}

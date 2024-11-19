@@ -5,8 +5,9 @@
 <div class="reservation-container">
     <h1>Liste des Hébergements</h1>
     <p>Nombre total des Hébergements : <strong>{{ pagination.getTotalItemCount }}</strong></p>
-    <a href="{{ path('app_admin_accommodation_new') }}" class="btn-create">Créer un nouvel hébergement</a>
-
+    {#  créer un nouvel hébergement #}
+    <a href="{{ path('app_admin_accommodation_new') }}" class="btn-create" aria-label="creer un nouvel utilisateur ">Créer un nouvel hébergement</a>
+    {# Tableau pour afficher les hébergements #}
         <table class="reservation-table">
             <thead>
             <tr>
@@ -32,6 +33,7 @@
                         {% endif %}
                     </td>
                     <td class="city-column">{{ accommodation.city.name }}</td>
+{# affichage de details,modifer et la suppression#}
                     <td class="actions-column actions">
                         <a href="{{ path('app_admin_accommodation_show', {'id': accommodation.id}) }}" class="btn-show">Afficher</a>
                         <a href="{{ path('app_admin_accommodation_edit', {'id': accommodation.id}) }}" class="btn-edit">Modifier</a>

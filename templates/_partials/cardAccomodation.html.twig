@@ -1,5 +1,7 @@
+<!-- carte d'annonce princial pour un hébergement -->
 <div class="card"  data-accommodation-id="{{ accommodation.id }}">
     <div class="image-gallery">
+        <!-- Carousel contenant les images de l'hébergement -->
         <div class="carousel" id="carousel-{{ accommodation.id }}">
             {% for picture in accommodation.pictures %}
                 <div class="carousel-item" style="display: {% if loop.first %}block{% else %}none{% endif %};">
@@ -43,7 +45,7 @@
         <a href="{{ path('app_accommodation_showDetails', {'id': accommodation.id}) }}"><img src="{{ asset('images/info.png') }}" class="btn-show" alt="Voir les détails">
         </a>
         {% if is_granted('ROLE_HOST') and accommodation.host.id == app.user.id or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="" class="btn-edit"></a>
+            <a href="{{ path('app_accommodation_update', {'id': accommodation.id}) }}" class="btn-edit"><img src="{{ asset('images/pen.png') }}" alt="editer l'annonce" class="btn-edit"></a>
             <form action="{{ path('app_accommodation_remove', {'id': accommodation.id}) }}" method="post" class="form-delete">
                 <input type="hidden" name="_token" value="{{ csrf_token('delete-accommodation' ~ accommodation.id) }}">
                 <button type="submit" class="btn-delete" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.')">

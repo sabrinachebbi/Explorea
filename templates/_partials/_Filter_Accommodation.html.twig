@@ -1,7 +1,10 @@
+{#conteneur principal du formulaire de filtrage , inialement masqué#}
 <div class="filter-Form" id="FilterForm" style="display: none;">
     <div class="filter-content">
-        <span class="close-icon" onclick="toggleFilterModal()">✖</span>
+        <!-- Bouton pour fermer la fenêtre de filtrage -->
+        <button class="close-icon" onclick="toggleFilterModal()" aria-label="Fermer les filtres">✖</button>
         <h2 class="filter-title">Filtres</h2>
+        {# debut la formulaire #}
         {{ form_start(form) }}
         <div class="form-group">
             {{ form_label(form.country) }}
@@ -15,12 +18,13 @@
         </div>
         <label class="price">Prix</label>
         <div class="form-group1 form-group">
-            {{ form_widget(form.priceMin, { 'attr': { 'placeholder': 'Min' } }) }}
+            {{ form_widget(form.priceMin, { 'attr': { 'placeholder': 'Prix minimum' } }) }}
             {{ form_errors(form.priceMin) }}
-            {{ form_widget(form.priceMax, { 'attr': { 'placeholder': 'Max' } }) }}
+            {{ form_widget(form.priceMax, { 'attr': { 'placeholder': 'Prix maximum' } }) }}
             {{ form_errors(form.priceMax) }}
         </div>
-        <button type="submit" class=" btn-primary">Rechercher</button>
+        {#boutton de soumission du formulaire #}
+        <button type="submit" class=" btn-primary" aria-label="Lancer la recherche" >Rechercher</button>
         {{ form_end(form) }}
 
     </div>

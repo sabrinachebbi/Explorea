@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="{{ asset('styles/Admin/new.css') }}">
 {% endblock %}
 {% block body %}
+{# modifier une réservation#}
         <div class="container">
         <h1>Modifier la Réservation</h1>
 
@@ -10,10 +11,10 @@
         {{ form_row(form.departureDate) }}
         {{ form_row(form.returnDate) }}
         {{ form_row(form.voyagerNb) }}
-        <button class="btn btn-primary">Enregistrer les modifications</button>
+        <button class="btn btn-primary" >Enregistrer les modifications</button>
         {{ form_end(form) }}
 
-
+{# retourner a la liste des réservations#}
     <a href="{{ path('admin_reservation_index') }}">Retour à la liste</a>
 </div>
 {% endblock %}
