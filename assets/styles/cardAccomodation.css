@@ -6,11 +6,10 @@
     margin: 70px;
     justify-items: center;
 }
-.card {
+.card{
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     padding: 20px;
     text-align: center;
     display: flex;
@@ -150,7 +149,6 @@ h4 {
 .btn-crud {
     display: flex;
     gap: 10px;
-    margin-top: 15px;
     cursor: pointer;
 }
 

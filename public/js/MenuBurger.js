@@ -1,21 +1,17 @@
+// / Exécute le code une fois que la page est complètement chargée
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM fully loaded and parsed");
+    // Récupère le bouton du menu burger
     const menuBurger = document.getElementById("menuBurger");
+
+    // Récupère la barre de navigation (navbar)
     const navbar = document.getElementById("navbar");
 
-    if (!menuBurger) {
-        console.error("Element with id 'menuBurger' not found");
-        return;
+    // Vérifie si le menu burger et la navbar existent
+    if (menuBurger && navbar) {
+        // Ajoute un événement "click" au menu burger
+        menuBurger.addEventListener("click", function() {
+            // Ajoute ou enlève la classe "active" à la navbar
+            navbar.classList.toggle("active");
+        });
     }
-
-    if (!navbar) {
-        console.error("Element with id 'navbar' not found");
-        return;
-    }
-
-    menuBurger.addEventListener("click", function() {
-        console.log("Menu burger clicked");
-        navbar.classList.toggle("active");
-        console.log("Navbar classes:", navbar.className);
-    });
 });

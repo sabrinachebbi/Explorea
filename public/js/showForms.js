@@ -1,23 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Sélectionner les éléments HTML
+    // Récupère les boutons pour choisir entre logement et activité
     const accommodationBtn = document.getElementById('accommodation-btn');
     const activityBtn = document.getElementById('activity-btn');
+
+    // Récupère les formulaires pour logement et activité
     const accommodationForm = document.getElementById('accommodation-form');
     const activityForm = document.getElementById('activity-form');
 
-    // Afficher le formulaire de logement par défaut
-    accommodationForm.style.display = 'block';
-    activityForm.style.display = 'none';
+    // Affiche uniquement le formulaire de logement au départ
+    accommodationForm.style.display = 'block'; // Le formulaire de logement est visible
+    activityForm.style.display = 'none';      // Le formulaire d'activité est caché
 
-    // Gestion du clic sur le bouton "Ajouter un Logement"
+    // Quand on clique sur le bouton "Ajouter un Logement"
     accommodationBtn.addEventListener('click', function () {
-        accommodationForm.style.display = 'block';
-        activityForm.style.display = 'none';
+        accommodationForm.style.display = 'block'; // Affiche le formulaire de logement
+        activityForm.style.display = 'none';      // Cache le formulaire d'activité
     });
 
-    // Gestion du clic sur le bouton "Ajouter une Activité"
+    // Quand on clique sur le bouton "Ajouter une Activité"
     activityBtn.addEventListener('click', function () {
-        accommodationForm.style.display = 'none';
-        activityForm.style.display = 'block';
+        accommodationForm.style.display = 'none';  // Cache le formulaire de logement
+        activityForm.style.display = 'block';      // Affiche le formulaire d'activité
     });
 });

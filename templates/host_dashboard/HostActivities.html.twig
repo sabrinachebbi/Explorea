@@ -17,7 +17,7 @@
             {% for activity in activities %}
                 <tr>
                     <td>{{ activity.title }}</td>
-                    <td class="btn-action">
+                    <td class="crud">
                         <a href="{{ path('app_activity_showDetails', {'id': activity.id}) }}" class="btn-action btn-show">Afficher</a>
                         <a href="{{ path('app_activity_update', {'id': activity.id}) }}" class="btn-action btn-edit">Éditer</a>
                         <form action="{{ path('app_activity_remove', {'id': activity.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet activity ?');">

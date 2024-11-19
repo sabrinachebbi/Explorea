@@ -19,7 +19,7 @@ h1 {
     left: 121px;
 }
 
-._crud {
+.btn_crud ,.crud{
     display: flex;
     justify-content: center;
     gap: 5px;
@@ -44,27 +44,27 @@ h1 {
     color: #333;
 }
 
-.-action {
+/* Boutons d'action */
+.btn-action {
     text-decoration: none;
     padding: 8px 15px;
     border-radius: 4px;
     font-size: 14px;
     color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 5px;
 }
 
-.-show {
+.btn-show {
     background-color: #1BBC9B;
 }
 
-.-edit {
+.btn-edit {
     background-color: #2b5f94;
 }
 
-.-delete {
+.btn-delete {
     background-color: #e74c3c;
     border: none;
     cursor: pointer;

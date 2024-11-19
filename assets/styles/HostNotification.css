@@ -2,9 +2,9 @@
 table {
     border-collapse: collapse;
     font-family: "Poppins", sans-serif;
-    margin-left: 100px;
+    margin-left: 93px;
    position: relative;
-    top: 84px;
+    top: 37px;
 }
 .table_notif{
     width: 74%;
@@ -17,7 +17,8 @@ h1{
     font-size: 29px;
     font-weight: bold;
     position: relative;
-    top: 73px;
+    top: 25px;
+    left: 81px;
 }
 
 table th, table td {
@@ -36,7 +37,7 @@ p{
    margin: 138px 0;
 }
 
-. {
+.btn {
     padding: 8px 12px;
     font-size: 14px;
     color: #fff;
@@ -45,17 +46,15 @@ p{
     margin-right: 5px;
     cursor: pointer;
 }
-._reserv{
+.btn_reserv{
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 6px;
 }
-.-success{
-    background-color: #1BBC9B;
-}
-.-danger{
+.btn-delete {
     background-color: #e74c3c;
+    border: none;
+    cursor: pointer;
 }
 .review-icon {
     width: 30px;

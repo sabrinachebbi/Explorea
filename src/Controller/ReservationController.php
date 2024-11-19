@@ -26,7 +26,7 @@ class ReservationController extends AbstractController
 
     #[Route('/accommodation/{id}', name: 'accommodation')]
     #[IsGranted('ROLE_TRAVELER')]
-    public function AccommodationReservation(Accommodation $accommodation, Request $request, EntityManagerInterface $entityManager): Response
+    public function AccommodationReservation(Accommodation $accommodation, Request $request, EntityManagerInterface $entityManager, Activity $activity): Response
     {
         $reservation = new Reservation();
         $reservation->setAccommodation($accommodation);
@@ -166,6 +166,7 @@ class ReservationController extends AbstractController
     {
         $user = $this->getUser();
 
+
         // Vérifier si l'utilisateur est le voyageur qui a fait la réservation
         if ($reservation->getTraveler() !== $user) {
             throw $this->createAccessDeniedException('Vous n\'êtes pas autorisé à confirmer cette réservation.');
@@ -183,7 +184,7 @@ class ReservationController extends AbstractController
         $this->addFlash('success', 'Votre réservation est effectuée et en attente de confirmation');
 
         // Au lieu de rediriger, rendre la vue directement pour tester l'affichage des messages flash
-        return $this->render('reservation/reservation_summary.html.twig', [
+        return $this->render('reservation/confirmation_summary.twig', [
             'reservation' => $reservation,
         ]);
     }

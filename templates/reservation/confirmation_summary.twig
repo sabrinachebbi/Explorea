@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block title %}Confirmation de réservation{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/summaryReserv.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# Afficher les messages flash #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
+    {% endfor %}
+    <div class="reservation-summary">
+        <h2>Récapitulatif de la réservation</h2>
+
+        {# Détails de l'hébergement #}
+        {% if reservation.accommodation %}
+            <h3>Hébergement réservé</h3>
+            <p><strong>Nom :</strong> {{ reservation.accommodation.title }}</p>
+            <p><strong>Lieu :</strong> {{ reservation.accommodation.city.name }}, {{ reservation.accommodation.city.country.name }}</p>
+            <p><strong>Dates :</strong> Du {{ reservation.departureDate|date('d/m/Y') }} au {{ reservation.returnDate|date('d/m/Y') }}</p>
+        {% endif %}
+
+        {# Détails des activités ajoutées #}
+
+        {% if reservation.activities|length > 0 %}
+            <ul>
+                {% for activity in reservation.activities %}
+                    <li>
+                        <p><strong>Nom :</strong> {{ activity.title }}</p>
+                        <p><strong>Durée :</strong> {{ activity.duration }} jour(s)</p>
+                        <p><strong>Prix :</strong> {{ activity.price }} €</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucune activité ajoutée.</p>
+        {% endif %}
+
+        {# Détails supplémentaires #}
+        <h3>Informations générales</h3>
+        <p><strong>Voyageur :</strong> {{ reservation.traveler.userProfile.firstName }} {{ reservation.traveler.userProfile.lastName }}</p>
+        <p><strong>Nombre de voyageurs :</strong> {{ reservation.voyagerNb }}</p>
+        <p><strong>Montant total :</strong> {{ reservation.total }} €</p>
+        <p><strong>Statut :</strong>
+            {% if reservation.status.status.value == 'En attente' %}
+                En attente de confirmation
+            {% elseif reservation.status.status.value == 'Confirmé' %}
+                Réservation confirmée
+            {% elseif reservation.status.status.value == 'Annulé' %}
+                Réservation annulée
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}

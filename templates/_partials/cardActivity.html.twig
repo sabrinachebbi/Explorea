@@ -1,5 +1,6 @@
 {# carte d'annonce princial pour un activity#}
 <div class="card" data-activity-id="{{ activity.id }}">
+    <a href="{{ path('app_activity_showDetails', {'id': activity.id}) }}">
     {#Affichage de l'image associée à l'activité#}
     {% if activity.picture %}
         <img class="activity-image" src="{{ vich_uploader_asset(activity.picture, 'activityImageFile') }}" alt="Image de l'activité">
@@ -32,7 +33,7 @@
     <div>{{ activity.category.name }}</div>
     {# boutons crud (afficher les details ,éditer , supprimer #}
     <div class="btn-crud">
-        <a href="{{ path('app_activity_showDetails', { 'id': activity.id }) }}">
+        <a title = "voir les détails de l'annonce" href="{{ path('app_activity_showDetails', { 'id': activity.id }) }}">
             <img src="{{ asset('images/info.png') }}" alt="Voir les détails" class="btn-show">
         </a>
 
@@ -49,5 +50,6 @@
             </form>
         {% endif %}
     </div>
+    </a>
 </div>
 

@@ -14,13 +14,11 @@
     </a>
 
     {# Afficher les messages flash #}
-    {% for type, messages in { 'success': 'alert-success', 'warning': 'alert-warning' } %}
-        {% for message in app.flashes(type) %}
-            <div class="alert {{ messages }} flash-message">
-                <span>{{ message }}</span>
-                <button class="close-btn" onclick="this.parentElement.style.display='none';">&times;</button>
-            </div>
-        {% endfor %}
+    {% for message in app.flashes('warning') %}
+        <div class="alert-warning alert  flash-message ">
+            <span>{{ message }}</span>
+            <button class="close-" onclick="this.parentElement.style.display='none';">&times;</button>
+        </div>
     {% endfor %}
 
     <div class="reservation-summary">

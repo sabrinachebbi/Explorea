@@ -1,53 +1,30 @@
-// Objet pour stocker l'index de chaque carrousel
-let slideIndices = {};
+// Fonction pour initialiser le carrousel
+function initCarousel() {
+    // Sélectionner toutes les diapositives
+    const slides = document.querySelectorAll('.carousel-item');
+    let currentSlide = 0; // Index de la diapositive actuelle
 
-// Fonction pour initialiser les carrousels
-function initCarousels() {
-    // Sélectionner tous les carrousels sur la page
-    const carousels = document.querySelectorAll('.carousel');
-
-    carousels.forEach(function(carousel) {
-        // Obtenir l'ID unique du carrousel (par exemple, 'carousel-1')
-        const carouselId = carousel.id;
-
-        // Initialiser l'index à 1 pour chaque carrousel
-        slideIndices[carouselId] = 1;
-
-        // Afficher la première diapositive du carrousel
-        showSlide(carouselId, slideIndices[carouselId]);
+    // Afficher uniquement la première diapositive au démarrage
+    slides.forEach((slide, index) => {
+        slide.style.display = index === currentSlide ? 'block' : 'none';
     });
-}
 
-// Fonction pour afficher une diapositive spécifique d'un carrousel
-function showSlide(carouselId, n) {
-    // Sélectionner le carrousel en utilisant son ID
-    const carousel = document.getElementById(carouselId);
+    // Fonction pour changer de diapositive
+    function showSlide(direction) {
+        // Masquer la diapositive actuelle
+        slides[currentSlide].style.display = 'none';
 
-    // Obtenir toutes les diapositives de ce carrousel
-    const slides = carousel.getElementsByClassName('carousel-item');
+        // Calculer la prochaine diapositive
+        currentSlide = (currentSlide + direction + slides.length) % slides.length;
 
-    // Vérifier si l'index dépasse les limites et le corriger si nécessaire
-    if (n > slides.length) {
-        slideIndices[carouselId] = 1;
-    }
-    if (n < 1) {
-        slideIndices[carouselId] = slides.length;
+        // Afficher la nouvelle diapositive
+        slides[currentSlide].style.display = 'block';
     }
 
-    // Masquer toutes les diapositives
-    for (let i = 0; i < slides.length; i++) {
-        slides[i].style.display = 'none';
-    }
-
-    // Afficher la diapositive actuelle
-    slides[slideIndices[carouselId] - 1].style.display = 'block';
+    // Écouter les clics sur les boutons "Précédent" et "Suivant"
+    document.querySelector('.prev').addEventListener('click', () => showSlide(-1));
+    document.querySelector('.next').addEventListener('click', () => showSlide(1));
 }
 
-// Fonction pour changer de diapositive
-function plusSlides(carouselId, n) {
-    // Incrémenter ou décrémenter l'index du carrousel
-    showSlide(carouselId, slideIndices[carouselId] += n);
-}
-
-// Initialiser les carrousels une fois le contenu chargé
-document.addEventListener('DOMContentLoaded', initCarousels);
+// Initialiser le carrousel une fois le contenu chargé
+document.addEventListener('DOMContentLoaded', initCarousel);

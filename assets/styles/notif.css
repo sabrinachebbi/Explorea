@@ -11,8 +11,8 @@
 }
 
 .flash-message.alert-warning {
-    background-color: #ff6c61fa; /* Couleur rouge intense */
-    color: #fff; /* Texte en blanc pour plus de lisibilité */
+  background-color: #f44336;
+    color: #fff;
 }
 
 .flash-message.alert-success {
