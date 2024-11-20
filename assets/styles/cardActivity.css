@@ -1,4 +1,4 @@
-/** Container for the activities *!*/
+/** Container d'activities**/
 .container_activity {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -6,8 +6,9 @@
     margin: 70px;
 }
 
-/* Individual card styling */
+/* style des cards */
 .card {
+    position: relative;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -27,7 +28,7 @@
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
-/* Image for each activity */
+/* images d'activity */
 .activity-image {
     width: 100%;
     height: 210px;
@@ -42,6 +43,8 @@
     position: absolute;
     top: 26px;
     right: 26px;
+    z-index: 10;
+
 }
 
 .favorite-icon {
@@ -54,7 +57,7 @@
 }
 
 
-/* Activity title */
+/*titre d'activity */
 .card h4 {
     font-size: 16px;
     font-weight: bold;
@@ -62,7 +65,6 @@
     margin: 10px 0;
 }
 
-/* Address and position styling */
 .position {
     display: flex;
     justify-content: center;
@@ -81,14 +83,14 @@
     color: #666;
 }
 
-/* Description styling */
+/* Description */
 .card p {
     font-size: 14px;
     color: #777;
     margin: 10px 0;
 }
 
-/* Price button */
+/* prix*/
 .card .price {
     background-color: #1BBC9B;
     color: white;
@@ -125,7 +127,7 @@
     cursor: pointer;
 }
 
-/* Responsive adjustments for tablets */
+/* Responsive tablette  */
 @media (max-width: 1024px) {
     .container_activity {
         grid-template-columns: repeat(3, 1fr); /* 2 cards per row for medium screens */
@@ -143,7 +145,7 @@
     }
 }
 
-/* Responsive adjustments for mobile */
+/* Responsive version mobile */
 @media (max-width: 768px) {
     .container_activity {
         grid-template-columns: 1fr; /* 1 card per row for small screens */
@@ -154,5 +156,4 @@
     .activity-image {
         height: 200px;
     }
-
 }

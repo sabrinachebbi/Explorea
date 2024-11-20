@@ -1,4 +1,4 @@
-
+/* --- Conteneur principal --- */
 .container{
  position: relative;
 }
@@ -13,7 +13,7 @@ h1 {
     left: 119px;
     top: 39px;
 }
-
+/* --- Table principale --- */
 .table {
     width: 45%;
     border-collapse: collapse;
@@ -43,7 +43,7 @@ h1 {
     background-color: #fff;
 }
 
-
+/* --- Boutons pour les actions (CRUD) --- */
 .buttons {
     display: flex;
     justify-content: center;

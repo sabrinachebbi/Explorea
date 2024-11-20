@@ -1,7 +1,6 @@
 .dashboard-container {
     display: flex;
-    height: 100vh;
-    flex-direction: row;
+    height: 85vh;
 }
 .menu-button {
     display: none; /* Hide the button by default on larger screens */
@@ -28,7 +27,7 @@
     margin-top: 35px;
     height: 110px;
 }
-
+/* Sidebar styling */
 .sidebar ul {
     list-style-type: none;
     height: 1.8;
@@ -58,10 +57,10 @@
     padding: 40px;
     background-color: #f4f4f9;
 }
-/* Responsive adjustments for mobile */
+/* Responsive version mobile */
 @media (max-width: 768px) {
     .menu-button {
-        display: block; /* Make the menu button visible on mobile */
+        display: block; /* Affiche le bouton menu sur les petits écrans */
         background-color: #2b5f94;
         color: white;
         font-size: 17px;
@@ -81,7 +80,7 @@
         height: 100vh;
         position: fixed;
         top: 0;
-        left: -100%; /* Cachée en dehors de l'écran */
+        left: -100%;
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
         z-index: 1000;
@@ -94,7 +93,7 @@
         transform: translateX(0); /* Se déplace pour occuper tout l'espace de l'écran */
     }
 
-    /* Sidebar links */
+    /* Sidebar liens*/
     .sidebar ul {
         display: flex;
         flex-direction: column;
@@ -102,7 +101,6 @@
         padding: 20px 0;
     }
 
-    /* Content area adjustment for mobile */
     .main-content {
         padding: 20px;
     }

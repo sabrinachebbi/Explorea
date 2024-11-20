@@ -1,4 +1,4 @@
-/* Style spécifique à la page de publication */
+/* Style spécifique à la page de publication de formulaire  */
 
 .container_publish {
     max-width: 760px;
@@ -41,4 +41,4 @@ h2 {
     display: none; /* Les formulaires seront cachés par défaut */
 }
 
-/* Autres styles spécifiques pour les formulaires ou les éléments de la page "Publish" */
+

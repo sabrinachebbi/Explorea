@@ -1,15 +1,17 @@
 <!-- carte d'annonce princial pour un hébergement -->
-<div class="card"  data-accommodation-id="{{ accommodation.id }}">
-   <a href="{{ path('app_accommodation_showDetails', {'id': accommodation.id}) }}">
-       <div class="image-gallery">
-           <!-- Carousel contenant les images de l'hébergement -->
-           <div class="carousel" id="carousel-{{ accommodation.id }}">
-               {% for picture in accommodation.pictures %}
-                   <div class="carousel-item" style="display: {% if loop.first %}block{% else %}none{% endif %};">
-                       <img src="{{ vich_uploader_asset(picture, 'accommodationImageFile') }}" alt="Image de l'hébergement">
-                   </div>
-               {% endfor %}
-           </div>
+<div class="card" data-accommodation-id="{{ accommodation.id }}">
+        <div class="carousel">
+            <div class="carousel-inner">
+                {% for picture in accommodation.pictures %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="{{ vich_uploader_asset(picture, 'accommodationImageFile') }}" alt="Image de l'hébergement">
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Boutons pour naviguer dans le carousel -->
+            <button class="carousel-control prev" onclick="moveSlide(this, -1)">&#10094;</button>
+            <button class="carousel-control next" onclick="moveSlide(this, 1)">&#10095;</button>
+
            <!-- Bouton favori -->
            <div class="favorite-button">
                <a href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">
@@ -20,10 +22,7 @@
                    {% endif %}
                </a>
            </div>
-           <button class="carousel-prev" onclick="plusSlides('carousel-{{ accommodation.id }}', -1)">&#10094;</button>
-           <button class="carousel-next" onclick="plusSlides('carousel-{{ accommodation.id }}', 1)">&#10095;</button>
-
-       </div>
+        </div>
        <h4>{{ accommodation.title }}</h4>
        <div class="position">
            <img class="locate" src="{{ asset('images/adresse.png') }}" alt="adresse">
@@ -56,8 +55,8 @@
 
            {% endif %}
        </div>
-   </a>
-
 </div>
-
+{% block javascripts %}
+    <script src="{{ asset('js/caroussel.js') }}"></script>
+{% endblock %}
 

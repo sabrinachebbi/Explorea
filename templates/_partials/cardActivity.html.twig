@@ -1,6 +1,5 @@
 {# carte d'annonce princial pour un activity#}
 <div class="card" data-activity-id="{{ activity.id }}">
-    <a href="{{ path('app_activity_showDetails', {'id': activity.id}) }}">
     {#Affichage de l'image associée à l'activité#}
     {% if activity.picture %}
         <img class="activity-image" src="{{ vich_uploader_asset(activity.picture, 'activityImageFile') }}" alt="Image de l'activité">
@@ -50,6 +49,5 @@
             </form>
         {% endif %}
     </div>
-    </a>
 </div>
 

@@ -1,3 +1,4 @@
+/*style global de mon header */
 header {
    background-color: #ffffff;
    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -17,7 +18,7 @@ header {
    margin: 0 auto;
    height: 110px;
 }
-
+/*logo de mon application */
 .logo img {
    width: 176px;
    height: auto;
@@ -25,7 +26,7 @@ header {
    left: 0;
    top: -35px;
 }
-
+/*barre de navigation principal*/
 .navbar ul {
    display: flex;
    gap: 70px;
@@ -49,7 +50,7 @@ header {
    color: #1BBC9B;
    border-bottom: 2px solid #1BBC9B;
 }
-
+/* --- Boutons d'authentification (Connexion, Inscription) --- */
 .auth-buttons {
    gap: 15px;
    display: flex;
@@ -78,13 +79,12 @@ header {
    width: 39px;
    height: 39px;
 }
-
+/*notification*/
 .notification {
    position: absolute;
    top: 36px;
    right: 139px;
 }
-
 .badge {
    position: absolute;
    top: 0;
@@ -128,14 +128,12 @@ header {
 
    .navbar {
       display: none; /* Cache la navbar par défaut en version mobile et tablette */
-      /*flex-direction: column;*/
-      /*align-items: center;*/
    }
 
    .navbar.active {
       display: flex; /* Affiche la navbar lorsque la classe active est ajoutée */
       position: absolute;
-      top: 100px; /* Ajustez cette valeur en fonction de la hauteur du header */
+      top: 100px;
       right: 0;
       width: 24%; /* Largeur ajustée pour mobile */
       background-color: white;
@@ -191,7 +189,6 @@ header {
 
    .navbar.active {
       width: 46%; /* Largeur ajustée pour mobile */
-      height: 253px;
    }
 
    .navbar ul li a {

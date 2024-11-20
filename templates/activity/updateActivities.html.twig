@@ -1,6 +1,4 @@
 
-
-{% block title %}Mettre à ajour mon annonce {{ activity.title }}n{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
 {% endblock %}
@@ -73,7 +71,7 @@
     </div>
     <div class="form-group">
         {{ form_label(ActivityForm.picture) }}
-        {{ form_widget(ActivityForm.picture, {'attr': {'class': 'form-control'}}) }}
+        {{ form_widget(ActivityForm.picture, {'attr': {'class': 'form-control '}}) }}
         <div class="error">
             {{ form_errors(ActivityForm.picture) }}
         </div>

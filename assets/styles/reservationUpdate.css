@@ -1,6 +1,6 @@
 /* Centrage du formulaire si nécessaire */
 .form-container {
-    max-width: 25%;
+    max-width: 60%;
     margin: 157px auto;
     padding: 45px;
     background-color: #f9f9f9;
@@ -44,7 +44,7 @@ h1 {
     font-size: 12px;
 }
 
-._update {
+.btn_update {
     background-color: #2b5f94;
     color: white;
     padding: 10px 20px;
@@ -53,7 +53,7 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
-    margin-left: 148px;
+    margin-left: 63px;
     margin-top : 38px;
 }
 

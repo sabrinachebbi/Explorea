@@ -35,6 +35,7 @@ class AccommodationController extends AbstractController
         $page = $request->query->getInt('page', 1);
         $limit = 8;
 
+
         // Si le formulaire est soumis et valide, appliquer le filtrage
         if ($form->isSubmitted() && $form->isValid()) {
             $query = $accommodationRepository->filterAccommodation(
@@ -78,7 +79,11 @@ class AccommodationController extends AbstractController
 
             $accommodation->setHost($this->getUser() instanceof \App\Entity\User ? $this->getUser() : null);
             $accommodation->setCreateDate(new DateTimeImmutable());
-
+            // Gérer les images
+            foreach ($accommodation->getPictures() as $picture) {
+                $picture->setAccommodation($accommodation);
+                $entityManager->persist($picture);
+            }
             $entityManager->persist($accommodation);
 
 

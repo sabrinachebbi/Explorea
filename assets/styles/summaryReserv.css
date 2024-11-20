@@ -1,4 +1,4 @@
-
+/* --- Conteneur principal du résumé de réservation --- */
 .reservation-summary {
     max-width: 1000px;
     padding: 30px;
@@ -10,6 +10,7 @@
    margin:160px  auto  ;
 }
 
+/* --- Titre principal du résumé --- */
 .reservation-summary h2 {
     text-align: center;
     font-family: "Poppins", sans-serif;
@@ -41,6 +42,7 @@
     border: none;
     border-radius: 8px;
 }
+/* --- Options individuelles pour chaque activité --- */
 .activity-option {
     display: flex;
     align-items: center;

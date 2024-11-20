@@ -1,7 +1,9 @@
+/*section principal partie 1*/
 #section1 {
     height: 290px;
     position: relative;
 }
+/* --- Image de la section --- */
 #img1{
     position: absolute;
     right: 60px;
@@ -37,7 +39,7 @@
     margin-left: 4px;
    font-family: "Poppins", sans-serif;
 }
-
+/* --- Champs de saisie et de sélection --- */
 .search-field select, .search-field input {
     padding: 8px;
     font-size: 14px;
@@ -47,7 +49,7 @@
     color: #333;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
+/* --- Bouton de recherche --- */
 .search-btn {
     display: flex;
     align-items: center;
@@ -61,18 +63,19 @@
     cursor: pointer;
     margin-top: 16px;
 }
-
+/* --- Effet au survol du bouton --- */
 .search-btn:hover {
     background-color: #159a7a;
 }
-
+/* --- Icône dans le bouton de recherche --- */
 .search-btn img {
     margin-right: 8px;
     width: 16px;
     height: 16px;
 }
+/*fin style barre de recherche*/
 /*pour les ecran entre 1024px min et max 1280px*/
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
+@media  (min-width: 1025px) and (max-width: 1280px) {
     .search-bar {
         max-width:700px ;
         right: 100px;
@@ -99,10 +102,11 @@
         height: 226px;
     }
 }
+/*fin de responsive  pour la 1 er partie*/
 
-/*fin style barre de recherche*/
 
 /*style partie3 */
+
 #article1{
     display: flex;
     flex-direction: column;
@@ -113,6 +117,7 @@
     background-position: right;
     position: relative;
 }
+/* --- Style pour le premier titre (title1) --- */
 .title1{
     font-size: 40px;
     color: #1BBC9B;
@@ -121,6 +126,7 @@
     margin-top: 60px;
     padding: 15px;
 }
+/* --- Style pour le deuxième titre (title2) --- */
 .title2{
     font-size: 32px;
     font-family: "Poppins", sans-serif;
@@ -130,6 +136,7 @@
     line-height: 1.6;
     color: black;
 }
+/* --- Style des paragraphes dans article1 --- */
 #article1 p{
     font-family: "Poppins", sans-serif;
     font-size: 18px;
@@ -162,6 +169,7 @@
     margin-bottom: 50px;
 
 }
+/* --- Media Queries : Pour les écrans de tablette (max-width 1024px) --- */
 /* Styles pour les écrans de tablette (de moins de 1024px) */
 @media screen and (max-width: 1024px){
     #article1 p {
@@ -183,40 +191,46 @@
 /*fin style partie3*/
 
 /*style partie4*/
+/* --- Style pour la figure contenant les images --- */
 figure{
     display: flex;
     justify-content: center;
     gap: 25px;
     margin-top: 25px;
 }
+/* --- Conteneur pour chaque image --- */
 .image-container {
     position: relative;
 }
+/* --- Image principale de fond --- */
 .background-image {
     display: block;
     width: 285px;
     border-radius: 10px 10px 10px 10px;
 }
+/* --- Icône positionnée sur l'image --- */
     .icon-image {
         position: absolute;
         width: 30px;
         height: 30px;
         top: 10px;
         left: 5px;
-     animation: float 6s ease-in-out infinite;
-}
+     animation: float 6s ease-in-out infinite;/* Animation pour donner un effet de flottement */
 
+}
+/* --- Animation pour l'effet de flottement de l'icône --- */
 @keyframes float {
     0% {
-        transform: translateX(0);
+        transform: translateX(0);/* Position initiale de l'icône */
     }
     50% {
-        transform: translateX(10px);
+        transform: translateX(10px);/* Déplace l'icône de 10px vers la droite */
     }
     100% {
-        transform: translateX(0);
+        transform: translateX(0);/* Ramène l'icône à sa position initiale */
     }
 }
+/* --- Style général de la carte --- */
 .card {
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -226,21 +240,25 @@ figure{
     border-top-right-radius: 10px;
 
 }
+/* --- Image de la carte --- */
 .card-image img {
     width: 285px;
     height: 162px;
     border-radius:10px 10px 0 0;
     margin-top: 0;
 }
+/* --- Contenu de la carte --- */
 .card-content {
     padding: 15px;
 }
+/* --- En-tête de la carte --- */
 .card-header {
     display: flex;
     justify-content:space-between;
     align-items: center;
     margin-bottom: 3px;
 }
+/* --- Informations sur la durée et le contact --- */
 .duration, .contact {
     display: flex;
     align-items: center;
@@ -248,6 +266,7 @@ figure{
     color: #666;
     font-family: "Poppins", sans-serif;
 }
+/* --- Titre de la carte --- */
 .title {
     font-size: 12px;
     margin: 2px 0 5px;
@@ -265,6 +284,7 @@ figure{
     margin-bottom: 6px;
     font-family: "Poppins", sans-serif;
 }
+/* --- Pied de la carte --- */
 .card-footer {
     display: flex;
     flex-direction: row-reverse;
@@ -272,8 +292,8 @@ figure{
     align-items: center;
     margin-top: 25px;
 }
+/* --- Bouton des détails --- */
 .details-button {
-
     padding: 7px;
     border-radius: 5px;
     cursor: pointer;
@@ -284,15 +304,18 @@ figure{
     color: white;
     background-color: #19659d;
 }
+/* --- Effet au survol du bouton --- */
 .details-button:hover {
     background-color: #1BBC9B;
 }
+/* --- Prix affiché sur la carte --- */
 .price {
     font-size: 14px;
     font-weight: bold;
     color: #333;
 }
-@media screen and (max-width: 1024px) {
+/* --- Styles pour les écrans de taille maximale 1024px --- */
+@media  (max-width: 1024px) {
     .background-image {
         width: 215px;
     }
@@ -335,15 +358,18 @@ figure{
 /*fin style partie4 */
 
 /*style partie 5*/
+/* --- Conteneur principal pour la section --- */
 .container1{
     position: relative;
 }
+/* --- Image de fond de la section --- */
 .image4{
     width: 100%;
     margin-top: 100px;
     height: 660px;
     background-size: cover;
 }
+/* --- Titre affiché sur l'image de fond --- */
 .title4{
     font-family: Poppins, sans-serif;
     font-size: 37px;
@@ -356,7 +382,8 @@ figure{
     white-space: pre-line;
     line-height: 1.8;
 }
-@media screen and (max-width: 1024px){
+/* --- Styles responsives pour les écrans de taille maximale 1024px (tablettes) --- */
+@media (max-width: 1024px){
     .image4 {
         height: auto;
         margin-top: 60px;
@@ -372,17 +399,20 @@ figure{
 /*fin style partie5*/
 
 /*style partie6*/
+/* --- Style du titre de la section --- */
 .title3{
     margin-top: 60px;
     margin-bottom: 55px;
     line-height: 1.6;
     color: black;
 }
+/* --- Conteneur des cartes --- */
 .card-container {
     display: flex;
     justify-content: center;
     gap: 35px;
 }
+/* --- Style des titres des cartes --- */
 .card-title {
     font-size: 13px;
     background-color: #fff;
@@ -395,14 +425,16 @@ figure{
     justify-content: space-around;
     font-family: "Poppins", sans-serif;
 }
+/* --- Style des images dans les cartes --- */
 .image1{
     border-radius: 10px 10px 0 0;
     height: 255px;
     width: 205px;
 }
-@media screen and (max-width: 1024px){
+/* --- Styles pour les écrans de taille maximale 1024px (tablettes) --- */
+@media  (max-width: 1024px){
     .card-container {
-        flex-wrap: wrap;
+        flex-wrap: wrap;/* Les cartes s'empilent sur plusieurs lignes si nécessaire */
     }
     .image1 {
         height: 200px;
@@ -413,33 +445,38 @@ figure{
 /*fin style partie6*/
 
 /*style partie7*/
+/* --- Conteneur principal de la section (article 2) --- */
 .article2{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     margin-top: 60px;
     margin-bottom: 60px;
-    background-image: url("../images/background.png");
-    background-size: 52% auto;
+    background-image: url("../images/background.png");/* Image d'arrière-plan */
+    background-size: 52% auto; /* Ajustement de la taille de l'image pour couvrir 52% de la largeur */
 }
+/* --- Bloc contenant les images, alignées en colonne inversée --- */
 .block3{
     display: flex;
     position: relative;
     flex-direction: column-reverse;
 }
+/* --- Image principale (img3) --- */
 #img3{
-    border-radius: 173px 0  0 200px;
+    border-radius: 173px 0  0 200px;/* Coins arrondis uniquement sur certaines parties */
     margin-right: 150px;
     margin-top: 33px;
     height: 230px;
-    z-index: 1;
+    z-index: 1;/* Superposition de l'image par rapport aux autres éléments */
 }
+/* --- Image secondaire (img4) --- */
 #img4{
-    border-radius: 300px 300px 300px 300px;
-    margin-top: -21%;
-    transform: translate(-40%);
+    border-radius: 300px 300px 300px 300px; /* Image totalement arrondie */
+    margin-top: -21%;/* Décalage supérieur négatif pour positionnement */
+    transform: translate(-40%); /* Déplacement horizontal vers la gauche */
     width: 215px;
 }
+/* --- texte de l'article  --- */
 .article2 p {
     font-family: "Poppins", sans-serif;
     font-size: 18px;
@@ -448,6 +485,7 @@ figure{
     color: #6E6E6E;
     text-align: start;
 }
+/* --- Bouton dans l'article --- */
     .article2 button {
         font-family: "Poppins", sans-serif;
         font-size: 14px;
@@ -459,6 +497,7 @@ figure{
         padding: 7px;
         cursor: pointer;
     }
+/* --- Titre de la section (title5) --- */
     .title5 {
         font-size: 32px;
         font-family: "Poppins", sans-serif;
@@ -468,7 +507,8 @@ figure{
         text-align: start;
         color: black;
     }
-@media screen and (min-width: 1025px) and (max-width: 1280px){
+/* --- Styles pour les écrans entre 1025px et 1280px de largeur --- */
+@media  (min-width: 1025px) and (max-width: 1280px){
     .article2{
         background-size: 65% auto;
     }
@@ -483,7 +523,8 @@ figure{
     }
 
 }
-@media screen and (max-width: 1024px) {
+/* --- Styles pour les écrans de 1024px ou moins (tablettes et mobiles) --- */
+@media  (max-width: 1024px) {
     .article2{
       display: none;
     }
@@ -491,21 +532,25 @@ figure{
 /*fin style partie7*/
 
     /*style partie8*/
+/* --- Conteneur principal des figures --- */
 .figure2{
     display: flex;
     justify-content: center;
     margin-top: 35px;
 
 }
+/* --- Style pour l'article 3 (section avec un fond dégradé) --- */
     .article3{
         height:702px;
-        background: linear-gradient(#e5ebf375 0%, #4691f20f 10%);
+        background: linear-gradient(#e5ebf375 0%, #4691f20f 10%);/* Dégradé de couleurs avec opacité */
         position: relative;
     }
+/* --- Titre principal de la section (aligné au centre) --- */
 .title1-1{
     text-align: center;
     margin-bottom: -5px;
 }
+/* --- Icône d'affichage (ou action) --- */
 .afficher{
     width: 45px;
     height: 45px;
@@ -515,15 +560,17 @@ figure{
 /*fin style partie 8*/
 
 /*style partie9*/
+/* --- Conteneur principal avec un arrière-plan en dégradé et une image --- */
 .container2{
     position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/reviws-1.png");
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("../images/reviws-1.png"); /* Superpose un dégradé sombre sur une image */
     width: 100%;
     height: 660px;
-    background-size: cover;
+    background-size: cover;/* Adapte l'image à la taille du conteneur */
     margin-bottom: 6px;
 
 }
+/*titre principal*/
 .title4-1{
     font-family: Poppins, sans-serif;
     position: absolute;
@@ -535,6 +582,7 @@ figure{
     text-align: center;
     line-height: 1.6;
 }
+/* --- Paragraphe descriptif dans le conteneur --- */
 .container2 p{
     color: white;
     font-family: "Poppins", sans-serif;
@@ -543,13 +591,15 @@ figure{
     top: 218px;
     left: 229px;
 }
+/* --- Image circulaire avatar  --- */
 .image5{
     border-radius: 50%;
     left: 0;
     bottom: 450px;
     position: absolute;
 }
-.blog{
+/*blog*/
+.blog {
     background-color: #1BBC9B;
     width: 340px;
     height: 160px;
@@ -560,6 +610,7 @@ figure{
     font-size: 14px;
     padding: 10px;
 }
+/*positionnement de deux blog*/
 .blog1{
     bottom: 100px;
     left: 229px;
@@ -568,6 +619,7 @@ figure{
     bottom:100px;
     left: 608px;
 }
+/*avatar dans les blocs*/
 .avatar1{
     position: absolute;
     bottom:7px;
@@ -592,7 +644,8 @@ figure{
     margin-bottom: 20px;
     color: black;
 }
-@media screen and (max-width: 1024px){
+/*media quieries pour la taille tablette moins de 1024px*/
+@media (max-width: 1024px){
         .container2{
          height: 350px;
         }
@@ -637,9 +690,10 @@ figure{
         right:5px;
     }
     }
+/*fin partie 9*/
 
-/* Media Queries pour les écrans de mobile (moins de 768px) */
-@media screen and (max-width: 768px) {
+/* Media Queries pour les écrans de mobile (moins de 768px) pour tous la pga ed'acceuil */
+@media (max-width: 768px) {
     #section1 {
         height:130px;
     }

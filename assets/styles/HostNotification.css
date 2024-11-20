@@ -4,11 +4,6 @@ table {
     font-family: "Poppins", sans-serif;
     margin-left: 93px;
    position: relative;
-    top: 37px;
-}
-.table_notif{
-    width: 74%;
-    margin-left: 73px;
 }
 h1{
     font-family: "Poppins", sans-serif;
@@ -74,12 +69,7 @@ p{
 
     h1 {
         font-size: 24px;
-        margin-top: 20px;
-    }
-
-    . {
-        font-size: 13px;
-        padding: 6px 10px;
+        margin-top:0;
     }
 
     .review-icon {
@@ -92,7 +82,6 @@ p{
 @media (max-width: 768px) {
     .table, .table thead, .table tbody, .table th, .table td, .table tr {
         display: block;
-        width: 93%;
     }
 
     .table thead {
@@ -108,17 +97,6 @@ p{
     }
 
     .table td {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
         font-size: 14px;
-    }
-
-    .table td::before {
-        content: attr(data-label); /* Utilise data-label comme étiquette */
-        font-weight: bold;
-        color: #2b5f94;
-        width: 50%;
-        display: inline-block;
     }
 }

@@ -1,4 +1,4 @@
-/* Container for the review page */
+/* --- Conteneur principal pour la page des avis --- */
 .review-container {
     max-width: 345px;
     padding: 20px;
@@ -6,7 +6,7 @@
     top: 3px;
 }
 
-/* Header */
+/* --- Titre principal --- */
 h1{
     font-family: "Poppins", sans-serif;
     color: #2b5f94;
@@ -14,12 +14,12 @@ h1{
     font-size: 29px;
     font-weight: bold;
 }
-/* Review list container */
+/* --- Conteneur pour la liste des avis --- */
 .review-list {
-    list-style: none;
+    list-style: none;/* Supprime les puces devant les éléments de la liste */
     padding: 0;
 }
-
+/* --- Style pour chaque avis individuel dans la liste --- */
 .review-list-item {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -29,7 +29,7 @@ h1{
     position: relative;
 }
 
-/* Review title */
+/* titre d'avis*/
 .review-title {
     display: block;
     font-size: 18px;
@@ -37,14 +37,14 @@ h1{
     color: #19659d;
 }
 
-/* Review content */
+/* --- Contenu de l'avis --- */
 .review-content {
     font-size: 14px;
     color: #555;
     margin-bottom: 8px;
 }
 
-/* Review details (note, date) */
+/* --- Détails de l'avis (note, date) --- */
 .review-details {
     display: block;
     color: #999;
@@ -58,7 +58,7 @@ h1{
     right: 15px;
     top: 15px;
 }
-
+/* --- Boutons d'action (édition, suppression) --- */
 .review-actions a,
 .review-actions button {
     background: none;
@@ -66,12 +66,12 @@ h1{
     cursor: pointer;
     padding: 0;
 }
-
+/* --- Icônes pour les boutons d'action --- */
 .review-actions img {
     width: 30px;
     height: 30px;
 }
-
+/* --- Effet de zoom sur les icônes au survol --- */
 .review-actions a:hover img,
 .review-actions button:hover img {
     transform: scale(1.1);

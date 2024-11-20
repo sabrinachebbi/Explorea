@@ -24,7 +24,7 @@ h1 {
     justify-content: center;
     gap: 5px;
 }
-
+/* --- Style pour les cellules des tableaux (en-têtes et contenu) --- */
 .table th,
 .table td {
     padding: 9px;
@@ -32,13 +32,13 @@ h1 {
     border-bottom: 1px solid #ddd;
     border-left: 1px solid #ddd;
 }
-
+/* --- Style spécifique pour les en-têtes du tableau --- */
 .table th {
     background-color: #2b5f94;
     color: white;
     font-weight: bold;
 }
-
+/* --- Style spécifique pour les cellules de contenu du tableau --- */
 .table td {
     background-color: #fff;
     color: #333;
@@ -84,12 +84,12 @@ h1 {
         top: 80px;
         left: 0;
     }
-    ._crud {
+    .crud {
       flex-wrap: wrap;
         justify-content: flex-start;
     }
 
-    .-delete{
+    .btn-delete{
         width: 74px;
     }
 
@@ -112,16 +112,16 @@ h1 {
         left:5px;
         top: 0px;
     }
-    .-show, .-edit {
+    .btn-show, .btn-edit {
         width: 62px;
         font-size: 12px;
     }
-    .-delete{
+    .btn-delete{
         font-size: 12px;
         width: 74px;
     }
 
-    ._crud ,.-action{
+    .crud ,.btn-action{
         flex-direction: column;
         align-items: center;
         padding: 3px 5px ;

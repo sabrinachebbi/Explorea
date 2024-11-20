@@ -1,3 +1,4 @@
+/* --- Style pour le menu de notification --- */
 .notification-menu {
     display: none;
     position: absolute;
@@ -31,7 +32,7 @@
 .notification-dropdown ul li.read {
     color: #777;
 }
-
+/* --- Style pour le badge de notification --- */
 .notification .badge {
     background-color: red;
     color: white;

@@ -49,7 +49,6 @@ class PictureFixture extends Fixture implements DependentFixtureInterface
             'logement37jpeg.jpeg',
             'logement38.jpeg',
             'logement39.webp',
-            'logement40jpeg.jpeg',
         ];
 
         // URLs d'images pour les activités

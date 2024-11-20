@@ -1,9 +1,9 @@
-/* Styles par défaut pour les grands écrans */
+/* Styles par de pagination */
 .pagination {
     display: flex;
     justify-content: center;
     margin: 35px auto;
-    gap: 6px; /* Espace entre les éléments de pagination */
+    gap: 6px;
 }
 
 .pagination a,

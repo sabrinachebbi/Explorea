@@ -26,64 +26,70 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Style pour l'image de la galerie --- */
-.image-gallery {
+
+/* Style général du carousel */
+.carousel {
     position: relative;
+    width: 100%;
     max-width: 100%;
+    border-radius: 10px; /* Ajoute des coins arrondis */
+    overflow: hidden; /* Empêche les images de dépasser */
+    height: 200px; /* Fixe une hauteur uniforme pour toutes les images */
+}
+
+.carousel-inner {
+    display: flex;
+     transition: transform 0.5s ease;
+    width: 100%;
 }
 
 .carousel-item {
-    display: none;
+    display: none; /* Masquer par défaut */
+}
+.carousel-item.active {
+    display: block; /* Afficher uniquement la slide active */
+}
+.carousel img {
     width: 100%;
+    height: 100%;
+    object-fit: cover; /* Permet de conserver les proportions et de remplir l'espace */
 }
-
-.carousel-item img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: opacity 0.5s ease;
-}
-
-.carousel-item:first-child {
-    display: block;
-}
-
-.carousel-prev, .carousel-next {
-    cursor: pointer;
+/* Boutons de navigation */
+.carousel-control {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 30px;
-    height: 30px;
-    background-color: rgba(0, 0, 0, 0.6);
-    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
     border: none;
-    border-radius: 50%;
-    font-size: 15px;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
 }
 
-.carousel-prev {
+.carousel-control.prev {
     left: 10px;
 }
 
-.carousel-next {
+.carousel-control.next {
     right: 10px;
 }
-
+/*favorie*/
 .favorite-button {
     position: absolute;
-    top: 7px;
+    top: 10px;
     right: 10px;
+    background: rgba(255, 255, 255, 0.8); /* Arrière-plan blanc transparent */
+    padding: 5px;
+    border-radius: 50%; /* Rend le bouton circulaire */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Donne un effet d'ombre */
+    z-index: 10;
 }
 
-.favorite-icon {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    padding: 5px;
+.favorite-button img {
+    width: 24px; /* Taille réduite de l'icône */
+    height: 24px;
+    display: block;
 }
 
 .favorite-icon.filled {
@@ -177,7 +183,7 @@ h4 {
     }
 }
 
-/* Pour les mobiles (max-width: 767px) */
+/* Pour les mobiles (max-width: 768px) */
 @media screen and (max-width: 768px) {
     .card-container {
         grid-template-columns: 1fr; /* 1 carte par ligne */

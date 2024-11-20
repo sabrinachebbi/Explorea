@@ -63,6 +63,9 @@ class ActivityFormType extends AbstractType
             ->add('picture', PictureTypeActivity::class, [
                 'label' => 'Image de l\'activité',
                 'required' => false,
+                'attr' => [
+                    'class' => 'picture_activity',
+                ],
             ]);
     }
 

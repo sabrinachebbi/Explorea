@@ -109,7 +109,7 @@ class HostDashboardController extends AbstractController
         $userProfile = $user instanceof \App\Entity\User ? $user->getUserProfile() : null;
 
         $page = $request->query->getInt('page', 1);
-        $limit = 6;
+        $limit = 2;
 
         $unreadNotifications = $user ? $notificationRepository->count(['user' => $user, 'isRead' => false]) : 0;
 

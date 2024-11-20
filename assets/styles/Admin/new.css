@@ -1,4 +1,4 @@
-
+/* --- Conteneur principal du formulaire --- */
 .form-container {
     max-width: 500px;
     margin: 100px auto;
@@ -7,6 +7,7 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+/*titre */
 h2 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -34,17 +35,17 @@ label {
     font-size: 16px;
     box-sizing: border-box;
 }
-
+/* --- Message d'erreur --- */
 .error {
     color: red;
     font-size: 14px;
     margin-top: 5px;
 }
-
+/* --- Conteneur pour centrer les boutons --- */
 .bt {
     text-align: center;
 }
-
+/* --- Boutons du formulaire --- */
 .btn {
     padding: 10px 20px;
     background-color: #34495e;
@@ -58,7 +59,7 @@ label {
 .btn:hover {
     background-color: #2c3e50;
 }
-
+/*lien pour la navigation*/
 .reservation-container a {
     display: inline-block;
     margin-top: 15px;
