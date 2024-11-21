@@ -24,7 +24,6 @@ class ReviewController extends AbstractController
     public function AccommodationReview(
         Accommodation $accommodation,
         ReservationRepository $reservationRepository,
-        ReviewRepository $reviewRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
@@ -41,17 +40,15 @@ class ReviewController extends AbstractController
             return $this->redirectToRoute('app_accommodation_showDetails', ['id' => $accommodation->getId()]);
         }
 
-        // Vérifier si un avis a déjà été laissé pour cette réservation
-        $existingReview = $reviewRepository->findOneBy(['reservation' => $reservation]);
-
-        if ($existingReview) {
+        // Vérifiez si un avis a déjà été laissé pour cette réservation
+        if ($reservation->getReview()) {
             $this->addFlash('warning', 'Vous avez déjà laissé un avis pour cet hébergement.');
             return $this->redirectToRoute('traveler_reservations');
         }
 
         // Création de l'avis
         $review = new Review();
-        $review->setReservation($reservation);  // Associez l'avis à la réservation
+        $review->setReservation($reservation); // Associez l'avis à la réservation
         $review->setDateReview(new \DateTimeImmutable());
 
         $form = $this->createForm(ReviewFormType::class, $review);
@@ -73,11 +70,11 @@ class ReviewController extends AbstractController
 
 
 
+
     #[Route('/activity/{id}', name: 'activity')]
     public function ActivityReview(
         Activity $activity,
         ReservationRepository $reservationRepository,
-        ReviewRepository $reviewRepository,
         Request $request,
         EntityManagerInterface $entityManager
     ): Response {
@@ -103,8 +100,7 @@ class ReviewController extends AbstractController
         }
 
         // Vérifier si un avis existe déjà pour cette réservation
-        $avisExistant = $reviewRepository->findOneBy(['reservation' => $reservation]);
-
+        $avisExistant = $reservation->getReviews();
         if ($avisExistant) {
             $this->addFlash('warning', 'Vous avez déjà laissé un avis pour cette activité.');
             return $this->redirectToRoute('traveler_reservations');
@@ -126,7 +122,7 @@ class ReviewController extends AbstractController
         }
 
         return $this->render('review/ReviewFormAccom.html.twig', [
-            'form' => $form->createView(), // Utilisez createView() ici
+            'form' => $form->createView(),
             'activity' => $activity,
         ]);
     }

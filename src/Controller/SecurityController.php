@@ -16,7 +16,7 @@ class SecurityController extends AbstractController
         // Affichage des erreurs si présentes
         $error = $authenticationUtils->getLastAuthenticationError();
         if ($error) {
-            $this->addFlash('error', 'Email ou mot de passe incorrect.');
+            $this->addFlash('warning', 'Email ou mot de passe incorrect.');
         }
         $lastUsername = $authenticationUtils->getLastUsername();
 
