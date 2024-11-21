@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block title %}Activités{% endblock %}
-<meta name="description" content="Découvrez les meilleurs Activities dans des destinations touristiques">
+{% block meta_description %}
+    Découvrez les meilleurs Activities dans des destinations touristiques
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/cardActivity.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">

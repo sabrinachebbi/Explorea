@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}Accommodations{% endblock %}
-<meta name="description" content="Découvrez les meilleurs hébergements dans des destinations touristiques">
+{% block meta_description %}
+    Découvrez les meilleurs hébergements dans des destinations touristiques
+{% endblock %}
+<meta name="description" content="">
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/cardAccomodation.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/pagination.css') }}">
