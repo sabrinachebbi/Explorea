@@ -1,6 +1,9 @@
 
 {% block title %}Créér une nouvelle Accomodation{% endblock %}
-<meta name="description" content="publier un hebergement">
+{% block meta_description %}
+    <meta name="description" content="publier un hebergement">
+{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
 {% endblock %}

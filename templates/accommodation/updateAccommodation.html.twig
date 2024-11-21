@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %}Mettre à ajour mon annonce {{ accommodation.title }}{% endblock %}
-<meta name="description" content="mettre a jour votre annonce d'hebergement">
+{% block meta_description %}
+    <meta name="description" content="mettre a jour mon annonce  d'hebergement">
+{% endblock %}
+
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/new-Ad.css') }}">
 {% endblock %}

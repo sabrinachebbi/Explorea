@@ -2,7 +2,9 @@
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block title %}Détails de l'Activité{% endblock %}
-<meta name="description" content="afficher les details d'un activity">
+{% block meta_description %}
+    <meta name="description" content="afficher details d' une activity">
+{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
