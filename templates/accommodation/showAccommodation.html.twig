@@ -2,6 +2,7 @@
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 {% block title %}Détails de l'Hébergement{% endblock %}
+<meta name="description" content="afficher les details d'un hebergement">
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/showAd.css') }}">
     <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
@@ -18,7 +19,7 @@
         {% endfor %}
     {% endfor %}
     {# une icone qui permet de retourner a la liste des hébergements #}
-    <a href="{{ path('app_accommodation_showAll') }}" class="back-to-accommodation">
+    <a href="{{ path('app_accommodation_showAll') }}" class="back-to-accommodation" aria-label="retour au page d'affichage des hébergements">
         <img src="{{ asset('images/en-arriere.png') }}" alt="Retour aux hébergements" class="back-icon">
     </a>
     {# Titre d'annponce#}

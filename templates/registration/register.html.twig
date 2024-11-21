@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
+{% block meta_description %}
+    Créez votre compte sur Exploréa et choisissez votre rôle : Hôte pour publier des annonces ou Voyageur pour réserver des hébergements et des activités. Rejoignez-nous dès aujourd'hui !
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
 {% block importmap %}{{ importmap('register') }}{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
 {% block body %}
-    {%  for message in app.flashes('success') %}
-        {% include '_partials/notification.html.twig' %}
-    {% endfor %}
     <div class="container">
         <div class="authentif-form">
             <h2>Inscription</h2>
@@ -84,7 +87,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn">S'inscrire</button>
+            <button type="submit" class="btn" aria-label="inscription">S'inscrire</button>
             {{ form_end(registrationForm) }}
         </div>
         <div class="illustration">

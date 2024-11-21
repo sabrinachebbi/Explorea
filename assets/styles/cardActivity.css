@@ -130,7 +130,7 @@
 /* Responsive tablette  */
 @media (max-width: 1024px) {
     .container_activity {
-        grid-template-columns: repeat(3, 1fr); /* 2 cards per row for medium screens */
+        grid-template-columns: repeat(3, 1fr); /* 3 cartes par ligne pour les écrans moyens */
         gap: 50px;
         margin-top: 80px;
     }
@@ -148,7 +148,7 @@
 /* Responsive version mobile */
 @media (max-width: 768px) {
     .container_activity {
-        grid-template-columns: 1fr; /* 1 card per row for small screens */
+        grid-template-columns: 1fr; /* 1 seul carte pour les ecran olus petit*/
         gap: 10px;
         margin-top: 86px;
     }

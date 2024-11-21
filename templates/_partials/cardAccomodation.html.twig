@@ -14,7 +14,7 @@
 
            <!-- Bouton favori -->
            <div class="favorite-button">
-               <a href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">
+               <a aria-label="favoris" href="{{ path('toggle-favorite_accommodation', { 'id': accommodation.id }) }}">
                    {% if app.user and app.user.favoriteAccommodation.contains(accommodation) %}
                        <img src="{{ asset('images/addFavorite.jpg') }}" alt="Retirer des favoris" class="favorite-icon filled">
                    {% else %}

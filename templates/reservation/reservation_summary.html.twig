@@ -1,4 +1,8 @@
 {% extends 'base.html.twig' %}
+{% block meta_description %}
+    Consultez le résumé de votre réservation sur Exploréa. Vérifiez les détails de votre hébergement et/ou activités avant de confirmer ou de modifier votre demande.
+{% endblock %}
+
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
@@ -79,7 +83,7 @@
         {% endif %}
 
         {# Boutons de confirmation et d'annulation #}
-         <div class="buttons">
+        <div class="buttons">
             <a href="{{ path('reservation_confirm', {'id': reservation.id}) }}" class="buttons btn_confirm">Confirmer</a>
             <a href="{{ path('reservation_cancel', {'id': reservation.id}) }}" class="buttons btn_cancel">Annuler</a>
         </div>

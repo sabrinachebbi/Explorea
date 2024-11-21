@@ -1,12 +1,23 @@
 {% extends 'base.html.twig' %}
-
+{% block meta_description %}
+    Connectez-vous à votre compte Exploréa pour accéder à votre tableau de bord. Gérez vos annonces, réservations, et favoris selon votre rôle d'Hôte ou de Voyageur.
+{% endblock %}
 {% block title %}Log In{% endblock %}
 {% block importmap %}{{ importmap('login') }}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/notif.css') }}">
+{% endblock %}
 {% block header %}{% endblock %}
 {% block footer %}{% endblock %}
 
 {% block body %}
-    {% include '_partials/notification.html.twig' %}
+    {# Flash messages pour informer l utilisateur  #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">
+            <span>{{ message }}</span>
+            <span class="close" onclick="this.parentElement.style.display='none';">&times;</span>
+        </div>
+    {% endfor %}
 
     <div class="container">
         <div class="authentif-form">

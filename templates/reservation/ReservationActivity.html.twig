@@ -1,3 +1,6 @@
+{% block meta_description %}
+    Réservez des activités passionnantes et découvrez des expériences uniques grâce à Exploréa. Choisissez parmi des guides, des sports nautiques, et bien plus encore.
+{% endblock %}
 
 <h2>Réserver</h2>
 
@@ -7,10 +10,10 @@
     {{ form_widget(reservationForm.departureDate, {'attr': {'class': 'form-control', 'id': 'departure-date'}}) }}
     {{ form_errors(reservationForm.departureDate) }}
 </div>
-    <div class="form-group">
-        {{ form_label(reservationForm.voyagerNb) }}
-        {{ form_widget(reservationForm.voyagerNb, {'attr': {'class': 'form-control'}}) }}
-        {{ form_errors(reservationForm.voyagerNb) }}
-    </div>
+<div class="form-group">
+    {{ form_label(reservationForm.voyagerNb) }}
+    {{ form_widget(reservationForm.voyagerNb, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(reservationForm.voyagerNb) }}
+</div>
 <button type="submit" class=" -primary">Réserver</button>
 {{ form_end(reservationForm) }}
